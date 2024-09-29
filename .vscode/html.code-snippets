@@ -1,0 +1,98 @@
+{
+    "div": {
+		"scope": "django-html",
+		"prefix": "div",
+		"body": [
+			"<div>$1</div>",
+		],
+		"description": "Create a new div"
+	},
+    "h1": {
+		"scope": "django-html",
+		"prefix": "h1",
+		"body": [
+			"<h1>$1</h1>",
+		],
+		"description": "Create a new h1"
+	},
+    "p": {
+		"scope": "django-html",
+		"prefix": "p",
+		"body": [
+			"<p>$1</p>",
+		],
+		"description": "Create a new p"
+	},
+    "button": {
+		"scope": "django-html",
+		"prefix": "button",
+		"body": [
+			"<button>$1</button>",
+		],
+		"description": "Create a new button"
+	},
+    "option": {
+        "scope": "django-html",
+        "prefix": "option",
+        "body": [
+            "<option value=\"$1\">$2</option>"
+        ],
+        "description": "Create a new option"
+    },
+    "select": {
+        "scope": "django-html",
+        "prefix": "select",
+        "body": [
+            "<select name=\"$1\">$2</select>"
+        ],
+        "description": "Create a new select list"
+    },
+    "label": {
+        "scope": "django-html",
+        "prefix": "label",
+        "body": [
+            "<label for=\"$1\">$2</label>"
+        ],
+        "description": "Create a new label"
+    },
+    "input": {
+        "scope": "django-html",
+        "prefix": "input",
+        "body": [
+            "<input type=\"$1\" name=\"$2\" value=\"$3\">"
+        ],
+        "description": "Create a new input field"
+    },
+    "form": {
+        "scope": "django-html",
+        "prefix": "form",
+        "body": [
+            "<form action=\"$1\" method=\"$2\">$3</form>"
+        ],
+        "description": "Create a new form"
+    },
+    "img": {
+        "scope": "django-html",
+        "prefix": "img",
+        "body": [
+            "<img src=\"$1\" alt=\"$2\">"
+        ],
+        "description": "Create a new image"
+    },
+    "a": {
+        "scope": "django-html",
+        "prefix": "a",
+        "body": [
+            "<a href=\"$1\">$2</a>"
+        ],
+        "description": "Create a new anchor link"
+    },
+    "class": {
+        "scope": "django-html",
+        "prefix": "class",
+        "body": [
+            "class=\"$1\""
+        ],
+        "description": "Create a new class in a html element"
+    }
+}
