@@ -1,0 +1,52 @@
+{% extends "account/base_entrance.html" %}
+
+{% load allauth i18n %}
+
+{% block head_title %} 
+    {% trans "Signup" %}
+{% endblock head_title %}
+{% block content %}
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-black" %}
+{% endblock header %}
+
+{% include "components/layout/messages.html" with messages=messages %}
+    {% setvar link %}
+    <a href="{{ login_url }}">
+    {% endsetvar %}
+    {% setvar end_link %}
+</a>
+{% endsetvar %}
+<div class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+    {% element p %}
+    {% blocktranslate %}Ya tienes una cuenta, entonces {{ link }}
+                <span class="text-blue-600 hover:text-inigo-500"><strong>Ingresa Aqui</strong></span>
+            {{ end_link }}.{% endblocktranslate %}
+{% endelement %}
+<div>
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% url 'account_signup' as action_url %}
+        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
+        {% slot body %}
+        {% csrf_token %}
+        {% element fields form=form unlabeled=True %}
+    {% endelement %}
+    {{ redirect_field }}
+{% endslot %}
+{% slot actions %}
+{% element button tags="prominent,signup" type="submit" %}
+{% trans "Sign Up" %}
+{% endelement %}
+{% endslot %}
+{% endelement %}
+{% endif %}
+{% if SOCIALACCOUNT_ENABLED %}
+    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+{% endif %}
+
+{% block footer %}
+    {% include "components/layout/footer.html" with color_header="text-white" %}
+{% endblock footer %}
+
+{% endblock content %}

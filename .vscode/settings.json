@@ -1,0 +1,6 @@
+{
+    "css.styleSheets": ["brujula_profesional_digital/static/css/output.css"],
+    "[html][django-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+}

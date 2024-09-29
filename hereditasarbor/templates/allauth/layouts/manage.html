@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-black" %}
+{% endblock header %}
+
+{% block main %}
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center">
+        {% block content %}
+        {% endblock content %}
+    </div>
+{% endblock main %}
+
+{% block footer %}
+    {% include "components/layout/footer.html" with color_header="text-white" %}
+{% endblock footer %}

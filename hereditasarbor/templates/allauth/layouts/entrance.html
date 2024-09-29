@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block bodyclass %}
+    bg-light
+{% endblock bodyclass %}
+{% block css %}
+    {{ block.super }}
+{% endblock css %}
+{% block title %}
+    {% block head_title %}
+        {% trans "Sign In" %}
+    {% endblock head_title %}
+{% endblock title %}
+
+
+{% block body %}
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+        <div class="mx-auto max-w-3xl p-12 pt-16">
+            <div class="relative p-12">
+                <div class="relative flex justify-center">
+                    <span class="bg-white px-2 text-sm text-gray-500">Ingresar</span>
+                </div>
+                <div class="pt-8 absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        {% block extra_body %}
+        {% endblock extra_body %}
+    </div>
+{% endblock body %}

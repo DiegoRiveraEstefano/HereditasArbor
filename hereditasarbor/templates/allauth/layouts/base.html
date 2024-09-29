@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-black" %}
+{% endblock header %}
+
+{% block main %}
+    {% block content %}
+    {% endblock content %}
+{% endblock main %}
+
+{% block footer %}
+    {% include "components/layout/footer.html" with color_header="text-white" %}
+{% endblock footer %}
