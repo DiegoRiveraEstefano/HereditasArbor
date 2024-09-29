@@ -1,0 +1,116 @@
+<header class="absolute inset-x-0 top-0 z-50">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+         aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a href="{% url "home" %}" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img class="h-8 w-auto"
+                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                     alt="" />
+            </a>
+        </div>
+        <div class="flex lg:hidden">
+            <button type="button"
+                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+                <span class="sr-only">Abrir menu Principal</span>
+                <svg class="h-6 w-6"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="1.5"
+                     stroke="currentColor"
+                     aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+            <a href="{% url "courses:lists" %}"
+               class="text-sm font-semibold leading-6 {{ color_header }}">Cursos</a>
+            <a href="{% url "about" %}"
+               class="text-sm font-semibold leading-6 {{ color_header }}">Mas de Nosotros</a>
+            {% if user %}
+                {% comment %}
+                    <a href="/certificates/" class="text-sm font-semibold leading-6 {{ color_header }}">Certificados</a>
+                {% endcomment %}
+                <a href="{% url "settings" %}"
+                   class="text-sm font-semibold leading-6 {{ color_header }}">Configuraciones</a>
+            {% endif %}
+        </div>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            {% if user.is_authenticated %}
+                <div x-data="{ open: false }" class="relative inline-block text-left">
+                    <button @click="open = !open"
+                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+                        Menu
+                        <svg class="h-5 w-5 ml-2"
+                             fill="none"
+                             stroke="currentColor"
+                             viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="open"
+                         @click.away="open = false"
+                         class="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 px-2 py-2">
+                        <a href="{{ user.get_absolute_url }}"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Perfil</a>
+                        <a href="#"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Tus Cursos</a>
+                        <a href="#"
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Configuraciones</a>
+                        <a href="{% url "account_logout" %}"
+                           class="block px-4 py-2 text-sm text-red-500 hover:bg-red-100 rounded-md">Cerrar Cesion</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url "account_login" %}"
+                   class="text-sm font-semibold leading-6 {{ color_header }}">Ingresar <span aria-hidden="true">&rarr;</span></a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- Mobile menu, show/hide based on menu open state. -->
+    <div class="lg:hidden" role="dialog" aria-modal="true">
+        <!-- Background backdrop, show/hide based on slide-over state. -->
+        <div class="fixed inset-0 z-50"></div>
+        <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+            <div class="flex items-center justify-between">
+                <a href="#" class="-m-1.5 p-1.5">
+                    <span class="sr-only">Your Company</span>
+                    <img class="h-8 w-auto"
+                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                         alt="logo image" />
+                </a>
+                <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400">
+                    <span class="sr-only">Close menu</span>
+                    <svg class="h-6 w-6"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-6 flow-root">
+                <div class="-my-6 divide-y divide-gray-500/25">
+                    <div class="space-y-2 py-6">
+                        <a href="#"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Product</a>
+                        <a href="#"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Features</a>
+                        <a href="#"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Marketplace</a>
+                        <a href="#"
+                           class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Company</a>
+                    </div>
+                    <div class="py-6">
+                        <a href="#"
+                           class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,105 @@
+volumes:
+  hereditasarbor_local_postgres_data: {}
+  hereditasarbor_local_postgres_data_backups: {}
+  hereditasarbor_local_redis_data: {}
+  hereditasarbor_local_email_data: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: hereditasarbor_local_django
+    container_name: hereditasarbor_local_django
+    depends_on:
+      - postgres
+      - redis
+      - mailpit
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+      - ./.envs/.production/.mail
+    ports:
+      - '8000:8000'
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: hereditasarbor_production_postgres
+    container_name: hereditasarbor_local_postgres
+    volumes:
+      - hereditasarbor_local_postgres_data:/var/lib/postgresql/data
+      - hereditasarbor_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+
+  mailpit:
+    image: docker.io/axllent/mailpit:latest
+    container_name: hereditasarbor_local_mailpit
+    ports:
+      - "8025:8025"
+
+  redis:
+    image: docker.io/redis:6
+    container_name: hereditasarbor_local_redis
+    volumes:
+      - hereditasarbor_local_redis_data:/data
+    
+
+  celeryworker:
+    <<: *django
+    image: hereditasarbor_local_celeryworker
+    container_name: hereditasarbor_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+      - mailpit
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: hereditasarbor_local_celerybeat
+    container_name: hereditasarbor_local_celerybeat
+    depends_on:
+      - redis
+      - postgres
+      - mailpit
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: hereditasarbor_local_flower
+    container_name: hereditasarbor_local_flower
+    ports:
+      - '5555:5555'
+    command: /start-flower
+
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    env_file:
+      - ./.envs/.local/.duck
+    environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=Etc/UTC #optional
+      - UPDATE_IP=ipv4 #optional
+      - LOG_FILE=false #optional
+    restart: unless-stopped
+
+  
+#  postfix:
+#    image: postfix:3.7
+#    ports:
+#      - "25:25"
+#    volumes:
+#      - "hereditasarbor_local_email_data:/var/mail"
+#    env_file:
+#      - ./.envs/.production/.mail
+
