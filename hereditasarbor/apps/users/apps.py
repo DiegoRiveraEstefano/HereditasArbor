@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UsersConfig(AppConfig):
-    name = "hereditasarbor.users"
+    name = "hereditasarbor.apps.users"
     verbose_name = _("Users")
 
     def ready(self):
         with contextlib.suppress(ImportError):
-            import hereditasarbor.users.signals  # noqa: F401
+            import hereditasarbor.apps.users.signals  # noqa: F401

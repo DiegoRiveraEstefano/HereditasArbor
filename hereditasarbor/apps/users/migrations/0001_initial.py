@@ -4,7 +4,7 @@ import django.utils.timezone
 from django.db import migrations
 from django.db import models
 
-import hereditasarbor.users.models
+import hereditasarbor.apps.users.models
 
 
 class Migration(migrations.Migration):

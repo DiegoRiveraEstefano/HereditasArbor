@@ -11,4 +11,4 @@ curl -sLO ${DOWNLOAD_URL} && chmod +x ${SOURCE_NAME}
 mv ${SOURCE_NAME} ${OUTPUT_NAME} # rename it
 mv ${OUTPUT_NAME} /usr/bin # move it to be used globally in a folder already in the PATH var
 
-/usr/bin/tailwindcss -i brujula_profesional_digital/static/css/project.css -o brujula_profesional_digital/static/css/output.css --minify
+/usr/bin/tailwindcss -i hereditasarbor/static/css/project.css -o hereditasarbor/static/css/output.css --minify
