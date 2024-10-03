@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './brujula_profesional_digital/templates/**/*.{html,js}',
-    './brujula_profesional_digital/components/**/*.{html,js}',
+    './hereditasarbor/templates/**/*.{html,js}',
+    './hereditasarbor/components/**/*.{html,js}',
   ],
   theme: {
     extend: {

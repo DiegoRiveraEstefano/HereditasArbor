@@ -76,8 +76,7 @@ THIRD_PARTY_APPS = [
     "allauth.mfa",
     "allauth.socialaccount",
     "django_celery_beat",
-    "django_extensions",
-    "django_filters"
+    "django_filters",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -85,7 +84,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "hereditasarbor.users",
+    "hereditasarbor.apps.users",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -190,7 +189,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "hereditasarbor.users.context_processors.allauth_settings",
+                "hereditasarbor.apps.users.context_processors.allauth_settings",
             ],
         },
     },
@@ -306,13 +305,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_ADAPTER = "hereditasarbor.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "hereditasarbor.apps.users.adapters.AccountAdapter"
 # https://docs.allauth.org/en/latest/account/forms.html
-ACCOUNT_FORMS = {"signup": "hereditasarbor.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "hereditasarbor.apps.users.forms.UserSignupForm"}
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_ADAPTER = "hereditasarbor.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "hereditasarbor.apps.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_FORMS = {"signup": "hereditasarbor.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {"signup": "hereditasarbor.apps.users.forms.UserSocialSignupForm"}
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation

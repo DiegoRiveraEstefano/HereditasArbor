@@ -82,7 +82,7 @@ services:
 
   duckdns:
     image: lscr.io/linuxserver/duckdns:latest
-    container_name: duckdns
+    container_name: hereditasarbor_duckdns
     env_file:
       - ./.envs/.local/.duck
     environment:
@@ -101,5 +101,5 @@ services:
 #    volumes:
 #      - "hereditasarbor_local_email_data:/var/mail"
 #    env_file:
-#      - ./.envs/.production/.mail
+#      - ./.envs/.local/.mail
 
