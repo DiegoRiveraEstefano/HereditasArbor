@@ -2,51 +2,93 @@
 
 {% load allauth i18n %}
 
-{% block head_title %} 
+{% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
 {% block content %}
-
-{% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-black" %}
-{% endblock header %}
-
-{% include "components/layout/messages.html" with messages=messages %}
+    {% block header %}
+        {% include "components/layout/haeder.html" with color_header="text-black" %}
+    {% endblock header %}
     {% setvar link %}
     <a href="{{ login_url }}">
     {% endsetvar %}
     {% setvar end_link %}
 </a>
 {% endsetvar %}
-<div class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-    {% element p %}
-    {% blocktranslate %}Ya tienes una cuenta, entonces {{ link }}
-                <span class="text-blue-600 hover:text-inigo-500"><strong>Ingresa Aqui</strong></span>
-            {{ end_link }}.{% endblocktranslate %}
-{% endelement %}
-<div>
-    {% if not SOCIALACCOUNT_ONLY %}
-        {% url 'account_signup' as action_url %}
-        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-        {% slot body %}
-        {% csrf_token %}
-        {% element fields form=form unlabeled=True %}
-    {% endelement %}
-    {{ redirect_field }}
-{% endslot %}
-{% slot actions %}
-{% element button tags="prominent,signup" type="submit" %}
-{% trans "Sign Up" %}
-{% endelement %}
-{% endslot %}
-{% endelement %}
+{% if not SOCIALACCOUNT_ONLY %}
+    <main>
+        <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
+            <div class="lg:w-1/2">
+                <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
+                    Join Us Today
+                </h1>
+                <p class="max-w-lg mt-4 text-gray-500">Create your account and start your adventure with us!</p>
+                <form class="mt-6 w-full max-w-sm"
+                      method="post"
+                      action="{% url "account_signup" %}">
+                    {% csrf_token %}
+                    <div class="mb-6">
+                        <label for="full-name" class="block mb-2 text-sm font-bold text-gray-700">Full Name</label>
+                        <input type="text"
+                               id="full-name"
+                               name="full-name"
+                               class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                               placeholder="John Doe"
+                               required />
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-sm font-bold text-gray-700">Email Address</label>
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                               placeholder="you@example.com"
+                               required />
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block mb-2 text-sm font-bold text-gray-700">Password</label>
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                               placeholder="********"
+                               required />
+                    </div>
+                    <div class="mb-6">
+                        <label for="confirm-password"
+                               class="block mb-2 text-sm font-bold text-gray-700">Confirm Password</label>
+                        <input type="password"
+                               id="confirm-password"
+                               name="confirm-password"
+                               class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                               placeholder="********"
+                               required />
+                    </div>
+                    <button type="submit"
+                            class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
+                        Create Account
+                    </button>
+                </form>
+            </div>
+            <div class="h-[38rem] mt-12 lg:mt-0 w-full mx-auto max-w-md overflow-hidden rounded-t-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
+                <img class="object-cover w-full h-full rounded-t-full"
+                     src="https://images.unsplash.com/photo-1562564055-071088eda4b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                     alt="register page" />
+            </div>
+        </section>
+        <section class="container flex justify-center py-6 mx-auto">
+            <p class="text-sm text-gray-500">
+                Ya Tienes una Cuenta?
+                <a href="{% url "account_login" %}"
+                   class="text-[#475F45] hover:text-[#343D33] font-bold">Ingresar</a>
+            </p>
+        </section>
+    </main>
 {% endif %}
 {% if SOCIALACCOUNT_ENABLED %}
     {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
 {% endif %}
-
 {% block footer %}
     {% include "components/layout/footer.html" with color_header="text-white" %}
 {% endblock footer %}
-
 {% endblock content %}

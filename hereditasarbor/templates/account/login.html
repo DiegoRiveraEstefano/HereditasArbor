@@ -7,11 +7,9 @@
     {% trans "Sign In" %}
 {% endblock head_title %}
 {% block content %}
-
-{% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-black" %}
-{% endblock header %}
-
+    {% block header %}
+        {% include "components/layout/haeder.html" with color_header="text-black" %}
+    {% endblock header %}
     {% if not SOCIALACCOUNT_ONLY %}
         {% setvar link %}
         <a href="{{ signup_url }}">
@@ -19,12 +17,58 @@
         {% setvar end_link %}
     </a>
 {% endsetvar %}
-<div class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-    {% element p %}
-    {% blocktranslate %}If you have not created an account yet, then please {{ link }}<span class="text-blue-400 hover:text-blue-500">sign up</span>{{ end_link }} first.{% endblocktranslate %}
-{% endelement %}
-<div>
-    {% url 'account_login' as login_url %}
+{% url 'account_login' as login_url %}
+<main>
+    <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
+        <div class="lg:w-1/2">
+            <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
+                Welcome Back
+            </h1>
+            <p class="max-w-lg mt-4 text-gray-500">Please enter your credentials to log into your account.</p>
+            <form class="mt-6 w-full max-w-sm"
+                  method="post"
+                  action="{% url "account_login" %}">
+                {% csrf_token %}
+                <div class="mb-6">
+                    <label for="id_login" class="block mb-2 text-sm font-bold text-gray-700">Usuario</label>
+                    <input type="text"
+                           id="id_login"
+                           name="username"
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                           placeholder="username"
+                           required />
+                </div>
+                <div class="mb-6">
+                    <label for="id_password" class="block mb-2 text-sm font-bold text-gray-700">Password</label>
+                    <input type="password"
+                           id="id_password"
+                           name="password"
+                           class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#475F45]"
+                           placeholder="********"
+                           required />
+                </div>
+                <div class="flex items-center justify-between">
+                    <a href="#" class="text-sm text-[#475F45] hover:text-[#343D33]">Forgot Password?</a>
+                </div>
+                <button type="submit"
+                        class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
+                    Log In
+                </button>
+            </form>
+        </div>
+        <div class="h-[38rem] mt-12 lg:mt-0 w-full mx-auto max-w-md overflow-hidden rounded-t-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
+            <img class="object-cover w-full h-full rounded-t-full"
+                 src="https://images.unsplash.com/photo-1604079624937-2454b8f5e7f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                 alt="login page" />
+        </div>
+    </section>
+    <section class="container flex justify-center py-6 mx-auto">
+        <p class="text-sm text-gray-500">
+            Aun no Tienes una Cuenta?
+            <a href="{% url "account_signup" %}"
+               class="text-[#475F45] hover:text-[#343D33] font-bold">Registrate Aqui</a>
+        </p>
+    </section>
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
     {% slot body %}
     {% csrf_token %}
@@ -38,6 +82,7 @@
 {% endelement %}
 {% endslot %}
 {% endelement %}
+</main>
 {% endif %}
 {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
     {% element hr %}
@@ -58,11 +103,9 @@
 {% if SOCIALACCOUNT_ENABLED %}
     {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
 {% endif %}
-
 {% block footer %}
     {% include "components/layout/footer.html" with color_header="text-white" %}
 {% endblock footer %}
-
 {% endblock content %}
 {% block extra_body %}
     {{ block.super }}
