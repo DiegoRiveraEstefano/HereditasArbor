@@ -3,6 +3,7 @@ volumes:
   hereditasarbor_local_postgres_data_backups: {}
   hereditasarbor_local_redis_data: {}
   hereditasarbor_local_email_data: {}
+  hereditasarbor_local_duck_data: {}
 
 services:
   django: &django
@@ -83,14 +84,15 @@ services:
   duckdns:
     image: lscr.io/linuxserver/duckdns:latest
     container_name: hereditasarbor_duckdns
+    network_mode: host #optional
     env_file:
       - ./.envs/.local/.duck
     environment:
-      - PUID=1000 #optional
-      - PGID=1000 #optional
       - TZ=Etc/UTC #optional
       - UPDATE_IP=ipv4 #optional
       - LOG_FILE=false #optional
+      - TOKEN=REDACTED_DUCKDNS_TOKEN
+      - SUBDOMAINS=hereditasarbor
     restart: unless-stopped
 
   

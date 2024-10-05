@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-white" %}
+{% endblock header %}
+{% block content %}
+    <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
+        <div class="lg:w-1/2">
+            <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
+                Privacy Policy & Terms of Service
+            </h1>
+            <p class="max-w-lg mt-4 text-gray-500">
+                Please read our Privacy Policy and Terms of Service carefully before using our platform.
+            </p>
+        </div>
+        <div class="h-[38rem] mt-12 lg:mt-0 w-full mx-auto max-w-md overflow-hidden rounded-t-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
+            <img class="object-cover w-full h-full rounded-t-full"
+                 src="https://images.unsplash.com/photo-1531163859947-fa484f6eacd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                 alt="Privacy & Terms Banner Image" />
+        </div>
+    </section>
+    <section class="bg-[#343D33] mt-12">
+        <div class="container px-6 py-16 mx-auto">
+            <h2 class="font-serif text-3xl text-white capitalize md:text-4xl lg:text-5xl">Privacy Policy</h2>
+            <p class="mt-4 text-gray-200">
+                This Privacy Policy describes how we collect, use, and share information when you visit or make a purchase from our website.
+            </p>
+            <div class="mt-8">
+                <h3 class="font-serif text-xl text-white">1. Information We Collect</h3>
+                <p class="mt-2 text-gray-200">
+                    We collect personal information such as your name, email address, and payment information when you make a purchase or sign up for our services.
+                </p>
+                <h3 class="font-serif text-xl text-white mt-6">2. How We Use Your Information</h3>
+                <p class="mt-2 text-gray-200">
+                    Your personal information is used to fulfill orders, provide customer service, and improve our platform. We do not sell your information to third parties.
+                </p>
+                <h3 class="font-serif text-xl text-white mt-6">3. Data Security</h3>
+                <p class="mt-2 text-gray-200">
+                    We implement a variety of security measures to protect your personal information from unauthorized access, use, or disclosure.
+                </p>
+                <h3 class="font-serif text-xl text-white mt-6">4. Your Rights</h3>
+                <p class="mt-2 text-gray-200">
+                    You have the right to request access to or deletion of your personal data. Please contact us for more information about your data rights.
+                </p>
+                <p class="mt-6 text-gray-200">For more details, please contact us at privacy@yourcompany.com.</p>
+            </div>
+        </div>
+    </section>
+    <section class="container px-6 py-12 mx-auto lg:py-16">
+        <h2 class="font-serif text-3xl text-[#343D33] capitalize md:text-4xl lg:text-5xl">Terms & Conditions</h2>
+        <div class="mt-8">
+            <h3 class="font-serif text-xl text-[#343D33]">1. Acceptance of Terms</h3>
+            <p class="mt-2 text-gray-500">
+                By accessing our platform, you agree to be bound by these Terms & Conditions. If you do not agree to these terms, please refrain from using our services.
+            </p>
+            <h3 class="font-serif text-xl text-[#343D33] mt-6">2. Use of Service</h3>
+            <p class="mt-2 text-gray-500">
+                Our platform is intended for lawful purposes only. You agree not to misuse the platform, including any unlawful behavior or use of our services for fraudulent purposes.
+            </p>
+            <h3 class="font-serif text-xl text-[#343D33] mt-6">3. Intellectual Property</h3>
+            <p class="mt-2 text-gray-500">
+                All content, trademarks, and intellectual property displayed on this platform are owned by our company and may not be used without permission.
+            </p>
+            <h3 class="font-serif text-xl text-[#343D33] mt-6">4. Limitation of Liability</h3>
+            <p class="mt-2 text-gray-500">
+                We shall not be liable for any damages arising from the use of our platform or services, to the fullest extent permitted by law.
+            </p>
+            <h3 class="font-serif text-xl text-[#343D33] mt-6">5. Changes to Terms</h3>
+            <p class="mt-2 text-gray-500">
+                We reserve the right to modify these terms at any time. Please review this page regularly for updates.
+            </p>
+            <p class="mt-6 text-gray-500">If you have any questions about these terms, contact us at support@yourcompany.com.</p>
+        </div>
+    </section>
+{% endblock content %}
+{% block footer %}
+    {% include "components/layout/footer.html" with color_header="text-white" %}
+{% endblock footer %}
