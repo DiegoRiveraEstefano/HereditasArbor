@@ -86,6 +86,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "hereditasarbor.apps.users",
+    "hereditasarbor.apps.diseases",
+    "hereditasarbor.apps.family",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

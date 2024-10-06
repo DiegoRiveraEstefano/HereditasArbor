@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UsersConfig(AppConfig):
-    name = "hereditasarbor.diseases"
+    name = "hereditasarbor.apps.diseases"
     verbose_name = _("Users")
 
     def ready(self):

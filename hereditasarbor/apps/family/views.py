@@ -21,21 +21,57 @@ from .forms import FamiliarForm
 
 class FamiliarDetailView(DetailView, LoginRequiredMixin):
     model = Familiar
-    template_name = ".html"
+    template_name = "family_details.html"
+
+
+familiar_detail_view = FamiliarDetailView.as_view()
 
 
 class FamiliarListView(ListView, LoginRequiredMixin):
     model = Familiar
-    template_name = ".html"
+    template_name = "family_list.html"
+
+
+familiar_list_view = FamiliarListView.as_view()
 
 
 class FamiliarCreateView(CreateView, LoginRequiredMixin):
     model = Familiar
-    template_name = ".html"
+    template_name = "family_create.html"
     form_class = FamiliarForm
-    success_url = reverse("familiar_list")
+    # success_url =
+
+    def get_success_url(self) -> str:
+        return reverse("family:list")
+
+
+familiar_create_view = FamiliarCreateView.as_view()
+
+
+class FamiliarUpdateView(UpdateView, LoginRequiredMixin):
+    model = Familiar
+    template_name = "family_update.html"
+
+    def get_success_url(self) -> str:
+        return reverse("family:list", kwargs={"pk": self.get_object().pk})
+
+
+familiar_update_view = FamiliarUpdateView.as_view()
+
+
+class FamiliarDeleteView(DeleteView, LoginRequiredMixin):
+    model = Familiar
+    template_name = "family_delete.html"
+
+
+familiar_delete_view = FamiliarDeleteView.as_view()
 
 
 class FamilyTreeDetailView(DetailView, LoginRequiredMixin):
     model = FamilyTree
+    template_name = ".html"
+
+
+class FamiliarDiseasesDetailView(DetailView, LoginRequiredMixin):
+    model = FamiliarDiseases
     template_name = ".html"

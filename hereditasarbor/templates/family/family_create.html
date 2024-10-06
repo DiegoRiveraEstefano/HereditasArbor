@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-white" %}
+{% endblock header %}
+
+{% block content %}
+<section class="container px-6 py-12 mx-auto lg:py-16">
+    <div class="max-w-2xl mx-auto">
+        <!-- Page Title -->
+        <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-5xl">
+            Add a New Family Member
+        </h1>
+
+        <!-- Form Section -->
+        <form method="post" class="mt-8">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            
+            <div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
+                <!-- Name Field -->
+                <div class="flex flex-col">
+                    <label for="id_name" class="text-gray-700">Name</label>
+                    {{ form.name|as_crispy_field }}
+                </div>
+
+                <!-- Sex Field -->
+                <div class="flex flex-col">
+                    <label for="id_sex" class="text-gray-700">Sex</label>
+                    {{ form.sex|as_crispy_field }}
+                </div>
+
+                <!-- Relation Type Field -->
+                <div class="flex flex-col">
+                    <label for="id_relation_type" class="text-gray-700">Relation Type</label>
+                    {{ form.relation_type|as_crispy_field }}
+                </div>
+
+                <!-- Birth Date Field -->
+                <div class="flex flex-col">
+                    <label for="id_birth_date" class="text-gray-700">Birth Date</label>
+                    {{ form.birth_date|as_crispy_field }}
+                </div>
+
+                <!-- Weight Field -->
+                <div class="flex flex-col">
+                    <label for="id_weight" class="text-gray-700">Weight (kg)</label>
+                    {{ form.weight|as_crispy_field }}
+                </div>
+
+                <!-- Height Field -->
+                <div class="flex flex-col">
+                    <label for="id_height" class="text-gray-700">Height (cm)</label>
+                    {{ form.height|as_crispy_field }}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-8">
+                <button type="submit" class="bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
+                    Add Family Member
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block footer %}
+    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+{% endblock footer %}

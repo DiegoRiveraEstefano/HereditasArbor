@@ -6,7 +6,6 @@ from .models import FamiliarDiseases
 
 
 class FamiliarForm(forms.ModelForm):
-    template_name = ""
 
     class Meta:
         model = Familiar
