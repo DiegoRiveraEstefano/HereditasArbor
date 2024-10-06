@@ -1,12 +1,16 @@
 from django.urls import path
 
-from .views import user_detail_view
-from .views import user_redirect_view
-from .views import user_update_view
+from .views import familiar_create_view
+from .views import familiar_delete_view
+from .views import familiar_detail_view
+from .views import familiar_list_view
+from .views import familiar_update_view
 
-app_name = "users"
+app_name = "family"
 urlpatterns = [
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("", view=familiar_list_view, name="list"),
+    path("<int:pk>/", view=familiar_detail_view, name="detail"),
+    path("add/", view=familiar_create_view, name="create"),
+    path("delete/<int:pk>/", view=familiar_delete_view, name="remove"),
+    path("edit/<int:pk>/", view=familiar_update_view, name="edit"),
 ]

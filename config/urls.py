@@ -32,6 +32,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("hereditasarbor.apps.users.urls", namespace="users")),
+    path("family/", include("hereditasarbor.apps.family.urls", namespace="family")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # ...

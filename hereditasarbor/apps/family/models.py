@@ -7,8 +7,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from hereditasarbor.apps.diseases.models import Disease
-from hereditasarbor.apps.family.tasks import count_per_disease_in_family
-from hereditasarbor.apps.family.tasks import different_diseases_per_family
 from hereditasarbor.apps.users.models import User
 
 
@@ -35,13 +33,13 @@ class FamilyTree(models.Model):
     def size(self) -> int:
         return len(self.get_all_family())
 
-    @cached_property
+    """@cached_property
     def different_diseases(self) -> Iterable[Disease]:
         return different_diseases_per_family(self)
 
     @cached_property
     def diseases_count(self) -> dict[int, dict[str, Disease | int]]:
-        return count_per_disease_in_family(self)
+        return count_per_disease_in_family(self)"""
 
     def get_all_family(self) -> QuerySet:
         return self.familiar.all()
@@ -101,7 +99,7 @@ class Familiar(models.Model):
     height = models.IntegerField(_("Altura Familiar cm"), default=120)
 
     class Meta:
-        ordering = ["tree", "+birth_date"]
+        ordering = ["tree", "birth_date"]
         verbose_name = _("Familiar")
         verbose_name_plural = _("Familiars")
 
