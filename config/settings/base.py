@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.mfa",
     "crispy_forms",
+    "crispy_tailwind",
     "allauth.socialaccount",
     "django_celery_beat",
     "django_filters",
@@ -88,6 +89,7 @@ LOCAL_APPS = [
     "hereditasarbor.apps.users",
     "hereditasarbor.apps.diseases",
     "hereditasarbor.apps.family",
+    "hereditasarbor.apps.family_diseases",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -110,7 +112,7 @@ AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+LOGIN_URL = "users:login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------

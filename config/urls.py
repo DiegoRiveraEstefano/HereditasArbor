@@ -32,7 +32,16 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("hereditasarbor.apps.users.urls", namespace="users")),
+    path(
+        "diseases/", include("hereditasarbor.apps.diseases.urls", namespace="diseases")
+    ),
     path("family/", include("hereditasarbor.apps.family.urls", namespace="family")),
+    path(
+        "family-diseases/",
+        include(
+            "hereditasarbor.apps.family_diseases.urls", namespace="family-diseases"
+        ),
+    ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # ...

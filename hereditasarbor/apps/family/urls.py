@@ -9,8 +9,8 @@ from .views import familiar_update_view
 app_name = "family"
 urlpatterns = [
     path("", view=familiar_list_view, name="list"),
-    path("<int:pk>/", view=familiar_detail_view, name="detail"),
     path("add/", view=familiar_create_view, name="create"),
     path("delete/<int:pk>/", view=familiar_delete_view, name="remove"),
     path("edit/<int:pk>/", view=familiar_update_view, name="edit"),
+    path("<int:pk>/", view=familiar_detail_view, name="detail"),
 ]

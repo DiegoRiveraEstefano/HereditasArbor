@@ -15,7 +15,7 @@ class FamilyTree(models.Model):
         User,
         verbose_name=_("Arbol Dueño"),
         on_delete=models.CASCADE,
-        related_name="familiar_tree",
+        related_name="family_tree",
     )
 
     class Meta:
@@ -24,7 +24,7 @@ class FamilyTree(models.Model):
         verbose_name_plural = _("FamilyTrees")
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
     def get_absolute_url(self):
         return reverse("FamilyTree_detail", kwargs={"pk": self.pk})
@@ -44,8 +44,8 @@ class FamilyTree(models.Model):
     def get_all_family(self) -> QuerySet:
         return self.familiar.all()
 
-    def get_all_diseases(self) -> QuerySet:
-        return FamiliarDiseases.objects.filter(familiar__tree__pk=self.pk)
+    # def get_all_diseases(self) -> QuerySet:
+    # return FamiliarDiseases.objects.filter(familiar__tree__pk=self.pk)
 
 
 class Familiar(models.Model):
@@ -91,7 +91,7 @@ class Familiar(models.Model):
     )
 
     death_date = models.DateField(
-        _("Fecha Muerte Familiar"), auto_now=False, auto_now_add=False
+        _("Fecha Muerte Familiar"), auto_now=False, auto_now_add=False, null=True
     )
 
     weight = models.IntegerField(_("Peso Familair kg"), default=60)
@@ -107,31 +107,10 @@ class Familiar(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("Familiar_detail", kwargs={"pk": self.pk})
+        return reverse("family:detail", kwargs={"pk": self.pk})
+
+    def debug(self) -> str:
+        return f"Familiar(pk={self.pk})"
 
     def get_all_diseases(self) -> Iterable[Disease]:
         return self.diseases.all()
-
-
-class FamiliarDiseases(models.Model):
-    familiar = models.ForeignKey(
-        Familiar,
-        verbose_name=_("Enfermedad Familiar"),
-        on_delete=models.CASCADE,
-        related_name="diseases",
-    )
-
-    disease = models.ForeignKey(
-        Disease, verbose_name=_(""), on_delete=models.CASCADE, related_name="persons"
-    )
-
-    class Meta:
-        ordering = ["familiar"]
-        verbose_name = _("FamiliarDiseases")
-        verbose_name_plural = _("FamiliarDiseasess")
-
-    def __str__(self):
-        return self.pk
-
-    def get_absolute_url(self):
-        return reverse("FamiliarDiseases_detail", kwargs={"pk": self.pk})

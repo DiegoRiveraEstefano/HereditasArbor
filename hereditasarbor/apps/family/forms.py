@@ -2,17 +2,62 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Familiar
-from .models import FamiliarDiseases
+from .models import FamilyTree
 
 
 class FamiliarForm(forms.ModelForm):
+    tree = forms.ChoiceField(choices=[], required=True, widget=forms.HiddenInput)
+
+    birth_date = forms.fields.DateField(
+        label="Fecha Nacimiento", required=False, widget=forms.widgets.DateInput
+    )
+
+    death_date = forms.DateField(
+        label="Fecha Muerte(solo si aplica)",
+        required=False,
+        widget=forms.widgets.DateTimeInput,
+    )
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", "")
+        super().__init__(*args, **kwargs)
+        self.fields["tree"] = forms.ModelChoiceField(
+            queryset=FamilyTree.objects.filter(owner=user), widget=forms.HiddenInput
+        )
 
     class Meta:
         model = Familiar
-        fields = ("name", "sex", "relation_type", "birth_date", "weight", "height")
+        fields = (
+            "name",
+            "sex",
+            "relation_type",
+            "birth_date",
+            "weight",
+            "height",
+            "death_date",
+            "tree",
+        )
 
 
-class FamiliarDiseasesForm(forms.ModelForm):
+class FamiliarUpdateForm(forms.ModelForm):
+    birth_date = forms.fields.DateField(
+        label="Fecha Nacimiento", required=False, widget=forms.widgets.DateInput
+    )
+
+    death_date = forms.DateField(
+        label="Fecha Muerte(solo si aplica)",
+        required=False,
+        widget=forms.widgets.DateTimeInput,
+    )
+
     class Meta:
-        model = FamiliarDiseases
-        fields = ("familiar", "disease")
+        model = Familiar
+        fields = (
+            "name",
+            "sex",
+            "relation_type",
+            "birth_date",
+            "weight",
+            "height",
+            "death_date",
+        )
