@@ -10,4 +10,5 @@ from .models import FamilyTree
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        FamilyTree(instance)
+        tree = FamilyTree(instance)
+        tree.save()

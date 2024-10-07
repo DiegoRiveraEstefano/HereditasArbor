@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-white" %}
+{% endblock header %}
+{% block content %}
+    <main>
+        <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
+            <div class="lg:w-1/2">
+                <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
+                    Welcome Back
+                </h1>
+                <p class="max-w-lg mt-4 text-gray-500">Please enter your credentials to log into your account.</p>
+                <form action="{% url "users:login" %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit"
+                            class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
+                        Ingresar
+                    </button>
+                </form>
+            </div>
+            <div class="h-[38rem] mt-12 lg:mt-0 w-full mx-auto max-w-md overflow-hidden rounded-t-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
+                <img class="object-cover w-full h-full rounded-t-full"
+                     src="https://images.unsplash.com/photo-1562564055-071088eda4b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                     alt="register page" />
+            </div>
+        </section>
+        <section class="container flex justify-center py-6 mx-auto">
+            <p class="text-sm text-gray-500">
+                Aun no Tienes una Cuenta?
+                <a href="{% url "users:create" %}"
+                   class="text-[#475F45] hover:text-[#343D33] font-bold">Registrate Aqui</a>
+            </p>
+        </section>
+    </main>
+{% endblock content %}
+{% block footer %}
+    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+{% endblock footer %}

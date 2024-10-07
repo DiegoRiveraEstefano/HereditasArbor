@@ -1,19 +1,84 @@
+from typing import Any
+
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import QuerySet
+from django.db.models.base import Model as Model
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView
 from django.views.generic import DetailView
+from django.views.generic import FormView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
 from hereditasarbor.apps.users.models import User
+
+from .forms import UserCreationForm
+from .forms import UserLoginForm
+
+
+class UserCreateView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    template_name = "users/user_create.html"
+
+    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
+        obje = super().get_object(queryset)()
+        print(obje)
+        return obje
+
+    def get_success_url(self) -> str:
+        return reverse("users:login")
+
+
+user_create_view = UserCreateView.as_view()
+
+
+class UserLoginFormView(FormView):
+    form_class = UserLoginForm
+    template_name = "users/user_login.html"
+
+    def get_success_url(self) -> str:
+        # return reverse("users:detail", kwargs={"pk": self.request.user.pk})
+        return reverse("users:me")
+
+    def form_valid(self, form: UserLoginForm):
+        user = authenticate(
+            request=self.request,
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password"],
+        )
+        print(form.cleaned_data)
+        print("bbbbbbbbbbb", user)
+        if user is None:
+            return super().form_invalid(form)
+        login(
+            request=self.request,
+            user=user,
+            backend="django.contrib.auth.backends.ModelBackend",
+        )
+        return super().form_valid(form)
+
+
+user_login_view = UserLoginFormView.as_view()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return self.model.objects.filter(pk=self.request.user.pk)
+
+    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
+        return self.request.user
 
 
 user_detail_view = UserDetailView.as_view()
@@ -28,7 +93,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         assert self.request.user.is_authenticated  # type guard
         return self.request.user.get_absolute_url()
 
-    def get_object(self, queryset: QuerySet | None=None) -> User:
+    def get_object(self, queryset: QuerySet | None = None) -> User:
         assert self.request.user.is_authenticated  # type guard
         return self.request.user
 

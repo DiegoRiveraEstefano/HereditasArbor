@@ -1,36 +1,52 @@
 {
     "div": {
-		"scope": "django-html",
-		"prefix": "div",
-		"body": [
-			"<div>$1</div>",
-		],
-		"description": "Create a new div"
-	},
+        "scope": "django-html",
+        "prefix": "div",
+        "body": [
+            "<div>$1</div>",
+        ],
+        "description": "Create a new div"
+    },
+    "main": {
+        "scope": "django-html",
+        "prefix": "main",
+        "body": [
+            "<main>$1</main>",
+        ],
+        "description": "Create a new main"
+    },
+    "section": {
+        "scope": "django-html",
+        "prefix": "section",
+        "body": [
+            "<section>$1</section>",
+        ],
+        "description": "Create a new section"
+    },
     "h1": {
-		"scope": "django-html",
-		"prefix": "h1",
-		"body": [
-			"<h1>$1</h1>",
-		],
-		"description": "Create a new h1"
-	},
+        "scope": "django-html",
+        "prefix": "h1",
+        "body": [
+            "<h1>$1</h1>",
+        ],
+        "description": "Create a new h1"
+    },
     "p": {
-		"scope": "django-html",
-		"prefix": "p",
-		"body": [
-			"<p>$1</p>",
-		],
-		"description": "Create a new p"
-	},
+        "scope": "django-html",
+        "prefix": "p",
+        "body": [
+            "<p>$1</p>",
+        ],
+        "description": "Create a new p"
+    },
     "button": {
-		"scope": "django-html",
-		"prefix": "button",
-		"body": [
-			"<button>$1</button>",
-		],
-		"description": "Create a new button"
-	},
+        "scope": "django-html",
+        "prefix": "button",
+        "body": [
+            "<button>$1</button>",
+        ],
+        "description": "Create a new button"
+    },
     "option": {
         "scope": "django-html",
         "prefix": "option",
