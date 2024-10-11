@@ -8,7 +8,7 @@ class DiseaseCategory(models.Model):
         _("Nombre Categoria"), max_length=64
     )  # Field to store the name of the disease category
 
-    decription = models.CharField(
+    description = models.CharField(
         _("Descripcion Categoria"), max_length=128
     )  # Field to store the description of the disease category
 
@@ -56,3 +56,28 @@ class Disease(models.Model):
 
     def get_absolute_url(self):
         return reverse("diseases:detail", kwargs={"pk": self.pk})
+    
+
+class DiseasesParams(models.Model):
+
+    fields = (
+        ("glucose", "Glucosa"),
+        ("cholesterol", "Colesterol")
+    )
+
+    disease = models.ForeignKey(Disease, verbose_name=_("Enfermedad"), on_delete=models.CASCADE, related_name="params")
+
+    # todo: change this name
+    personal_field = models.CharField(_("Campo"), choices="", max_length=32)
+    value = models.IntegerField(_("Valor Limite"), default=0)
+    operation = models.CharField(_("Tipo de Validacion"), max_length=12)
+
+    class Meta:
+        verbose_name = _("DiseasesParams")
+        verbose_name_plural = _("DiseasesParamss")
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("DiseasesParams_detail", kwargs={"pk": self.pk})
