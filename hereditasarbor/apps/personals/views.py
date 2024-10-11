@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -20,9 +22,9 @@ from .models import PersonalTimeStampData
 
 class PersonalDataDetailView(DetailView, LoginRequiredMixin):
     model = PersonalData
-    template_name = ".html"
+    template_name = "personals/views/personal_detail.html"
 
-    def get_object(self, queryset):
+    def get_object(self, queryset=None):
         return get_object_or_404(PersonalData, user=self.request.user)
 
 
@@ -31,31 +33,42 @@ personal_data_detail_view = PersonalDataDetailView.as_view()
 
 class PersonalDataCreateView(CreateView, LoginRequiredMixin):
     model = PersonalData
-    template_name = ".html"
+    template_name = "personals/views/personal_create.html"
     form_class = PersonalDataCreateForm
 
     def get_success_url(self) -> str:
-        return reverse("personal:detail")
+        return reverse("users:me")
+
+    def get_initial(self) -> dict[str, Any]:
+        return {"user": self.request.user.pk}
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        data = super().get_form_kwargs()
+        data["user"] = self.request.user
+        return data
 
 
-personal_data_create_view = PersonalDataCreateView.as_view
+personal_data_create_view = PersonalDataCreateView.as_view()
 
 
 class PersonalDataUpdateView(UpdateView):
     model = PersonalData
-    template_name = ".html"
+    template_name = "personals/views/personal_edit.html"
     form_class = PersonalDataUpdateForm
+
+    def get_object(self, queryset=...):
+        return get_object_or_404(PersonalData, user=self.request.user)
 
     def get_success_url(self) -> str:
         return reverse("personal:detail")
 
 
-personal_data_update_view = PersonalDataUpdateView
+personal_data_update_view = PersonalDataUpdateView.as_view()
 
 
 class PersonalTimeStampDataListView(ListView, LoginRequiredMixin):
     model = PersonalTimeStampData
-    template_name = ".html"
+    template_name = "personals/views/persona_stamp_list.html"
 
     def get_queryset(self):
         return super().get_queryset().filter(personal_data__user=self.request.user)
@@ -66,7 +79,7 @@ personal_data_time_stamp_data_list_view = PersonalTimeStampDataListView.as_view(
 
 class PersonalTimeStampDataDetailView(DetailView, LoginRequiredMixin):
     model = PersonalTimeStampData
-    template_name = ".html"
+    template_name = "personals/views/persona_stamp_detail.html"
 
     def get_queryset(self):
         return super().get_queryset().filter(personal_data__user=self.request.user)
@@ -77,8 +90,23 @@ personal_data_time_stamp_data_detail_view = PersonalTimeStampDataDetailView.as_v
 
 class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
     model = PersonalTimeStampData
-    template_name = ".html"
+    template_name = "personals/views/persona_stamp_create.html"
     form_class = PersonalTimeStampDataCreateForm
+
+    def get_success_url(self) -> str:
+        return reverse("personal:time_stamp-list")
+
+    def get_initial(self):
+        data = super().get_initial()
+        data["personal_data"] = get_object_or_404(
+            PersonalData, user=self.request.user.pk
+        )
+        return data
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        data = super().get_form_kwargs()
+        data["user"] = self.request.user
+        return data
 
 
 personal_data_time_stamp_data_create_view = PersonalTimeStampDataCreateView.as_view()
@@ -86,7 +114,7 @@ personal_data_time_stamp_data_create_view = PersonalTimeStampDataCreateView.as_v
 
 class PersonalTimeStampDataUpdateView(UpdateView, LoginRequiredMixin):
     model = PersonalTimeStampData
-    template_name = ".html"
+    template_name = "personals/views/persona_stamp_edit.html"
     form_class = PersonalTimeStampDataUpdateForm
 
     def get_queryset(self):
@@ -98,7 +126,10 @@ personal_data_time_stamp_data_update_view = PersonalTimeStampDataUpdateView.as_v
 
 class PersonalTimeStampDataDeleteView(DeleteView, LoginRequiredMixin):
     model = PersonalTimeStampData
-    template_name = ".html"
+    template_name = "temlates/personals/views/persona_stamp_delete.html"
+
+    def get_success_url(self) -> str:
+        return reverse("personal:time_stamp-list")
 
     def get_queryset(self):
         return super().get_queryset().filter(personal_data__user=self.request.user)

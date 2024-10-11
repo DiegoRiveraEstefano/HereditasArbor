@@ -28,10 +28,8 @@ class UserCreateView(CreateView):
     form_class = UserCreationForm
     template_name = "users/user_create.html"
 
-    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        obje = super().get_object(queryset)()
-        print(obje)
-        return obje
+    def get_object(self, queryset: QuerySet[Any] | None) -> Model:
+        return super().get_object(queryset)()
 
     def get_success_url(self) -> str:
         return reverse("users:login")
@@ -45,8 +43,7 @@ class UserLoginFormView(FormView):
     template_name = "users/user_login.html"
 
     def get_success_url(self) -> str:
-        # return reverse("users:detail", kwargs={"pk": self.request.user.pk})
-        return reverse("users:me")
+        return reverse("personal:create")
 
     def form_valid(self, form: UserLoginForm):
         user = authenticate(
@@ -54,8 +51,6 @@ class UserLoginFormView(FormView):
             username=form.cleaned_data["username"],
             password=form.cleaned_data["password"],
         )
-        print(form.cleaned_data)
-        print("bbbbbbbbbbb", user)
         if user is None:
             return super().form_invalid(form)
         login(
@@ -77,8 +72,8 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self) -> QuerySet[Any]:
         return self.model.objects.filter(pk=self.request.user.pk)
 
-    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return self.request.user
+    def get_object(self, queryset: QuerySet[Any] | None = None) -> Model:
+        return User.objects.get(pk=self.request.user.pk)
 
 
 user_detail_view = UserDetailView.as_view()

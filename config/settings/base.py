@@ -90,6 +90,7 @@ LOCAL_APPS = [
     "hereditasarbor.apps.diseases",
     "hereditasarbor.apps.family",
     "hereditasarbor.apps.family_diseases",
+    "hereditasarbor.apps.personals",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

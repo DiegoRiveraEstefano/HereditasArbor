@@ -46,10 +46,10 @@
                 </div>
                 <!-- Actions -->
                 <div class="flex justify-between mt-10">
-                    <a href="{% url 'personal:timestampdata_update' object.pk %}"
+                    <a href="{% url 'personal:time_stamp-edit' object.pk %}"
                        class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Edit Data</a>
                     <form method="post"
-                          action="{% url 'personal:timestampdata_delete' object.pk %}">
+                          action="{% url 'personal:time_stamp-delete' object.pk %}">
                         {% csrf_token %}
                         <button type="submit"
                                 class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete Data</button>

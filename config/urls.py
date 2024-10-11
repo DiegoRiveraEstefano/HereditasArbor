@@ -42,6 +42,10 @@ urlpatterns = [
             "hereditasarbor.apps.family_diseases.urls", namespace="family-diseases"
         ),
     ),
+    path(
+        "personal/",
+        include("hereditasarbor.apps.personals.urls", namespace="personal"),
+    ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # ...

@@ -19,7 +19,8 @@ class PersonalDataCreateForm(forms.ModelForm):
         user: User = kwargs.pop("user", "")
         super().__init__(*args, **kwargs)
         self.fields["user"] = forms.ModelChoiceField(
-            queryset=User.objects.filter(pk=user.pk), widget=forms.HiddenInput
+            queryset=User.objects.filter(username=user.username),
+            widget=forms.HiddenInput,
         )
 
 
@@ -49,7 +50,7 @@ class PersonalTimeStampDataCreateForm(forms.ModelForm):
         user: User = kwargs.pop("user", "")
         super().__init__(*args, **kwargs)
         self.fields["personal_data"] = forms.ModelChoiceField(
-            queryset=PersonalData.objects.filter(user__pk=user.pk),
+            queryset=PersonalData.objects.filter(user=user),
             widget=forms.HiddenInput,
         )
 

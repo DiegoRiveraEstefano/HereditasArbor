@@ -1,17 +1,42 @@
 from django.urls import path
 
-from .views import user_create_view
-from .views import user_detail_view
-from .views import user_login_view
-from .views import user_redirect_view
-from .views import user_update_view
+from .views import personal_data_create_view
+from .views import personal_data_detail_view
+from .views import personal_data_time_stamp_data_create_view
+from .views import personal_data_time_stamp_data_delete_view
+from .views import personal_data_time_stamp_data_detail_view
+from .views import personal_data_time_stamp_data_list_view
+from .views import personal_data_time_stamp_data_update_view
+from .views import personal_data_update_view
 
-app_name = "users"
+app_name = "personal"
 urlpatterns = [
-    path("redirect/", view=user_redirect_view, name="redirect"),
-    path("update/", view=user_update_view, name="update"),
-    path("create/", view=user_create_view, name="create"),
-    path("login/", view=user_login_view, name="login"),
-    path("me/", view=user_detail_view, name="me"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("", view=personal_data_detail_view, name="me"),
+    path("create/", view=personal_data_create_view, name="create"),
+    path("update/", view=personal_data_update_view, name="update"),
+    path(
+        "time_stamp/",
+        view=personal_data_time_stamp_data_list_view,
+        name="time_stamp-list",
+    ),
+    path(
+        "time_stamp/<int:pk>",
+        view=personal_data_time_stamp_data_detail_view,
+        name="time_stamp-detail",
+    ),
+    path(
+        "time_stamp/create/",
+        view=personal_data_time_stamp_data_create_view,
+        name="time_stamp-create",
+    ),
+    path(
+        "time_stamp/edit/<int:pk>",
+        view=personal_data_time_stamp_data_update_view,
+        name="time_stamp-edit",
+    ),
+    path(
+        "time_stamp/delete/<int:pk>",
+        view=personal_data_time_stamp_data_delete_view,
+        name="time_stamp-delete",
+    ),
 ]

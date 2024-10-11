@@ -57,7 +57,7 @@ class PersonalTimeStampData(models.Model):
     cholesterol = models.IntegerField(_("Colesterol"), null=True)
 
     class Meta:
-        order = "added_data"
+        ordering = ("added_data",)
         verbose_name = _("PersonalMedical")
         verbose_name_plural = _("PersonalMedicals")
 
@@ -65,7 +65,7 @@ class PersonalTimeStampData(models.Model):
         return str(self.pk)
 
     def get_absolute_url(self):
-        return reverse("PersonalMedical_detail", kwargs={"pk": self.pk})
+        return reverse("personal:time_stamp-detail", kwargs={"pk": self.pk})
 
     def check_params(self, params: dict[str, dict[str, str]]) -> tuple[bool, int]:
         data = {
