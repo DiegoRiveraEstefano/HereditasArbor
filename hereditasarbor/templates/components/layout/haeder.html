@@ -33,12 +33,28 @@
            class="font-medium text-white lg:text-[#475F45] lg:hover:text-gray-400 lg:mx-4">Faq</a>
         <a href="{% url "privacy" %}"
            class="font-medium text-white lg:text-[#475F45] lg:hover:text-gray-400 lg:mx-4">Privacidad</a>
-        <a href="#"
-           class="font-medium text-white lg:text-[#475F45] lg:hover:text-gray-400 lg:mx-4">Blog</a>
-        <a href="#"
-           class="font-medium text-white lg:text-[#475F45] lg:hover:text-gray-400 lg:mx-4">-#-</a>
-        <a class="px-8 py-2.5 text-white lg:text-[#475F45] lg:hover:bg-[#475F45] lg:hover:text-white duration-300 transition-colors font-medium lg:mx-4 border-2 lg:border-[#475F45] border-white"
-           href="#">Menu</a>
+        {% if user.is_authenticated %}
+          <div x-data="{ open: false }">
+            <a @click="open = !open"
+               class="px-8 py-2.5 text-white lg:text-[#475F45] lg:hover:bg-[#475F45] lg:hover:text-white duration-300 transition-colors font-medium lg:mx-4 border-2 lg:border-[#475F45] border-white"
+               href="#">Menu</a>
+            <div x-show="open"
+                 @click.away="open = false"
+                 class="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white border-[#475F45] ring-1 ring-black ring-opacity-5 px-2 py-2">
+              <a href="{% url "users:me" %}"
+                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Perfil</a>
+              <a href="{% url "family:list" %}"
+                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Tu Arbol</a>
+              <a href="{% url "personal:me" %}"
+                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Datos Personales</a>
+              <a href="{% url "account_logout" %}"
+                 class="block px-4 py-2 text-sm text-red-500 hover:bg-red-100 rounded-md">Cerrar Cesion</a>
+            </div>
+          </div>
+        {% else %}
+          <a class="px-8 py-2.5 text-white lg:text-[#475F45] lg:hover:bg-[#475F45] lg:hover:text-white duration-300 transition-colors font-medium lg:mx-4 border-2 lg:border-[#475F45] border-white"
+             href="{% url "users:login" %}">Iniciar Session</a>
+        {% endif %}
       </nav>
     </div>
   </div>

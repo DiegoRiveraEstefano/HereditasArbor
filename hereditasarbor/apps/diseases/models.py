@@ -52,20 +52,21 @@ class Disease(models.Model):
         verbose_name_plural = _("Diseases")
 
     def __str__(self):
-        return str(self.pk)
+        return self.name
 
     def get_absolute_url(self):
         return reverse("diseases:detail", kwargs={"pk": self.pk})
-    
+
 
 class DiseasesParams(models.Model):
+    fields = (("glucose", "Glucosa"), ("cholesterol", "Colesterol"))
 
-    fields = (
-        ("glucose", "Glucosa"),
-        ("cholesterol", "Colesterol")
+    disease = models.ForeignKey(
+        Disease,
+        verbose_name=_("Enfermedad"),
+        on_delete=models.CASCADE,
+        related_name="params",
     )
-
-    disease = models.ForeignKey(Disease, verbose_name=_("Enfermedad"), on_delete=models.CASCADE, related_name="params")
 
     # todo: change this name
     personal_field = models.CharField(_("Campo"), choices="", max_length=32)
