@@ -36,6 +36,11 @@
              class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
             Ir a Arbol Familiar
           </a>
+          {% if object.personal_data %}
+            a
+          {% else %}
+            b
+          {% endif %}
           <a href="{% url 'personal:me' %}"
              class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
             Datos Personales

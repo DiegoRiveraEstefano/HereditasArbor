@@ -60,6 +60,9 @@ class PersonalTimeStampData(models.Model):
         ordering = ("added_data",)
         verbose_name = _("PersonalMedical")
         verbose_name_plural = _("PersonalMedicals")
+        permissions = [
+            ("has_personal_data", "Verify that the user has a personal data created"),
+        ]
 
     def __str__(self):
         return str(self.pk)

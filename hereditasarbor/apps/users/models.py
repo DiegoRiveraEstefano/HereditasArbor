@@ -24,3 +24,6 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+    def has_personal_data(self) -> bool:
+        return self.has_perm("personals.has_personal_data")

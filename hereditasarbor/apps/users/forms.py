@@ -43,6 +43,14 @@ class UserSocialSignupForm(SocialSignupForm):
 
 
 class UserCreationForm(forms.ModelForm):
+    password = forms.CharField(
+        max_length=128, required=True, label="Contraseña", widget=widgets.PasswordInput
+    )
+
+    email = forms.CharField(
+        max_length=128, required=True, label="Correo", widget=widgets.EmailInput
+    )
+
     class Meta:
         model = User
         fields = ("username", "email", "name", "password")
