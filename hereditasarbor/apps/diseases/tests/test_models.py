@@ -1,5 +1,6 @@
-from hereditasarbor.users.models import User
+from hereditasarbor.apps.diseases.models import Disease
+from hereditasarbor.apps.diseases.models import DiseaseCategory
 
 
-def test_user_get_absolute_url(user: User):
-    assert user.get_absolute_url() == f"/users/{user.username}/"
+def test_disease_get_absolute_url(disease: Disease):
+    assert disease.get_absolute_url() == f"/diseases/{disease.pk}/"

@@ -1,9 +1,9 @@
 from celery import shared_task
 
-from .models import User
+from hereditasarbor.apps.diseases.models import Disease
 
 
 @shared_task()
-def get_users_count():
+def get_disaes_count():
     """A pointless Celery task to demonstrate usage."""
-    return User.objects.count()
+    return Disease.objects.count()

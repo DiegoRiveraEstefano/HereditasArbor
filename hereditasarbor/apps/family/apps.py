@@ -4,7 +4,7 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class UsersConfig(AppConfig):
+class FamilyConfig(AppConfig):
     name = "hereditasarbor.apps.family"
     verbose_name = _("Family")
 

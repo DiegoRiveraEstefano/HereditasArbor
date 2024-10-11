@@ -56,7 +56,7 @@ class FamilyDiseasesListView(ListView, LoginRequiredMixin):
 family_diseases_list_view = FamilyDiseasesListView.as_view()
 
 
-class FamilyDiseasesCreateView(CreateView):
+class FamilyDiseasesCreateView(CreateView, LoginRequiredMixin):
     model = FamiliarDiseases
     template_name = "family_diseases/family_diseases_create.html"
     form_class = FamiliarDiseasesForm
@@ -81,7 +81,7 @@ class FamilyDiseasesCreateView(CreateView):
 family_diseases_create_view = FamilyDiseasesCreateView.as_view()
 
 
-class FamilyDiseasesUpdateView(UpdateView):
+class FamilyDiseasesUpdateView(UpdateView, LoginRequiredMixin):
     model = FamiliarDiseases
     template_name = "family_diseases/family_diseases_update.html"
 
@@ -89,7 +89,7 @@ class FamilyDiseasesUpdateView(UpdateView):
 family_diseases_update_view = FamilyDiseasesUpdateView.as_view()
 
 
-class FamilyDiseasesDeleteView(DeleteView):
+class FamilyDiseasesDeleteView(DeleteView, LoginRequiredMixin):
     model = FamiliarDiseases
     template_name = "family_diseases/family_diseases_delete.html"
 

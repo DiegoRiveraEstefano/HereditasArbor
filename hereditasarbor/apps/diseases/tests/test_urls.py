@@ -1,22 +1,13 @@
 from django.urls import resolve
 from django.urls import reverse
 
-from hereditasarbor.users.models import User
+from hereditasarbor.apps.diseases.models import Disease
+from hereditasarbor.apps.diseases.models import DiseaseCategory
 
 
-def test_detail(user: User):
+def test_detail(disease: Disease):
     assert (
-        reverse("users:detail", kwargs={"username": user.username})
-        == f"/users/{user.username}/"
+        reverse("diseases:detail", kwargs={"pk": disease.pk})
+        == f"/diseases/{disease.pk}/"
     )
-    assert resolve(f"/users/{user.username}/").view_name == "users:detail"
-
-
-def test_update():
-    assert reverse("users:update") == "/users/~update/"
-    assert resolve("/users/~update/").view_name == "users:update"
-
-
-def test_redirect():
-    assert reverse("users:redirect") == "/users/~redirect/"
-    assert resolve("/users/~redirect/").view_name == "users:redirect"
+    assert resolve(f"/diseases/{disease.pk}/").view_name == "diseases:detail"
