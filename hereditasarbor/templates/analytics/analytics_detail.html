@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Analisis: {{ disease.name }}
+{% endblock title %}
+{% block header %}
+    {% include "components/layout/haeder.html" with color_header="text-white" %}
+{% endblock header %}
+{% block content %}
+    <main>
+        <section class="container px-6 py-12 mx-auto lg:py-16">
+            <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
+                <h1 class="text-4xl font-bold text-[#343D33] mb-6">Analis por Enfermedad</h1>
+                <!-- Disease Information -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Enfermedad: {{ disease.name }}</h2>
+                </div>
+                <!-- Disease Parameters -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Parametros Enfermedad</h2>
+                    {% if disease_params %}
+                        <ul class="mt-4 list-disc list-inside text-lg">
+                            {% for param in disease_params %}<li>{{ param.get_personal_field_display }}</li>{% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="mt-2 text-lg text-gray-500">No parameters available for this disease.</p>
+                    {% endif %}
+                </div>
+                <!-- Disease Result Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-700">Result Summary</h2>
+                    {% if result %}
+                        <table class="w-full mt-4 border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Parametro</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Definicion</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Anormal</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Delta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for param_pk, details in result.items %}
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2">{{ details.param.get_personal_field_display }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ details.param.get_operation_display }}  {{ details.param.value }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ details.definition|yesno:"Yes,No" }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ details.delta }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="mt-2 text-lg text-gray-500">No results available for this disease.</p>
+                    {% endif %}
+                </div>
+                <div class="mt-8">
+                    <a href="{% url 'analytics:index' %}"
+                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Back</a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
+{% block footer %}
+    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+{% endblock footer %}

@@ -143,4 +143,28 @@ def calc_diseas_from_params(
         x.check_expression(value=last_personal_time_stamp[x.personal_field])
         for x in params
     ]
-    return False, 1
+    boleans = []
+    deltas = []
+    for x in results:
+        boleans.append(x[0])
+        deltas.append(x[1])
+    return all(boleans), int(np.mean(deltas))
+
+
+@shared_task
+def get_deltas_from_disease(
+    disease: Disease, personal_data: PersonalData
+) -> dict[int, dict[str, int | bool | DiseasesParams]]:
+    params: QuerySet[DiseasesParams] = disease.get_params()
+    last_personal_time_stamp: QuerySet[PersonalTimeStampData] = (
+        personal_data.get_time_stamps().values().latest()
+    )
+    data = {}
+    for x in params:
+        result = x.check_expression(value=last_personal_time_stamp[x.personal_field])
+        data[x.pk] = {
+            "param": x,
+            "definition": result[0],
+            "delta": result[1],
+        }
+    return data

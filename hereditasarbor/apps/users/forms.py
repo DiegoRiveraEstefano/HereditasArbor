@@ -64,3 +64,9 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(
         max_length=128, required=True, label="Contraseña", widget=widgets.PasswordInput
     )
+
+
+class UserLogOutForm(forms.Form):
+    confirmation = forms.BooleanField(
+        required=True, label="Usuario", widget=widgets.HiddenInput, initial=True
+    )

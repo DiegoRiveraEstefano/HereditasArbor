@@ -10,26 +10,31 @@
 {% endblock header %}
 {% block content %}
     <main>
-        {{ b }}
+        {% for a in personal_diseases %}{{ a }}{% endfor %}
         <section class="container px-6 py-12 mx-auto lg:py-16">
             <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
                 <h1 class="text-4xl font-bold text-[#343D33] mb-6">Family Health Analytics</h1>
                 <!-- Count of Diseases in Family -->
                 <div class="mb-8">
                     <h2 class="text-2xl font-semibold text-gray-700">Posibles Enfermedades</h2>
-                    {% if count_per_disease %}
+                    {% if diseases %}
                         <table class="w-full mt-4 border-collapse border border-gray-300">
                             <thead>
                                 <tr class="bg-gray-100">
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Disease</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Count</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Enfermedad</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Conteo</th>
                                     <th class="border border-gray-300 px-4 py-2 text-left">Riesgo</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for disease, count in count_per_disease.items %}
+                                {% for disease, count in diseases.items %}
                                     <tr>
-                                        <td class="border border-gray-300 px-4 py-2">{{ count.disease.disease }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">
+                                            <a class="text-[#475F45]"
+                                               href="{% url "analytics:detail" pk=count.disease.disease.pk %}">
+                                                {{ count.disease.disease }}
+                                            </a>
+                                        </td>
                                         <td class="border border-gray-300 px-4 py-2">{{ count.count }}</td>
                                         <td class="border border-gray-300 px-4 py-2 {% if count.risk < 5 %} text-green-500 {% elif count.risk < 12 %} text-yellow-500 {% else %}text-red-500{% endif %}">
                                             {{ count.risk }}
@@ -50,22 +55,31 @@
                 <!-- Count of Diseases in Family -->
                 <div class="mb-8">
                     <h2 class="text-2xl font-semibold text-gray-700">Posibles Enfermedades</h2>
-                    {% if count_per_disease %}
+                    {% if diseases %}
                         <table class="w-full mt-4 border-collapse border border-gray-300">
                             <thead>
                                 <tr class="bg-gray-100">
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Disease</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Count</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Riesgo</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Enfermedad</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Posible</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Delta de Error</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Detalles</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for disease, count in count_per_disease.items %}
+                                {% for count, disease in diseases.items %}
                                     <tr>
-                                        <td class="border border-gray-300 px-4 py-2">{{ count.disease.disease }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ count.count }}</td>
-                                        <td class="border border-gray-300 px-4 py-2 {% if count.risk < 5 %} text-green-500 {% elif count.risk < 12 %} text-yellow-500 {% else %}text-red-500{% endif %}">
-                                            {{ count.risk }}
+                                        <td class="border border-gray-300 px-4 py-2">
+                                            <a class="text-[#475F45]"
+                                               href="{% url "analytics:detail" pk=disease.disease.disease.pk %}">
+                                                {{ disease.disease.disease }}
+                                            </a>
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ disease.params.0|yesno:"Si,No" }}</td>
+                                        <td class="border border-gray-300 px-4 py-2 {% if disease.params.1 < 25 %} text-green-500 {% elif disease.params.1 < 50 %} text-yellow-500 {% else %}text-red-500{% endif %}">
+                                            {{ disease.params.1 }}
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2">
+                                            <a class="text-[#475F45]" href="{% url "users:me" %}">Detalles</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
