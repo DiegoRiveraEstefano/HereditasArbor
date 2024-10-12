@@ -20,8 +20,8 @@ from django.views.generic import UpdateView
 from hereditasarbor.apps.family.models import Familiar
 from hereditasarbor.apps.family.models import FamilyTree
 
-from .forms import FamiliarForm
-from .forms import FamiliarUpdateForm
+from hereditasarbor.apps.family.forms import FamiliarForm
+from hereditasarbor.apps.family.forms import FamiliarUpdateForm
 
 
 class FamiliarDetailView(DetailView, LoginRequiredMixin):

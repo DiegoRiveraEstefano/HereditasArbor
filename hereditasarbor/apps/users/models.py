@@ -27,3 +27,6 @@ class User(AbstractUser):
 
     def has_personal_data(self) -> bool:
         return self.has_perm("personals.has_personal_data")
+
+    def get_personal_data(self):
+        return self.personal_data

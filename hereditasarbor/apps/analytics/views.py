@@ -1,12 +1,7 @@
 from typing import Any
 
-from django.contrib.auth import authenticate
-from django.contrib.auth import login
-from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import QuerySet
 from django.db.models.base import Model as Model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -15,97 +10,36 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic import RedirectView
+from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
-from hereditasarbor.apps.users.models import User
-
-from .forms import UserCreationForm
-from .forms import UserLoginForm
-
-
-class UserCreateView(CreateView):
-    model = User
-    form_class = UserCreationForm
-    template_name = "users/user_create.html"
-
-    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        obje = super().get_object(queryset)()
-        print(obje)
-        return obje
-
-    def get_success_url(self) -> str:
-        return reverse("users:login")
+from hereditasarbor.apps.analytics.models import Analytic
+from hereditasarbor.apps.analytics.tasks import calc_diseas_from_params
+from hereditasarbor.apps.analytics.tasks import calculate_chance_of_disease
+from hereditasarbor.apps.analytics.tasks import convert_score_to_chance
+from hereditasarbor.apps.analytics.tasks import count_per_disease_in_family
+from hereditasarbor.apps.analytics.tasks import different_diseases_per_family
 
 
-user_create_view = UserCreateView.as_view()
+class AnalyticsIndexView(TemplateView, LoginRequiredMixin):
+    template_name = "analytics/analytics_resume.html"
 
-
-class UserLoginFormView(FormView):
-    form_class = UserLoginForm
-    template_name = "users/user_login.html"
-
-    def get_success_url(self) -> str:
-        # return reverse("users:detail", kwargs={"pk": self.request.user.pk})
-        return reverse("users:me")
-
-    def form_valid(self, form: UserLoginForm):
-        user = authenticate(
-            request=self.request,
-            username=form.cleaned_data["username"],
-            password=form.cleaned_data["password"],
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["tree"] = self.request.user.family_tree
+        data["count_per_disease"] = count_per_disease_in_family(
+            self.request.user.family_tree,
         )
-        print(form.cleaned_data)
-        print("bbbbbbbbbbb", user)
-        if user is None:
-            return super().form_invalid(form)
-        login(
-            request=self.request,
-            user=user,
-            backend="django.contrib.auth.backends.ModelBackend",
+        for disease in data["count_per_disease"]:
+            data["count_per_disease"][disease]["risk"] = calculate_chance_of_disease(
+                family_tree=self.request.user.family_tree,
+                disease=data["count_per_disease"][disease]["disease"].disease,
+            )
+        data["b"] = calc_diseas_from_params(
+            disease=data["count_per_disease"][2]["disease"].disease,
+            personal_data=self.request.user.get_personal_data(),
         )
-        return super().form_valid(form)
+        return data
 
 
-user_login_view = UserLoginFormView.as_view()
-
-
-class UserDetailView(LoginRequiredMixin, DetailView):
-    model = User
-    slug_field = "username"
-    slug_url_kwarg = "username"
-
-    def get_queryset(self) -> QuerySet[Any]:
-        return self.model.objects.filter(pk=self.request.user.pk)
-
-    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return self.request.user
-
-
-user_detail_view = UserDetailView.as_view()
-
-
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = User
-    fields = ["name"]
-    success_message = _("Information successfully updated")
-
-    def get_success_url(self) -> str:
-        assert self.request.user.is_authenticated  # type guard
-        return self.request.user.get_absolute_url()
-
-    def get_object(self, queryset: QuerySet | None = None) -> User:
-        assert self.request.user.is_authenticated  # type guard
-        return self.request.user
-
-
-user_update_view = UserUpdateView.as_view()
-
-
-class UserRedirectView(LoginRequiredMixin, RedirectView):
-    permanent = False
-
-    def get_redirect_url(self) -> str:
-        return reverse("users:detail", kwargs={"username": self.request.user.username})
-
-
-user_redirect_view = UserRedirectView.as_view()
+analytics_index_view = AnalyticsIndexView.as_view()

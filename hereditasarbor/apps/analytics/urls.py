@@ -1,17 +1,8 @@
 from django.urls import path
 
-from .views import user_create_view
-from .views import user_detail_view
-from .views import user_login_view
-from .views import user_redirect_view
-from .views import user_update_view
+from .views import analytics_index_view
 
-app_name = "users"
+app_name = "analytics"
 urlpatterns = [
-    path("redirect/", view=user_redirect_view, name="redirect"),
-    path("update/", view=user_update_view, name="update"),
-    path("create/", view=user_create_view, name="create"),
-    path("login/", view=user_login_view, name="login"),
-    path("me/", view=user_detail_view, name="me"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("", view=analytics_index_view, name="index"),
 ]

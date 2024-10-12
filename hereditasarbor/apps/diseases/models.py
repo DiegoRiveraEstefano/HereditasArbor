@@ -57,9 +57,18 @@ class Disease(models.Model):
     def get_absolute_url(self):
         return reverse("diseases:detail", kwargs={"pk": self.pk})
 
+    def get_params(self) -> models.QuerySet:
+        return self.params.all()
+
 
 class DiseasesParams(models.Model):
     fields = (("glucose", "Glucosa"), ("cholesterol", "Colesterol"))
+    operations = (
+        ("lte", "Less Than Equal"),
+        ("lt", "Less Than"),
+        ("gte", "Greater Than Equal"),
+        ("gt", "Greater Than"),
+    )
 
     disease = models.ForeignKey(
         Disease,
@@ -69,16 +78,30 @@ class DiseasesParams(models.Model):
     )
 
     # todo: change this name
-    personal_field = models.CharField(_("Campo"), choices="", max_length=32)
+    personal_field = models.CharField(_("Campo"), choices=fields, max_length=32)
     value = models.IntegerField(_("Valor Limite"), default=0)
-    operation = models.CharField(_("Tipo de Validacion"), max_length=12)
+    operation = models.CharField(
+        _("Tipo de Validacion"), choices=operations, max_length=12
+    )
 
     class Meta:
         verbose_name = _("DiseasesParams")
         verbose_name_plural = _("DiseasesParamss")
 
     def __str__(self):
-        return str(self.pk)
+        return f"DiseasesParams(disease={self.disease}, personal_field={self.personal_field}, operation={self.operation}, value={self.value})"
 
     def get_absolute_url(self):
         return reverse("DiseasesParams_detail", kwargs={"pk": self.pk})
+
+    def check_expression(self, value: float) -> tuple[bool, float]:
+        delta = value - self.value
+        match self.operation:
+            case "lte":
+                return value <= self.value, delta
+            case "lt":
+                return value < self.value, delta
+            case "gte":
+                return value >= self.value, delta
+            case "gt":
+                return value > self.value, delta

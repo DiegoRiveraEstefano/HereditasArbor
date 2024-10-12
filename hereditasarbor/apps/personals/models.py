@@ -33,6 +33,9 @@ class PersonalData(models.Model):
     def get_absolute_url(self):
         return reverse("personal:detail", kwargs={"pk": self.pk})
 
+    def get_time_stamps(self) -> models.QuerySet:
+        return self.datas.all()
+
 
 class PersonalTimeStampData(models.Model):
     personal_data = models.ForeignKey(
@@ -52,12 +55,13 @@ class PersonalTimeStampData(models.Model):
     # todo: definir correctamente estos valores medicos
     cardiac_pulse = models.IntegerField(_("Frecuencia cardíaca"), null=True)
 
-    glucose = models.IntegerField(_("Frecuencia cardíaca"), null=True)
+    glucose = models.IntegerField(_("Glucosa"), null=True)
 
     cholesterol = models.IntegerField(_("Colesterol"), null=True)
 
     class Meta:
         ordering = ("added_data",)
+        get_latest_by = ["pk", "added_data"]
         verbose_name = _("PersonalMedical")
         verbose_name_plural = _("PersonalMedicals")
         permissions = [
