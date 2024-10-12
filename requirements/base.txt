@@ -15,7 +15,7 @@ uvicorn-worker==0.2.0  # https://github.com/Kludex/uvicorn-worker
 # -----------------------------------------------------------------------------
 numpy==2.1.2
 pandas==2.2.3
-polars[numpy,pandas,pyarrow]==1.9.0 
+#polars[numpy,pandas,pyarrow]==1.9.0 
 
 # Ai
 # -----------------------------------------------------------------------------

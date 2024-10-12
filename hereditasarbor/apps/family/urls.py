@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import familiar_create_view
-from .views import familiar_delete_view
-from .views import familiar_detail_view
-from .views import familiar_list_view
-from .views import familiar_update_view
+from hereditasarbor.apps.family.views import familiar_create_view
+from hereditasarbor.apps.family.views import familiar_delete_view
+from hereditasarbor.apps.family.views import familiar_detail_view
+from hereditasarbor.apps.family.views import familiar_list_view
+from hereditasarbor.apps.family.views import familiar_update_view
 
 app_name = "family"
 urlpatterns = [

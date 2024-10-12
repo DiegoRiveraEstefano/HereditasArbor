@@ -2,10 +2,10 @@ from collections.abc import Iterable
 
 from celery import shared_task
 
-from .models import Disease
-from .models import Familiar
-from .models import FamiliarDiseases
-from .models import FamilyTree
+from hereditasarbor.apps.family.models import Disease
+from hereditasarbor.apps.family.models import Familiar
+from hereditasarbor.apps.family_diseases.models import FamiliarDiseases
+from hereditasarbor.apps.family.models import FamilyTree
 
 # todo: change this to read from a fixture file
 disease_degradations = {

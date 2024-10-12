@@ -37,7 +37,6 @@ class PersonalDataCreateView(CreateView, LoginRequiredMixin):
     form_class = PersonalDataCreateForm
 
     def get_success_url(self) -> str:
-        self.request.user.user_permissions.add("personals.has_personal_data")
         return reverse("users:me")
 
     def get_initial(self) -> dict[str, Any]:

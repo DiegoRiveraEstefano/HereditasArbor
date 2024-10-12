@@ -4,53 +4,61 @@
     {% include "components/layout/haeder.html" with color_header="text-white" %}
 {% endblock header %}
 {% block content %}
-    <section class="container px-6 py-12 mx-auto lg:py-16">
-        <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">Family Members</h1>
-        <div class="container flex justify-center py-6 mx-auto">
-            <a class="text-sm text-gray-500" href="{% url "family:create" %}">
-                <button class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                    Añadir Familiar
-                </button>
-            </a>
-        </div>
-        <div class="mt-8 grid gap-8 xl:-mx-6 xl:grid-cols-3">
-            {% for familiar in object_list %}
-                <div class="p-6 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-                    <h2 class="font-serif text-2xl text-[#343D33] capitalize">{{ familiar.name }}</h2>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Relation:</strong> {{ familiar.get_relation_type_display }}
-                    </p>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Sex:</strong> {{ familiar.get_sex_display }}
-                    </p>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Birth Date:</strong> {{ familiar.birth_date|date:"F j, Y" }}
-                    </p>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Height:</strong> {{ familiar.height }} cm
-                    </p>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Weight:</strong> {{ familiar.weight }} kg
-                    </p>
-                    <p class="text-gray-500 mt-4">
-                        {% if familiar.death %}
-                            <strong>Death Date:</strong> {{ familiar.death_date|date:"F j, Y" }}
-                            <br />
-                            <strong>Death Type:</strong> {{ familiar.get_death_type_display }}
-                        {% else %}
-                            <strong>Status:</strong> Alive
-                        {% endif %}
-                    </p>
-                    <a href="{{ familiar.get_absolute_url }}"
-                       class="block mt-4 text-sm text-white bg-[#475F45] hover:bg-[#475F45]/80 transition-colors duration-300 px-4 py-2 uppercase font-bold tracking-widest text-center">
-                        View Details
-                    </a>
-                </div>
-            {% empty %}
-                <p class="text-gray-500">No family members available.</p>
-            {% endfor %}
-        </div>
-    </section>
+    <main>
+        <section class="container px-6 py-12 mx-auto lg:py-16">
+            <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">Family Members</h1>
+            <div class="container flex justify-center py-6 mx-auto">
+                <a class="text-sm text-gray-500" href="{% url "family:create" %}">
+                    <button class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
+                        Añadir Familiar
+                    </button>
+                </a>
+            </div>
+            <div class="mt-8 grid gap-8 xl:-mx-6 xl:grid-cols-3">
+                {% for familiar in object_list %}
+                    <div class="p-6 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                        <h2 class="font-serif text-2xl text-[#343D33] capitalize">{{ familiar.name }}</h2>
+                        <p class="text-gray-500 mt-2">
+                            <strong>Relation:</strong> {{ familiar.get_relation_type_display }}
+                        </p>
+                        <p class="text-gray-500 mt-2">
+                            <strong>Sex:</strong> {{ familiar.get_sex_display }}
+                        </p>
+                        <p class="text-gray-500 mt-2">
+                            <strong>Birth Date:</strong> {{ familiar.birth_date|date:"F j, Y" }}
+                        </p>
+                        <p class="text-gray-500 mt-2">
+                            <strong>Height:</strong> {{ familiar.height }} cm
+                        </p>
+                        <p class="text-gray-500 mt-2">
+                            <strong>Weight:</strong> {{ familiar.weight }} kg
+                        </p>
+                        <p class="text-gray-500 mt-4">
+                            {% if familiar.death %}
+                                <strong>Death Date:</strong> {{ familiar.death_date|date:"F j, Y" }}
+                                <br />
+                                <strong>Death Type:</strong> {{ familiar.get_death_type_display }}
+                            {% else %}
+                                <strong>Status:</strong> Alive
+                            {% endif %}
+                        </p>
+                        <a href="{{ familiar.get_absolute_url }}"
+                           class="block mt-4 text-sm text-white bg-[#475F45] hover:bg-[#475F45]/80 transition-colors duration-300 px-4 py-2 uppercase font-bold tracking-widest text-center">
+                            View Details
+                        </a>
+                    </div>
+                {% empty %}
+                    <p class="text-gray-500">No family members available.</p>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-4">
+            <div class="mt-4 mb-4">
+                <a href="{% url 'users:me' %}"
+                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Back</a>
+            </div>
+        </section>
+    </main>
 {% endblock content %}
 {% block footer %}
     {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}

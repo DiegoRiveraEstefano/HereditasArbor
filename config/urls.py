@@ -46,6 +46,10 @@ urlpatterns = [
         "personal/",
         include("hereditasarbor.apps.personals.urls", namespace="personal"),
     ),
+    path(
+        "analytics/",
+        include("hereditasarbor.apps.analytics.urls", namespace="analytics"),
+    ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # ...
