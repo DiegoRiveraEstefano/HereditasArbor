@@ -2,13 +2,11 @@ from typing import Any
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
-from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import QuerySet
-from django.db.models.base import Model as Model
-from django.shortcuts import get_object_or_404
+from django.db.models.base import Model
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
@@ -21,6 +19,7 @@ from hereditasarbor.apps.users.models import User
 
 from .forms import UserCreationForm
 from .forms import UserLoginForm
+from .forms import UserLogOutForm
 
 
 class UserCreateView(CreateView):
@@ -64,6 +63,22 @@ class UserLoginFormView(FormView):
 
 
 user_login_view = UserLoginFormView.as_view()
+
+
+class UserLogOutView(FormView, LoginRequiredMixin, SuccessMessageMixin):
+    template_name = "users/views/user_logout.html"
+    form_class = UserLogOutForm
+    success_message = "Session Cerrada Correctamente"
+
+    def get_success_url(self):
+        return reverse("home")
+
+    def form_valid(self, form):
+        logout(self.request)
+        return super().form_valid(form)
+
+
+user_log_out_view = UserLogOutView.as_view()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
