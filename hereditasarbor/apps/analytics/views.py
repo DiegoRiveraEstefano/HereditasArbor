@@ -1,31 +1,37 @@
-from collections.abc import Iterable
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models.base import Model as Model
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import FormView
-from django.views.generic import RedirectView
 from django.views.generic import TemplateView
-from django.views.generic import UpdateView
 
-from hereditasarbor.apps.analytics.models import Analytic
 from hereditasarbor.apps.analytics.tasks import calc_diseas_from_params
 from hereditasarbor.apps.analytics.tasks import calculate_chance_of_disease
-from hereditasarbor.apps.analytics.tasks import convert_score_to_chance
 from hereditasarbor.apps.analytics.tasks import count_per_disease_in_family
-from hereditasarbor.apps.analytics.tasks import different_diseases_per_family
 from hereditasarbor.apps.analytics.tasks import get_deltas_from_disease
 from hereditasarbor.apps.diseases.models import Disease
 from hereditasarbor.apps.diseases.models import DiseasesParams
 
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
-class AnalyticsIndexView(TemplateView, LoginRequiredMixin):
+
+class AnalyticsIndexView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
     template_name = "analytics/analytics_resume.html"
+
+    def test_func(self):
+        if not self.request.user.has_personal_data:
+            return False
+        return self.request.user.get_personal_data().get_time_stamps().count() != 0
+
+    def dispatch(self, request, *args, **kwargs):
+        user_test_result = self.get_test_func()()
+        if not user_test_result:
+            return HttpResponseRedirect(reverse("personal:time_stamp-create"))
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)

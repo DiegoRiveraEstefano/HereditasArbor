@@ -42,9 +42,9 @@ class UserLoginFormView(FormView):
     template_name = "users/user_login.html"
 
     def get_success_url(self) -> str:
-        if not self.request.user.has_personal_data():
-            return reverse("personal:create")
-        return reverse("users:me")
+        if self.request.user.has_personal_data:
+            return reverse("users:me")
+        return reverse("personal:create")
 
     def form_valid(self, form: UserLoginForm):
         user = authenticate(

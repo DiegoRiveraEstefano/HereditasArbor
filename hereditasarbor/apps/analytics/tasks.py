@@ -1,3 +1,4 @@
+import functools
 from collections.abc import Iterable
 
 import numpy as np
@@ -20,6 +21,26 @@ disease_degradations = {
     "mother": 1,
     "brother": 2,
 }
+
+
+def memoize(max_lenght: int = 64):
+    def decorator(func):
+        memo = {}
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            if args in memo:
+                return memo[args]
+            else:
+                rv = func(*args)
+                if len(memo) > max_lenght:
+                    memo.clear()
+                memo[args] = rv
+                return rv
+
+        return wrapper
+
+    return decorator
 
 
 @shared_task
@@ -110,6 +131,8 @@ def calculate_chance_of_disease(disease: Disease, family_tree: FamilyTree) -> in
     return score
 
 
+@shared_task
+@memoize(max_lenght=256)
 def convert_score_to_chance(score: int) -> float:
     """NO TESTED
 
@@ -133,7 +156,8 @@ def convert_score_to_chance(score: int) -> float:
 
 @shared_task
 def calc_diseas_from_params(
-    disease: Disease, personal_data: PersonalData
+    disease: Disease,
+    personal_data: PersonalData,
 ) -> tuple[bool, int]:
     params: QuerySet[DiseasesParams] = disease.get_params()
     last_personal_time_stamp: QuerySet[PersonalTimeStampData] = (
@@ -153,7 +177,8 @@ def calc_diseas_from_params(
 
 @shared_task
 def get_deltas_from_disease(
-    disease: Disease, personal_data: PersonalData
+    disease: Disease,
+    personal_data: PersonalData,
 ) -> dict[int, dict[str, int | bool | DiseasesParams]]:
     params: QuerySet[DiseasesParams] = disease.get_params()
     last_personal_time_stamp: QuerySet[PersonalTimeStampData] = (

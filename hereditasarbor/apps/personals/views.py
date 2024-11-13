@@ -37,7 +37,7 @@ class PersonalDataCreateView(CreateView, LoginRequiredMixin):
     form_class = PersonalDataCreateForm
 
     def get_success_url(self) -> str:
-        return reverse("personal:time_stamp-create")
+        return reverse("users:me")
 
     def get_initial(self) -> dict[str, Any]:
         return {"user": self.request.user.pk}
