@@ -1,54 +1,23 @@
-from allauth.account.forms import SignupForm
-from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django import forms
-from django.contrib.auth import forms as admin_forms
 from django.forms import widgets
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
 
 
-class UserAdminChangeForm(admin_forms.UserChangeForm):
-    class Meta(admin_forms.UserChangeForm.Meta):  # type: ignore[name-defined]
-        model = User
-
-
-class UserAdminCreationForm(admin_forms.UserCreationForm):
-    """
-    Form for User Creation in the Admin Area.
-    To change user signup, see UserSignupForm and UserSocialSignupForm.
-    """
-
-    class Meta(admin_forms.UserCreationForm.Meta):  # type: ignore[name-defined]
-        model = User
-        error_messages = {
-            "username": {"unique": _("This username has already been taken.")},
-        }
-
-
-class UserSignupForm(SignupForm):
-    """
-    Form that will be rendered on a user sign up section/screen.
-    Default fields will be added automatically.
-    Check UserSocialSignupForm for accounts created from social.
-    """
-
-
-class UserSocialSignupForm(SocialSignupForm):
-    """
-    Renders the form when user has signed up using social accounts.
-    Default fields will be added automatically.
-    See UserSignupForm otherwise.
-    """
-
-
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(
-        max_length=128, required=True, label="Contraseña", widget=widgets.PasswordInput
+        max_length=128,
+        required=True,
+        label="Contraseña",
+        widget=widgets.PasswordInput,
     )
 
     email = forms.CharField(
-        max_length=128, required=True, label="Correo", widget=widgets.EmailInput
+        max_length=128,
+        required=True,
+        label="Correo",
+        widget=widgets.EmailInput,
     )
 
     class Meta:
@@ -58,15 +27,24 @@ class UserCreationForm(forms.ModelForm):
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(
-        max_length=128, required=True, label="Usuario", widget=widgets.TextInput
+        max_length=128,
+        required=True,
+        label="Usuario",
+        widget=widgets.TextInput,
     )
 
     password = forms.CharField(
-        max_length=128, required=True, label="Contraseña", widget=widgets.PasswordInput
+        max_length=128,
+        required=True,
+        label="Contraseña",
+        widget=widgets.PasswordInput,
     )
 
 
 class UserLogOutForm(forms.Form):
     confirmation = forms.BooleanField(
-        required=True, label="Usuario", widget=widgets.HiddenInput, initial=True
+        required=True,
+        label="Usuario",
+        widget=widgets.HiddenInput,
+        initial=True,
     )

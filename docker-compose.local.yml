@@ -82,21 +82,6 @@ services:
     ports:
       - '5555:5555'
     command: /start-flower
-
-  duckdns:
-    image: lscr.io/linuxserver/duckdns:latest
-    container_name: hereditasarbor_duckdns
-    network_mode: host #optional
-    env_file:
-      - ./.envs/.local/.duck
-    environment:
-      - TZ=Etc/UTC #optional
-      - UPDATE_IP=ipv4 #optional
-      - LOG_FILE=false #optional
-      - TOKEN=REDACTED_DUCKDNS_TOKEN
-      - SUBDOMAINS=hereditasarbor
-    restart: unless-stopped
-
   
 #  postfix:
 #    image: postfix:3.7
