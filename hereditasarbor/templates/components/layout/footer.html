@@ -21,9 +21,9 @@
     </div>
     <div class="flex flex-col space-y-4">
       <a href="{% url "home" %}" class="text-white hover:text-gray-300">Home</a>
-      <a href="#" class="text-white hover:text-gray-300">Visit</a>
-      <a href="#" class="text-white hover:text-gray-300">Exhibitions</a>
-      <a href="#" class="text-white hover:text-gray-300">Programs & Events</a>
+      <a href="{% url "family:list" %}" class="text-white hover:text-gray-300">Arbol</a>
+      <a href="{% url "users:me" %}" class="text-white hover:text-gray-300">Perfil</a>
+      <a href="{% url "personal:me" %}" class="text-white hover:text-gray-300">Informacion Personal</a>
     </div>
     <div>
       <p class="font-medium text-white capitalize">Connect</p>

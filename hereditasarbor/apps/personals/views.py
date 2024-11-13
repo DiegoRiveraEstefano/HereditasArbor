@@ -37,7 +37,7 @@ class PersonalDataCreateView(CreateView, LoginRequiredMixin):
     form_class = PersonalDataCreateForm
 
     def get_success_url(self) -> str:
-        return reverse("users:me")
+        return reverse("personal:time_stamp-create")
 
     def get_initial(self) -> dict[str, Any]:
         return {"user": self.request.user.pk}
@@ -51,7 +51,7 @@ class PersonalDataCreateView(CreateView, LoginRequiredMixin):
 personal_data_create_view = PersonalDataCreateView.as_view()
 
 
-class PersonalDataUpdateView(UpdateView):
+class PersonalDataUpdateView(UpdateView, LoginRequiredMixin):
     model = PersonalData
     template_name = "personals/views/personal_edit.html"
     form_class = PersonalDataUpdateForm

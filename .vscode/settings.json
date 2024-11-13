@@ -1,7 +1,15 @@
 {
-    "css.styleSheets": ["hereditasarbor/static/css/output.css"],
+    "css.styleSheets": ["../static/css/output.css"],
     "[html][django-html]": {
-        "editor.defaultFormatter": "monosans.djlint"
+        "editor.defaultFormatter": "monosans.djlint",
+        "editor.formatOnSave": true,
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
     },
     "files.eol": "\n",
 }

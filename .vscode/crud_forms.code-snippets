@@ -1,0 +1,27 @@
+{
+	"create new model form subset": {
+		"scope": "python",
+		"prefix": "mform_crud",
+		"body": [
+			"class ${1/(.*)/${1:/pascalcase}/}CreateForm(forms.ModelForm):",
+			"    class Meta:",
+			"       model = ${1/(.*)/${1:/pascalcase}/}",
+			"       fields = ()",
+			"",
+			"",
+			"class ${1/(.*)/${1:/pascalcase}/}UpdateForm(forms.ModelForm):",
+			"    class Meta:",
+			"        model = ${1/(.*)/${1:/pascalcase}/}",
+			"        fields = (\"pk\",)",
+			"",
+			"",
+			"class ${1/(.*)/${1:/pascalcase}/}DeleteForm(forms.ModelForm):",
+			"    confirmation = forms.BooleanField(label=_('Confirmacion'), required=False)",
+			"",
+			"    class Meta:",
+			"        model = ${1/(.*)/${1:/pascalcase}/}",
+			"        fields = (\"pk\",)",
+		],
+		"description": "Create a subset of forms from a model"
+	}
+}

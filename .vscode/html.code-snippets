@@ -23,6 +23,30 @@
         ],
         "description": "Create a new section"
     },
+    "article": {
+        "scope": "django-html",
+        "prefix": "article",
+        "body": [
+            "<article>$1</article>",
+        ],
+        "description": "Create a new article"
+    },
+    "style": {
+        "scope": "django-html",
+        "prefix": "style",
+        "body": [
+            "<style>$1</style>",
+        ],
+        "description": "Create a new style"
+    },
+    "script": {
+        "scope": "django-html",
+        "prefix": "script",
+        "body": [
+            "<script>$1</script>",
+        ],
+        "description": "Create a new script"
+    },
     "h1": {
         "scope": "django-html",
         "prefix": "h1",

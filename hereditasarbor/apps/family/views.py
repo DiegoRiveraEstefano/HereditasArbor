@@ -17,11 +17,10 @@ from django.views.generic import ListView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
-from hereditasarbor.apps.family.models import Familiar
-from hereditasarbor.apps.family.models import FamilyTree
-
 from hereditasarbor.apps.family.forms import FamiliarForm
 from hereditasarbor.apps.family.forms import FamiliarUpdateForm
+from hereditasarbor.apps.family.models import Familiar
+from hereditasarbor.apps.family.models import FamilyTree
 
 
 class FamiliarDetailView(DetailView, LoginRequiredMixin):

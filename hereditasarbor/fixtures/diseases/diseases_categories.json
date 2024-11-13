@@ -1,0 +1,26 @@
+[
+    {
+        "model": "diseases.DiseaseCategory",
+        "pk": 0,
+        "fields": {
+            "name": "Categoria 00",
+            "description": "Categoria de Enfermedad 00"
+        }
+    },
+    {
+        "model": "diseases.DiseaseCategory",
+        "pk": 1,
+        "fields": {
+            "name": "Categoria 01",
+            "description": "Categoria de Enfermedad 01"
+        }
+    },
+    {
+        "model": "diseases.DiseaseCategory",
+        "pk": 2,
+        "fields": {
+            "name": "Categoria 02",
+            "description": "Categoria de Enfermedad 02"
+        }
+    }
+]

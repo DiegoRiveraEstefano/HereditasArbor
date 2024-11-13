@@ -1,0 +1,14 @@
+{
+	"create new subset of urls from a model": {
+		"scope": "python",
+		"prefix": "murls_crud",
+		"body": [
+			"    path(\"\", view=${1/(.*)/${1:/downcase}/}_list_view, name=\"${1/(.*)/${1:/downcase}/}-list\"),",
+			"    path(\"create/\", view=${1/(.*)/${1:/downcase}/}_create_view, name=\"${1/(.*)/${1:/downcase}/}-create\"),",
+			"    path(\"delete/<str:pk>\", view=${1/(.*)/${1:/downcase}/}_delete_view, name=\"${1/(.*)/${1:/downcase}/}-delete\"),",
+			"    path(\"update/<str:pk>\", view=${1/(.*)/${1:/downcase}/}_update_view, name=\"${1/(.*)/${1:/downcase}/}-update\"),",
+			"    path(\"<str:pk>/\", view=${1/(.*)/${1:/downcase}/}_detail_view, name=\"${1/(.*)/${1:/downcase}/}-detail\"),",
+		],
+		"description": "Create a subset of urls from a model"
+	}
+}
