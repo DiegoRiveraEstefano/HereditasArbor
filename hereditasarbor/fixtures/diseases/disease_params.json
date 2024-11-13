@@ -1,0 +1,72 @@
+[
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 0,
+        "fields": {
+            "disease": 0,
+            "personal_field": "glucose",
+            "value": 8,
+            "operation": "gt"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 1,
+        "fields": {
+            "disease": 1,
+            "personal_field": "cholesterol",
+            "value": 16,
+            "operation": "gte"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 2,
+        "fields": {
+            "disease": 2,
+            "personal_field": "cardiac_pulse",
+            "value": 24,
+            "operation": "lt"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 3,
+        "fields": {
+            "disease": 3,
+            "personal_field": "glucose",
+            "value": 32,
+            "operation": "lte"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 4,
+        "fields": {
+            "disease": 4,
+            "personal_field": "cholesterol",
+            "value": 40,
+            "operation": "gt"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 5,
+        "fields": {
+            "disease": 5,
+            "personal_field": "glucose",
+            "value": 48,
+            "operation": "gte"
+        }
+    },
+    {
+        "model": "diseases.DiseasesParams",
+        "pk": 6,
+        "fields": {
+            "disease": 5,
+            "personal_field": "cholesterol",
+            "value": 56,
+            "operation": "gt"
+        }
+    }
+]

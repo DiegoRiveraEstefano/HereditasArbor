@@ -147,7 +147,7 @@ def calc_diseas_from_params(
     deltas = []
     for x in results:
         boleans.append(x[0])
-        deltas.append(x[1])
+        deltas.append(abs(x[1]))
     return all(boleans), int(np.mean(deltas))
 
 
@@ -165,6 +165,6 @@ def get_deltas_from_disease(
         data[x.pk] = {
             "param": x,
             "definition": result[0],
-            "delta": result[1],
+            "delta": abs(result[1]),
         }
     return data

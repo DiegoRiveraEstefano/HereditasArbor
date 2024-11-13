@@ -1,0 +1,68 @@
+[
+    {
+        "model": "diseases.Disease",
+        "pk": 0,
+        "fields": {
+            "name": "Enfermedad 00",
+            "description": "Enfermedad de Prueba 00",
+            "endogena": true,
+            "chance": 12.2,
+            "category": 0
+        }
+    },
+    {
+        "model": "diseases.Disease",
+        "pk": 1,
+        "fields": {
+            "name": "Enfermedad 01",
+            "description": "Enfermedad de Prueba 01",
+            "endogena": false,
+            "chance": 0.0,
+            "category": 0
+        }
+    },
+    {
+        "model": "diseases.Disease",
+        "pk": 2,
+        "fields": {
+            "name": "Enfermedad 02",
+            "description": "Enfermedad de Prueba 02",
+            "endogena": true,
+            "chance": 35.2,
+            "category": 1
+        }
+    },
+    {
+        "model": "diseases.Disease",
+        "pk": 3,
+        "fields": {
+            "name": "Enfermedad 03",
+            "description": "Enfermedad de Prueba 03",
+            "endogena": false,
+            "chance": 0.0,
+            "category": 1
+        }
+    },
+    {
+        "model": "diseases.Disease",
+        "pk": 4,
+        "fields": {
+            "name": "Enfermedad 04",
+            "description": "Enfermedad de Prueba 04",
+            "endogena": true,
+            "chance": 55.2,
+            "category": 2
+        }
+    },
+    {
+        "model": "diseases.Disease",
+        "pk": 5,
+        "fields": {
+            "name": "Enfermedad 05",
+            "description": "Enfermedad de Prueba 05",
+            "endogena": false,
+            "chance": 0.0,
+            "category": 2
+        }
+    }
+]

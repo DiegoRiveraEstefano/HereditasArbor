@@ -49,7 +49,7 @@ class AnalyticsIndexView(TemplateView, LoginRequiredMixin):
 analytics_index_view = AnalyticsIndexView.as_view()
 
 
-class AnalyticsDetailView(TemplateView):
+class AnalyticsDetailView(TemplateView, LoginRequiredMixin):
     template_name = "analytics/analytics_detail.html"
 
     def get_context_data(self, **kwargs):
