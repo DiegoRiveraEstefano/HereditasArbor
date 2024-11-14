@@ -2,7 +2,6 @@ import functools
 from collections.abc import Iterable
 
 import numpy as np
-import pandas as pd
 from celery import shared_task
 from django.db.models import QuerySet
 
