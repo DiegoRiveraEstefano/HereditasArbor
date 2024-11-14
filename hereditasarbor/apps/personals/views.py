@@ -60,7 +60,7 @@ class PersonalDataUpdateView(UpdateView, LoginRequiredMixin):
         return get_object_or_404(PersonalData, user=self.request.user)
 
     def get_success_url(self) -> str:
-        return reverse("personal:detail")
+        return reverse("personal:me")
 
 
 personal_data_update_view = PersonalDataUpdateView.as_view()
