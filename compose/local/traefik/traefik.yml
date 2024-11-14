@@ -1,0 +1,47 @@
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    address: ':80'
+
+  flower:
+    address: ':5555'
+
+http:
+  routers:
+    web-router:
+      rule: 'Host(`127.0.0.1`) || Host(`localhost`) || Host(`10.244.53.154`) || Host(`127.0.0.1:80`) || Host(`localhost:80`) || Host(`10.244.53.154:80`)'
+      entryPoints:
+        - web
+      middlewares:
+        - csrf
+      service: django
+
+    flower-router:
+      rule: 'Host(`127.0.0.1`) || Host(`localhost`) || Host(`10.244.53.154`) || Host(`127.0.0.1:80`) || Host(`localhost:80`) || Host(`10.244.53.154:80`)'
+      entryPoints:
+        - flower
+      service: flower
+
+  middlewares:
+    csrf:
+      headers:
+        hostsProxyHeaders: ['X-CSRFToken']
+
+  services:
+    django:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
+
+    flower:
+      loadBalancer:
+        servers:
+          - url: http://flower:5555
+
+providers:
+  # https://doc.traefik.io/traefik/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true

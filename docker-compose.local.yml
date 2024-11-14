@@ -4,6 +4,8 @@ volumes:
   hereditasarbor_local_redis_data: {}
   hereditasarbor_local_email_data: {}
   hereditasarbor_local_duck_data: {}
+  hereditasarbor_local_django_media: {}
+  hereditasarbor_local_django_static: {}
 
 services:
   django: &django
@@ -18,13 +20,35 @@ services:
       - mailpit
     volumes:
       - .:/app:z
+      - hereditasarbor_local_django_media:/app/hereditasarbor/media
+      - hereditasarbor_local_django_static:/app/hereditasarbor/static
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
       - ./.envs/.production/.mail
-    ports:
-      - '8000:8000'
     command: /start
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./compose/local/traefik/Dockerfile
+    image: hereditasarbor_local_traefik
+    depends_on:
+      - django
+    ports:
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:5555:5555'
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/local/nginx/Dockerfile
+    image: hereditasarbor_local_nginx
+    depends_on:
+      - traefik
+    volumes:
+      - hereditasarbor_local_django_media:/usr/share/nginx/media:ro
+      - hereditasarbor_local_django_static:/usr/share/nginx/static:ro
 
   postgres:
     build:
@@ -74,21 +98,4 @@ services:
       - mailpit
     ports: []
     command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: hereditasarbor_local_flower
-    container_name: hereditasarbor_local_flower
-    ports:
-      - '5555:5555'
-    command: /start-flower
-  
-#  postfix:
-#    image: postfix:3.7
-#    ports:
-#      - "25:25"
-#    volumes:
-#      - "hereditasarbor_local_email_data:/var/mail"
-#    env_file:
-#      - ./.envs/.local/.mail
 
