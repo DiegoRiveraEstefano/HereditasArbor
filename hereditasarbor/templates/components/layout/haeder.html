@@ -1,4 +1,4 @@
-<header class="relative">
+<header class="relative" x-data="{ open: false }">
   <div class="container px-6 py-6 mx-auto lg:flex lg:items-center lg:justify-between">
     <div class="flex items-center justify-between ">
       <a class="flex items-center -mx-1" href="{% url "home" %}">
@@ -34,7 +34,7 @@
         <a href="{% url "privacy" %}"
            class="font-medium text-white lg:text-[#475F45] lg:hover:text-gray-400 lg:mx-4">Privacidad</a>
         {% if user.is_authenticated %}
-          <div x-data="{ open: false }">
+          <div>
             <a @click="open = !open"
                class="px-8 py-2.5 text-white lg:text-[#475F45] lg:hover:bg-[#475F45] lg:hover:text-white duration-300 transition-colors font-medium lg:mx-4 border-2 lg:border-[#475F45] border-white"
                href="#">Menu</a>
