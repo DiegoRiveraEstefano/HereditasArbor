@@ -19,7 +19,7 @@ class FamilyTree(models.Model):
     )
 
     class Meta:
-        ordering = ["owner"]||
+        ordering = ["owner"]
         verbose_name = _("FamilyTree")
         verbose_name_plural = _("FamilyTrees")
 
