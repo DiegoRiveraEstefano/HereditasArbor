@@ -6,8 +6,6 @@ ipdb==0.13.13  # https://github.com/gotcha/ipdb
 psycopg[c]==3.2.2  # https://github.com/psycopg/psycopg
 watchfiles==0.24.0  # https://github.com/samuelcolvin/watchfiles
 
-numpy==2.1.2
-pandas==2.2.3
 # Testing
 # ------------------------------------------------------------------------------
 mypy==1.11.2  # https://github.com/python/mypy
