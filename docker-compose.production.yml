@@ -67,6 +67,8 @@ services:
       - duckdns
     volumes:
       - production_traefik:/etc/traefik/acme
+    env_file:
+      - ./.envs/.production/.duck
     ports:
       - '0.0.0.0:80:80'
       - '0.0.0.0:443:443'
