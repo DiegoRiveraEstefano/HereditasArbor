@@ -29,4 +29,4 @@ if compress_enabled; then
   # NOTE this command will fail if django-compressor is disabled
   python /app/manage.py compress
 fi
-exec pypy -m gunicorn config.asgi --bind 0.0.0.0:5000 --chdir=/app --workers=2 -k uvicorn_worker.UvicornWorker
+exec gunicorn config.asgi --bind 0.0.0.0:5000 --chdir=/app --workers=2 -k uvicorn_worker.UvicornWorker
