@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
   # psycopg dependencies
-  libpq-dev
+  libpq-dev \
+  openssl \
+  libffi-dev
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
@@ -46,6 +48,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   gettext \
   # curl
   curl \
+  python3-pandas \
+  python3-numpy \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
