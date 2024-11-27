@@ -14,7 +14,7 @@ SECRET_KEY = env(
     default="ECoJ0dMgglO1wUgvJX0v2QxLIMclmRLJ5Lyp3gr4l6TxZLzN46ZB7V49PjqliS59",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "10.244.53.154"]  # noqa: S104
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "10.244.53.154", "hereditasarbor.duckdns.org"]  # noqa: S104
 
 # CACHES
 # ------------------------------------------------------------------------------

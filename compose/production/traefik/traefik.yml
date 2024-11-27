@@ -1,36 +1,41 @@
 log:
   level: INFO
 
+certificatesResolvers:
+  resolver:
+    acme:
+      dnsChallenge:
+        provider: duckdns
+
 entryPoints:
   web:
     address: ':80'
+    http:
+      redirections:
+        entryPoint:
+          to: web-secure
 
-  flower:
-    address: ':5555'
+  web-secure:
+    address: ':443'
+    http:
+      tls:
+        certResolver: resolver
+        domains:
+         - main: "hereditasarbor.duckdns.org"
+           sans:
+              - "*.hereditasarbor.duckdns.org"
 
 http:
   routers:
     web-router:
-      rule: 'Host(`127.0.0.1`) || Host(`localhost`) || Host(`10.244.53.154`)'
+      rule: 'Host(`hereditasarbor.duckdns.org`) || Host(`www.hereditasarbor.duckdns.org`)'
       entryPoints:
-        - web
+        - web-secure
       middlewares:
         - csrf
-      service: django
-
-    flower-router:
-      rule: 'Host(`127.0.0.1`) || Host(`localhost`) || Host(`10.244.53.154`)'
-      entryPoints:
-        - flower
-      service: flower
-
-    web-media-router:
-      rule: '(Host(`127.0.0.1`) || Host(`localhost`) || Host(`10.244.53.154`)) && PathPrefix(`/media/`)'
-      entryPoints:
-        - web
-      middlewares:
-        - csrf
-      service: django-media
+      service: nginx
+      tls:
+        certResolver: resolver
 
   middlewares:
     csrf:
@@ -38,23 +43,12 @@ http:
         hostsProxyHeaders: ['X-CSRFToken']
 
   services:
-    django:
-      loadBalancer:
-        servers:
-          - url: http://django:5000
-
-    flower:
-      loadBalancer:
-        servers:
-          - url: http://flower:5555
-
-    django-media:
+    nginx:
       loadBalancer:
         servers:
           - url: http://nginx:80
 
 providers:
-  # https://doc.traefik.io/traefik/master/providers/file/
   file:
     filename: /etc/traefik/traefik.yml
     watch: true
