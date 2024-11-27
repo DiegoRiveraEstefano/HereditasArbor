@@ -30,7 +30,7 @@ services:
 
   duckdns:
     image: lscr.io/linuxserver/duckdns:latest
-    container_name: duckdns
+    container_name: hereditasarbor_production_duckdns
     network_mode: host #optional
     environment:
       - PUID=1000 #optional
