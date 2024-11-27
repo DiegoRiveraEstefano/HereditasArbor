@@ -10,12 +10,10 @@ django-celery-beat==2.7.0  # https://github.com/celery/django-celery-beat
 flower==2.0.1  # https://github.com/mher/flower
 uvicorn[standard]==0.30.6  # https://github.com/encode/uvicorn
 uvicorn-worker==0.2.0  # https://github.com/Kludex/uvicorn-worker
-cryptography == 43.0.3 # https://pypi.org/project/cryptography/
+cryptography==43.0.3 # https://pypi.org/project/cryptography/
 # Data analytics
 # -----------------------------------------------------------------------------
-numpy==2.1.2
-pandas==2.2.3
-#polars[numpy,pandas,pyarrow]==1.9.0 
+#polars[numpy,pandas,pyarrow]==1.9.0
 
 # Ai
 # -----------------------------------------------------------------------------
