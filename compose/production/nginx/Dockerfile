@@ -1,2 +1,3 @@
-FROM docker.io/nginx:1.17.8-alpine
+FROM docker.io/nginx:1.27.2-alpine
+COPY ./compose/production/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./compose/production/nginx/default.conf /etc/nginx/conf.d/default.conf

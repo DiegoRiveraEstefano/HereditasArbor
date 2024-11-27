@@ -3,9 +3,10 @@ volumes:
   production_postgres_data_backups: {}
   production_traefik: {}
   production_django_media: {}
-  
+  production_django_static: {}
+  production_django_protected: {}
   production_redis_data: {}
-  
+
 
 
 services:
@@ -13,10 +14,11 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-
     image: hereditasarbor_production_django
     volumes:
       - production_django_media:/app/hereditasarbor/media
+      - production_django_static:/app/staticfiles
+      - production_django_protected:/app/hereditasarbor/protected
     depends_on:
       - postgres
       - redis
@@ -25,6 +27,24 @@ services:
       - ./.envs/.production/.postgres
       - ./.envs/.production/.mail
     command: /start
+
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    network_mode: host #optional
+    environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=Etc/UTC #optional
+      #- UPDATE_IP=both #optional
+      - LOG_FILE=false #optional
+    env_file:
+      - ./.envs/.production/.duck
+
+  redis:
+    image: docker.io/redis:6
+    volumes:
+      - production_redis_data:/data
 
   postgres:
     build:
@@ -44,6 +64,7 @@ services:
     image: hereditasarbor_production_traefik
     depends_on:
       - django
+      - duckdns
     volumes:
       - production_traefik:/etc/traefik/acme
     ports:
@@ -51,12 +72,18 @@ services:
       - '0.0.0.0:443:443'
       - '0.0.0.0:5555:5555'
 
-  redis:
-    image: docker.io/redis:6
-    
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: hereditasarbor_production_nginx
+    depends_on:
+      - traefik
     volumes:
-      - production_redis_data:/data
-    
+      - production_django_media:/usr/share/nginx/media:ro
+      - production_django_static:/usr/share/nginx/static:ro
+      - production_django_protected:/usr/share/nginx/protected:ro
 
   celeryworker:
     <<: *django
@@ -67,18 +94,3 @@ services:
     <<: *django
     image: hereditasarbor_production_celerybeat
     command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: hereditasarbor_production_flower
-    command: /start-flower
-
-  nginx:
-    build:
-      context: .
-      dockerfile: ./compose/production/nginx/Dockerfile
-    image: hereditasarbor_production_nginx
-    depends_on:
-      - django
-    volumes:
-      - production_django_media:/usr/share/nginx/media:ro
