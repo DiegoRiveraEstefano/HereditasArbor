@@ -1,72 +1,342 @@
 [
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 0,
-        "fields": {
-            "disease": 0,
-            "personal_field": "glucose",
-            "value": 8,
-            "operation": "gt"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 1,
-        "fields": {
-            "disease": 1,
-            "personal_field": "cholesterol",
-            "value": 16,
-            "operation": "gte"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 2,
-        "fields": {
-            "disease": 2,
-            "personal_field": "cardiac_pulse",
-            "value": 24,
-            "operation": "lt"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 3,
-        "fields": {
-            "disease": 3,
-            "personal_field": "glucose",
-            "value": 32,
-            "operation": "lte"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 4,
-        "fields": {
-            "disease": 4,
-            "personal_field": "cholesterol",
-            "value": 40,
-            "operation": "gt"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 5,
-        "fields": {
-            "disease": 5,
-            "personal_field": "glucose",
-            "value": 48,
-            "operation": "gte"
-        }
-    },
-    {
-        "model": "diseases.DiseasesParams",
-        "pk": 6,
-        "fields": {
-            "disease": 5,
-            "personal_field": "cholesterol",
-            "value": 56,
-            "operation": "gt"
-        }
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 1,
+    "fields": {
+      "disease": 1,
+      "personal_field": "systolic_bp",
+      "value": 140,
+      "operation": "gt"
     }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 2,
+    "fields": {
+      "disease": 1,
+      "personal_field": "diastolic_bp",
+      "value": 90,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 3,
+    "fields": {
+      "disease": 2,
+      "personal_field": "ejection_fraction",
+      "value": 40,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 4,
+    "fields": {
+      "disease": 2,
+      "personal_field": "fatigue_on_exertion",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 5,
+    "fields": {
+      "disease": 3,
+      "personal_field": "fasting_glucose",
+      "value": 126,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 6,
+    "fields": {
+      "disease": 3,
+      "personal_field": "hba1c",
+      "value": 6.5,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 7,
+    "fields": {
+      "disease": 4,
+      "personal_field": "total_cholesterol",
+      "value": 200,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 8,
+    "fields": {
+      "disease": 4,
+      "personal_field": "ldl",
+      "value": 130,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 9,
+    "fields": {
+      "disease": 5,
+      "personal_field": "vef1",
+      "value": 80,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 10,
+    "fields": {
+      "disease": 5,
+      "personal_field": "bronchodilator_response",
+      "value": 12,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 11,
+    "fields": {
+      "disease": 6,
+      "personal_field": "cvf",
+      "value": 70,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 12,
+    "fields": {
+      "disease": 6,
+      "personal_field": "paO2",
+      "value": 60,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 13,
+    "fields": {
+      "disease": 7,
+      "personal_field": "ana",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 14,
+    "fields": {
+      "disease": 7,
+      "personal_field": "erythrocyte_sedimentation_rate",
+      "value": 20,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 15,
+    "fields": {
+      "disease": 8,
+      "personal_field": "rheumatoid_factor",
+      "value": 14,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 16,
+    "fields": {
+      "disease": 8,
+      "personal_field": "c_reactive_protein",
+      "value": 10,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 17,
+    "fields": {
+      "disease": 9,
+      "personal_field": "eeg_epileptic_activity",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 18,
+    "fields": {
+      "disease": 9,
+      "personal_field": "recurrent_seizures",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 19,
+    "fields": {
+      "disease": 10,
+      "personal_field": "brain_mri_lesions",
+      "value": 2,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 20,
+    "fields": {
+      "disease": 10,
+      "personal_field": "csf_oligoclonal_bands",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 21,
+    "fields": {
+      "disease": 11,
+      "personal_field": "h_pylori_test",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 22,
+    "fields": {
+      "disease": 11,
+      "personal_field": "persistent_epigastric_pain",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 23,
+    "fields": {
+      "disease": 12,
+      "personal_field": "c_reactive_protein",
+      "value": 10,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 24,
+    "fields": {
+      "disease": 12,
+      "personal_field": "colonoscopy_inflammation",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 25,
+    "fields": {
+      "disease": 13,
+      "personal_field": "morning_stiffness_duration",
+      "value": 1,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 26,
+    "fields": {
+      "disease": 13,
+      "personal_field": "joint_inflammation",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 27,
+    "fields": {
+      "disease": 14,
+      "personal_field": "bone_density_tscore",
+      "value": -2.5,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 28,
+    "fields": {
+      "disease": 14,
+      "personal_field": "previous_fractures",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 29,
+    "fields": {
+      "disease": 15,
+      "personal_field": "palpable_mass",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 30,
+    "fields": {
+      "disease": 15,
+      "personal_field": "positive_biopsy",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 31,
+    "fields": {
+      "disease": 16,
+      "personal_field": "chest_xray_nodule",
+      "value": 1,
+      "operation": "eq"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 32,
+    "fields": {
+      "disease": 16,
+      "personal_field": "persistent_cough_weeks",
+      "value": 4,
+      "operation": "gt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 33,
+    "fields": {
+      "disease": 22,
+      "personal_field": "hemoglobin",
+      "value": 12,
+      "operation": "lt"
+    }
+  },
+  {
+    "model": "diseases.DiseasesParams",
+    "pk": 34,
+    "fields": {
+      "disease": 22,
+      "personal_field": "hematocrit",
+      "value": 36,
+      "operation": "lt"
+    }
+  }
 ]

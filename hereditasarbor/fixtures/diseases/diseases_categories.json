@@ -1,26 +1,66 @@
 [
-    {
-        "model": "diseases.DiseaseCategory",
-        "pk": 0,
-        "fields": {
-            "name": "Categoria 00",
-            "description": "Categoria de Enfermedad 00"
-        }
-    },
-    {
-        "model": "diseases.DiseaseCategory",
-        "pk": 1,
-        "fields": {
-            "name": "Categoria 01",
-            "description": "Categoria de Enfermedad 01"
-        }
-    },
-    {
-        "model": "diseases.DiseaseCategory",
-        "pk": 2,
-        "fields": {
-            "name": "Categoria 02",
-            "description": "Categoria de Enfermedad 02"
-        }
-    }
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 1,
+      "fields": {
+          "name": "Cardiovasculares",
+          "description": "Enfermedades que afectan al corazón y los vasos sanguíneos"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 2,
+      "fields": {
+          "name": "Metabólicas",
+          "description": "Enfermedades que alteran los procesos metabólicos"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 3,
+      "fields": {
+          "name": "Respiratorias",
+          "description": "Enfermedades que afectan al sistema respiratorio"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 4,
+      "fields": {
+          "name": "Inmunológicas",
+          "description": "Enfermedades relacionadas con el sistema inmune"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 5,
+      "fields": {
+          "name": "Neurológicas",
+          "description": "Enfermedades que afectan al sistema nervioso"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 6,
+      "fields": {
+          "name": "Gastrointestinales",
+          "description": "Enfermedades del sistema digestivo"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 7,
+      "fields": {
+          "name": "Musculoesqueléticas",
+          "description": "Enfermedades que afectan los músculos, huesos y articulaciones"
+      }
+  },
+  {
+      "model": "diseases.DiseaseCategory",
+      "pk": 8,
+      "fields": {
+          "name": "Oncológicas",
+          "description": "Enfermedades relacionadas con el crecimiento descontrolado de células"
+      }
+  }
 ]

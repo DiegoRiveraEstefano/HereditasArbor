@@ -54,9 +54,19 @@ class Familiar(models.Model):
     relation_types = (
         ("father", "Padre"),  # distance 1
         ("mother", "Madre"),  # distance 1
-        ("cousin", "Primo"),  # distance 3
         ("brother", "Hermano"),  # distance 2
-        ("null", "null"),
+        ("sister", "Hermana"),  # distance 2
+        ("son", "Hijo"),  # distance 1
+        ("daughter", "Hija"),  # distance 1
+        ("grandfather", "Abuelo"),  # distance 3
+        ("grandmother", "Abuela"),  # distance 3
+        ("uncle", "Tío"),  # distance 4
+        ("aunt", "Tía"),  # distance 4
+        ("cousin", "Primo"),  # distance 5
+        ("nephew", "Sobrino"),  # distance 6
+        ("niece", "Sobrina"),  # distance 6
+        ("other", "Otro"),  # distance 7
+        ("null", "null"),  # Sin relación conocida o irrelevante
     )
 
     death_types = (

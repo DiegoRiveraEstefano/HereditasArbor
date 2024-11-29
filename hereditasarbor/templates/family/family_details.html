@@ -20,27 +20,27 @@
                     {{ familiar.name }}
                 </h1>
                 <p class="mt-4 text-gray-500">
-                    <strong>Relation:</strong> {{ familiar.get_relation_type_display }}
+                    <strong>Relacion:</strong> {{ familiar.get_relation_type_display }}
                 </p>
                 <p class="mt-4 text-gray-500">
-                    <strong>Sex:</strong> {{ familiar.get_sex_display }}
+                    <strong>Sexo:</strong> {{ familiar.get_sex_display }}
                 </p>
                 <p class="mt-4 text-gray-500">
-                    <strong>Birth Date:</strong> {{ familiar.birth_date|date:"F j, Y" }}
+                    <strong>Fecha Nacimiento:</strong> {{ familiar.birth_date|date:"F j, Y" }}
                 </p>
                 <p class="mt-4 text-gray-500">
-                    <strong>Height:</strong> {{ familiar.height }} cm
+                    <strong>Altura:</strong> {{ familiar.height }} cm
                 </p>
                 <p class="mt-4 text-gray-500">
-                    <strong>Weight:</strong> {{ familiar.weight }} kg
+                    <strong>Peso:</strong> {{ familiar.weight }} kg
                 </p>
                 <p class="mt-4 text-gray-500">
                     {% if familiar.death %}
-                        <strong>Death Date:</strong> {{ familiar.death_date|date:"F j, Y" }}
+                        <strong>Fecha de muerte:</strong> {{ familiar.death_date|date:"F j, Y" }}
                         <br />
-                        <strong>Death Type:</strong> {{ familiar.get_death_type_display }}
+                        <strong>Tip de muerte:</strong> {{ familiar.get_death_type_display }}
                     {% else %}
-                        <strong>Status:</strong> Alive
+                        <strong>Vivo</strong>
                     {% endif %}
                 </p>
                 <!-- Link to Return -->
