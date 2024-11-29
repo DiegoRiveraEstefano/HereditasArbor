@@ -8,10 +8,11 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from hereditasarbor.apps.analytics.tasks import calc_diseas_from_params
-from hereditasarbor.apps.analytics.tasks import calculate_chance_of_disease
-from hereditasarbor.apps.analytics.tasks import count_per_disease_in_family
-from hereditasarbor.apps.analytics.tasks import get_deltas_from_disease
+from hereditasarbor.apps.analytics.tasks.tree_task import get_data_per_family
+from hereditasarbor.apps.analytics.tasks.utils import calc_diseas_from_params
+from hereditasarbor.apps.analytics.tasks.utils import calculate_chance_of_disease
+from hereditasarbor.apps.analytics.tasks.utils import count_per_disease_in_family
+from hereditasarbor.apps.analytics.tasks.utils import get_deltas_from_disease
 from hereditasarbor.apps.diseases.models import Disease
 from hereditasarbor.apps.diseases.models import DiseasesParams
 
@@ -35,20 +36,9 @@ class AnalyticsIndexView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data["tree"] = self.request.user.family_tree
-        data["diseases"] = count_per_disease_in_family(
-            self.request.user.family_tree,
+        data["diseases"] = get_data_per_family(
+            tree_pk=self.request.user.family_tree.pk,
         )
-        for disease in data["diseases"]:
-            data["diseases"][disease]["risk"] = calculate_chance_of_disease(
-                family_tree=self.request.user.family_tree,
-                disease=data["diseases"][disease]["disease"].disease,
-            )
-        for disease in data["diseases"]:
-            data["diseases"][disease]["params"] = calc_diseas_from_params(
-                personal_data=self.request.user.get_personal_data(),
-                disease=data["diseases"][disease]["disease"].disease,
-            )
         return data
 
 

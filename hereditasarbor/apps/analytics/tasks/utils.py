@@ -1,4 +1,45 @@
 import functools
+
+disease_degradations = {
+    "father": 1,
+    "mother": 1,
+    "son": 2,
+    "daughter": 2,
+    "brother": 3,
+    "sister": 3,
+    "grandfather": 3,
+    "grandmother": 3,
+    "uncle": 6,
+    "aunt": 6,
+    "cousin": 7,
+    "nephew": 7,
+    "niece": 8,
+    "other": 9,
+}
+
+
+def memoize(max_length: int = 64):
+    def decorator(func):
+        memo = {}
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            if args in memo:
+                return memo[args]
+            else:
+                rv = func(*args)
+                if len(memo) > max_length:
+                    memo.clear()
+                memo[args] = rv
+                return rv
+
+        return wrapper
+
+    return decorator
+
+
+# --------------------
+import functools
 from collections.abc import Iterable
 
 import numpy as np
@@ -19,10 +60,21 @@ disease_degradations = {
     "father": 1,
     "mother": 1,
     "brother": 2,
+    "sister": 2,
+    "grandfather": 3,
+    "grandmother": 3,
+    "uncle": 4,
+    "aunt": 4,
+    "cousin": 5,
+    "son": 1,
+    "daughter": 1,
+    "nephew": 6,
+    "niece": 6,
+    "other": 7,  # Relación más distante o desconocida
 }
 
 
-def memoize(max_lenght: int = 64):
+def memoize(max_length: int = 64):
     def decorator(func):
         memo = {}
 
@@ -32,7 +84,7 @@ def memoize(max_lenght: int = 64):
                 return memo[args]
             else:
                 rv = func(*args)
-                if len(memo) > max_lenght:
+                if len(memo) > max_length:
                     memo.clear()
                 memo[args] = rv
                 return rv
@@ -117,12 +169,12 @@ def calculate_chance_of_disease(disease: Disease, family_tree: FamilyTree) -> in
     score = 0
     for _family_disease in different_diseases_per_family(family_tree):
         family_disease: FamiliarDiseases = _family_disease
-        if (
+        if (  # todo: refactor this to use filter expression.
             family_disease.disease.pk != disease.pk
             or not family_disease.disease.endogena
         ):
             continue
-        disease_degradation = (
+        disease_degradation = (  # todo: add the count as a factor of risk in the calc
             10 - disease_degradations[family_disease.familiar.relation_type]
         )
         score += disease_degradation
@@ -131,7 +183,7 @@ def calculate_chance_of_disease(disease: Disease, family_tree: FamilyTree) -> in
 
 
 @shared_task
-@memoize(max_lenght=256)
+@memoize(max_length=256)
 def convert_score_to_chance(score: int) -> float:
     """NO TESTED
 
@@ -162,16 +214,26 @@ def calc_diseas_from_params(
     last_personal_time_stamp: QuerySet[PersonalTimeStampData] = (
         personal_data.get_time_stamps().values().latest()
     )
-    results = [
-        x.check_expression(value=last_personal_time_stamp[x.personal_field])
-        for x in params
-    ]
+    results = []
+    for x in params:
+        try:
+            results.append(
+                x.check_expression(value=last_personal_time_stamp[x.personal_field])
+            )
+        except:
+            continue
+
     boleans = []
     deltas = []
     for x in results:
         boleans.append(x[0])
         deltas.append(abs(x[1]))
-    return all(boleans), int(np.mean(deltas))
+    mean = np.mean(deltas)
+    try:
+        mean = int(mean)
+    except:
+        mean = 0
+    return all(boleans), mean
 
 
 @shared_task
@@ -185,7 +247,12 @@ def get_deltas_from_disease(
     )
     data = {}
     for x in params:
-        result = x.check_expression(value=last_personal_time_stamp[x.personal_field])
+        try:
+            result = x.check_expression(
+                value=last_personal_time_stamp[x.personal_field]
+            )
+        except:
+            continue
         data[x.pk] = {
             "param": x,
             "definition": result[0],

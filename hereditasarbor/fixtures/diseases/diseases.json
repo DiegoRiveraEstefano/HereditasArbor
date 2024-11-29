@@ -1,68 +1,244 @@
 [
-    {
-        "model": "diseases.Disease",
-        "pk": 0,
-        "fields": {
-            "name": "Enfermedad 00",
-            "description": "Enfermedad de Prueba 00",
-            "endogena": true,
-            "chance": 12.2,
-            "category": 0
-        }
-    },
-    {
-        "model": "diseases.Disease",
-        "pk": 1,
-        "fields": {
-            "name": "Enfermedad 01",
-            "description": "Enfermedad de Prueba 01",
-            "endogena": false,
-            "chance": 0.0,
-            "category": 0
-        }
-    },
-    {
-        "model": "diseases.Disease",
-        "pk": 2,
-        "fields": {
-            "name": "Enfermedad 02",
-            "description": "Enfermedad de Prueba 02",
-            "endogena": true,
-            "chance": 35.2,
-            "category": 1
-        }
-    },
-    {
-        "model": "diseases.Disease",
-        "pk": 3,
-        "fields": {
-            "name": "Enfermedad 03",
-            "description": "Enfermedad de Prueba 03",
-            "endogena": false,
-            "chance": 0.0,
-            "category": 1
-        }
-    },
-    {
-        "model": "diseases.Disease",
-        "pk": 4,
-        "fields": {
-            "name": "Enfermedad 04",
-            "description": "Enfermedad de Prueba 04",
-            "endogena": true,
-            "chance": 55.2,
-            "category": 2
-        }
-    },
-    {
-        "model": "diseases.Disease",
-        "pk": 5,
-        "fields": {
-            "name": "Enfermedad 05",
-            "description": "Enfermedad de Prueba 05",
-            "endogena": false,
-            "chance": 0.0,
-            "category": 2
-        }
+  {
+    "model": "diseases.Disease",
+    "pk": 1,
+    "fields": {
+      "name": "Hipertensión",
+      "description": "Presión arterial alta persistente",
+      "endogena": true,
+      "chance": 30,
+      "category": 1
     }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 2,
+    "fields": {
+      "name": "Insuficiencia Cardíaca",
+      "description": "El corazón no puede bombear suficiente sangre al cuerpo",
+      "endogena": false,
+      "chance": 15,
+      "category": 1
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 3,
+    "fields": {
+      "name": "Diabetes Tipo 2",
+      "description": "Afección crónica que afecta la forma en que el cuerpo procesa la glucosa",
+      "endogena": true,
+      "chance": 50,
+      "category": 2
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 4,
+    "fields": {
+      "name": "Hiperlipidemia",
+      "description": "Altos niveles de grasas en la sangre",
+      "endogena": true,
+      "chance": 40,
+      "category": 2
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 5,
+    "fields": {
+      "name": "Asma",
+      "description": "Afección crónica que inflama las vías respiratorias",
+      "endogena": false,
+      "chance": 25,
+      "category": 3
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 6,
+    "fields": {
+      "name": "Enfisema",
+      "description": "Afección que daña los alvéolos pulmonares",
+      "endogena": false,
+      "chance": 10,
+      "category": 3
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 7,
+    "fields": {
+      "name": "Lupus Eritematoso Sistémico",
+      "description": "Enfermedad autoinmune que afecta múltiples órganos",
+      "endogena": true,
+      "chance": 35,
+      "category": 4
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 8,
+    "fields": {
+      "name": "Artritis Reumatoide",
+      "description": "Enfermedad autoinmune que afecta las articulaciones",
+      "endogena": true,
+      "chance": 30,
+      "category": 4
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 9,
+    "fields": {
+      "name": "Epilepsia",
+      "description": "Trastorno neurológico que provoca convulsiones recurrentes",
+      "endogena": true,
+      "chance": 40,
+      "category": 5
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 10,
+    "fields": {
+      "name": "Esclerosis Múltiple",
+      "description": "Afección autoinmune que afecta el sistema nervioso central",
+      "endogena": false,
+      "chance": 20,
+      "category": 5
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 11,
+    "fields": {
+      "name": "Úlcera Gástrica",
+      "description": "Lesión en la mucosa del estómago",
+      "endogena": false,
+      "chance": 5,
+      "category": 6
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 12,
+    "fields": {
+      "name": "Enfermedad de Crohn",
+      "description": "Inflamación crónica del tracto digestivo",
+      "endogena": true,
+      "chance": 25,
+      "category": 6
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 13,
+    "fields": {
+      "name": "Artritis",
+      "description": "Inflamación de las articulaciones",
+      "endogena": false,
+      "chance": 10,
+      "category": 7
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 14,
+    "fields": {
+      "name": "Osteoporosis",
+      "description": "Reducción de la densidad ósea",
+      "endogena": true,
+      "chance": 35,
+      "category": 7
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 15,
+    "fields": {
+      "name": "Cáncer de Mama",
+      "description": "Crecimiento descontrolado de células en el tejido mamario",
+      "endogena": true,
+      "chance": 20,
+      "category": 8
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 16,
+    "fields": {
+      "name": "Cáncer de Pulmón",
+      "description": "Crecimiento descontrolado de células en los pulmones",
+      "endogena": false,
+      "chance": 5,
+      "category": 8
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 17,
+    "fields": {
+      "name": "Infarto de Miocardio",
+      "description": "Daño al corazón debido a obstrucción en las arterias coronarias",
+      "endogena": true,
+      "chance": 25,
+      "category": 1
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 18,
+    "fields": {
+      "name": "Obesidad",
+      "description": "Acumulación excesiva de grasa corporal",
+      "endogena": false,
+      "chance": 20,
+      "category": 2
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 19,
+    "fields": {
+      "name": "EPOC",
+      "description": "Enfermedad pulmonar obstructiva crónica",
+      "endogena": false,
+      "chance": 10,
+      "category": 3
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 20,
+    "fields": {
+      "name": "Gastritis",
+      "description": "Inflamación del revestimiento del estómago",
+      "endogena": false,
+      "chance": 15,
+      "category": 6
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 21,
+    "fields": {
+      "name": "Leucemia",
+      "description": "Cáncer que afecta la sangre y la médula ósea",
+      "endogena": true,
+      "chance": 10,
+      "category": 8
+    }
+  },
+  {
+    "model": "diseases.Disease",
+    "pk": 22,
+    "fields": {
+      "name": "Anemia",
+      "description": "Deficiencia de hemoglobina en sangre",
+      "endogena": false,
+      "chance": 0,
+      "category": 1
+    }
+  }
 ]
