@@ -58,6 +58,9 @@
                 "ms-python.mypy-type-checker",
                 // utils
                 "tamasfe.even-better-toml",
+                "Supermaven.supermaven",
+                "streetsidesoftware.code-spell-checker",
+                "streetsidesoftware.code-spell-checker-spanish",
                 // html
                 "ecmel.vscode-html-css",
                 "Zignd.html-css-class-completion",

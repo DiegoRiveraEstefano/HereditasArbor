@@ -33,3 +33,6 @@ class User(AbstractUser):
 
     def get_personal_data(self):
         return self.personal_data
+
+    def get_tree(self):
+        return self.family_tree

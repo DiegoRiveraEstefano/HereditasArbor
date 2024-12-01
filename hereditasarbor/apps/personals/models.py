@@ -15,6 +15,12 @@ class PersonalData(models.Model):
         related_name="personal_data",
     )
 
+    last_update = models.DateTimeField(
+        _("Ultimo Cambio"),
+        auto_now=True,
+        auto_now_add=False,
+    )
+
     first_name = models.CharField(_("Primer Nombre"), max_length=64, default="")
     last_name = models.CharField(_("Apellido"), max_length=64, default="")
 
@@ -36,6 +42,9 @@ class PersonalData(models.Model):
     def get_time_stamps(self) -> models.QuerySet:
         return self.datas.all()
 
+    def get_last_time_stamp(self):
+        return self.datas.order_by("-added_data").first()
+
 
 class PersonalTimeStampData(models.Model):
     personal_data = models.ForeignKey(
@@ -46,7 +55,9 @@ class PersonalTimeStampData(models.Model):
     )
 
     added_data = models.DateField(
-        _("Fecha de Añadido"), auto_now=False, auto_now_add=True
+        _("Fecha de Añadido"),
+        auto_now=False,
+        auto_now_add=True,
     )
 
     weight = models.IntegerField(_("Peso"), default=70)
@@ -74,53 +85,7 @@ class PersonalTimeStampData(models.Model):
     def get_absolute_url(self):
         return reverse("personal:time_stamp-detail", kwargs={"pk": self.pk})
 
-    def check_params(self, params: dict[str, dict[str, str]]) -> tuple[bool, int]:
-        data = {
-            "glucose": self.glucose,
-        }
-        """check with this data if the diseases param are true
-
-        Args:
-            params (dict): is a dict with a scheme similar to:
-                {
-                    "params": {
-                        "glucose": "x >= 150",     
-                    }
-                }
-                {
-                    "params": [
-                        {
-                            "field": "glucose",
-                            "validation": "lte",
-                            "value": 150,
-                        },
-                        {
-                            "field": "cardiac_pulse",
-                            "validation": "gte",
-                            "value": 120
-                        },
-                        {
-                            "field": "cardiac_pulse",
-                            "validation": "lte",
-                            "value": 20
-                        },
-                    ]
-                }
-
-        Returns:
-            bool: true if the condition is and false in other cases
-            int: is a delta of magnitude
-        """
-        results = []
-        deltas = []
-        for key in params["params"].keys():
-            if key not in data:
-                continue
-            if data[key] is None:
-                results.append(False)
-                deltas.append(0)
-                continue
-            expression = params["params"][key].replace("x", data[key])
-            results.append(bool(eval(expression)))
-            deltas.append(2)
-        return all(results), sum(deltas) - len(params["params"].keys())
+    def get_field(self, attr: str):
+        if bool(hasattr(self, attr)):
+            return self.personal_data.__getattribute__(attr)
+        return None
