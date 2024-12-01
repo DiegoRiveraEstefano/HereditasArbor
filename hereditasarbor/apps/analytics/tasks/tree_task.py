@@ -47,9 +47,9 @@ def score_to_chance(score: float) -> float:
     return (score - W_MIN) / W_NORM
 
 
-@jit(forceobj=True)
+@jit(nopython=False, looplifting=True)
 def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
-    data: dict[int, dict[str, int | Disease]] = {}
+    data: dict[int, dict[str, int | dict]] = {}
     tree = FamilyTree.objects.get(pk=tree_pk)
     for _familiar in tree.get_all_family():
         familiar: Familiar = _familiar
@@ -74,6 +74,7 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
 
 
 @app.task()
+@jit(nopython=False, looplifting=True)
 def get_data_per_family(
     tree_pk: int,
 ) -> dict[int, dict[str, int | Disease | float]]:
@@ -84,11 +85,9 @@ def get_data_per_family(
             count=data[disease_data]["count"],
             degradation_sum=data[disease_data]["degradation_sum"],
         )
-
         data[disease_data]["chance_from_score"] = score_to_chance(
             score=data[disease_data]["score"],
         )
-
         data[disease_data]["display_score"] = int(data[disease_data]["score"])
         data[disease_data]["percentage"] = int(
             data[disease_data]["chance_from_score"] * 100

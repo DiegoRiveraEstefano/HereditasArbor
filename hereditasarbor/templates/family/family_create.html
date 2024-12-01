@@ -18,6 +18,47 @@
                 {{ form.non_field_errors }}
                 {{ form.tree__pk }}
                 {{ form|crispy }}
+                <div class="mb-5">
+                    <div class="w-full bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <div>
+                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Nombre Familiar</label>
+                            {{ form.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="w-full bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <div>
+                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Tipo de Relacion</label>
+                            {{ form.relation_type. }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="w-full bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <div>
+                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Sexo Familiar</label>
+                            {{ form.sex }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="w-full bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <div>
+                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Peso Familiar</label>
+                            {{ form.weight }}
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="w-full bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                        <div>
+                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Altura Familiar</label>
+                            {{ form.height }}
+                        </div>
+                    </div>
+                </div>
+                {{ form.birth_date }}
                 <!-- Submit Button -->
                 <div class="mt-8">
                     <button type="submit"

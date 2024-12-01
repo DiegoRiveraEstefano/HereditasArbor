@@ -1,12 +1,9 @@
-from collections.abc import Iterable
-
 from django.db import models
 from django.db.models import QuerySet
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from hereditasarbor.apps.diseases.models import Disease
 from hereditasarbor.apps.users.models import User
 
 
@@ -16,6 +13,12 @@ class FamilyTree(models.Model):
         verbose_name=_("Arbol Dueño"),
         on_delete=models.CASCADE,
         related_name="family_tree",
+    )
+
+    last_update = models.DateTimeField(
+        _("Ultimo Cambio"),
+        auto_now=True,
+        auto_now_add=False,
     )
 
     class Meta:
@@ -122,5 +125,5 @@ class Familiar(models.Model):
     def debug(self) -> str:
         return f"Familiar(pk={self.pk})"
 
-    def get_all_diseases(self) -> Iterable[Disease]:
+    def get_all_diseases(self) -> QuerySet:
         return self.diseases.all()

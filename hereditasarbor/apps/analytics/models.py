@@ -19,9 +19,6 @@ class Analytic(models.Model):
         auto_now_add=True,
     )
 
-    # json enconded result
-    result = models.JSONField(_("Resultados"), null=True)
-
     class Meta:
         verbose_name = _("Analytic")
         verbose_name_plural = _("Analytics")
@@ -31,3 +28,61 @@ class Analytic(models.Model):
 
     def get_absolute_url(self):
         return reverse("Analytic_detail", kwargs={"pk": self.pk})
+
+    def get_tree_result(self):
+        return self.analytic_tree.result
+
+    def get_personal_result(self):
+        return self.analytic_personal.result
+
+
+class AnalyticTree(models.Model):
+    analytic = models.OneToOneField(
+        Analytic,
+        verbose_name=_("Analytic"),
+        on_delete=models.CASCADE,
+        related_name="analytic_tree",
+    )
+
+    last_change = models.DateTimeField(
+        _("Ultimo Cambio Arbol Familiar"),
+        auto_now=False,
+        auto_now_add=False,
+        null=False,
+        unique=False,
+    )
+
+    result = models.JSONField(_("Resultados herencia"), null=True)
+
+    class Meta:
+        verbose_name = _("AnalyticTree")
+        verbose_name_plural = _("AnalyticTrees")
+
+    def __str__(self):
+        return str(self.pk)
+
+
+class AnalyticPersonal(models.Model):
+    analytic = models.OneToOneField(
+        Analytic,
+        verbose_name=_("Analytic"),
+        on_delete=models.CASCADE,
+        related_name="analytic_personal",
+    )
+
+    last_change = models.DateTimeField(
+        _("Ultimo Cambio Arbol Familiar"),
+        auto_now=False,
+        auto_now_add=False,
+        null=False,
+        unique=False,
+    )
+
+    result = models.JSONField(_("Resultados Personales"), null=True)
+
+    class Meta:
+        verbose_name = _("AnalyticPersonal")
+        verbose_name_plural = _("AnalyticPersonals")
+
+    def __str__(self):
+        return str(self.pk)

@@ -45,8 +45,10 @@
                     {% block header %}
                     {% endblock header %}
                     {% include "components/layout/messages.html" with messages=messages %}
-                    {% block content %}
-                    {% endblock content %}
+                    <main>
+                        {% block content %}
+                        {% endblock content %}
+                    </main>
                     {% block footer %}
                     {% endblock footer %}
                 {% endblock main %}
