@@ -19,7 +19,7 @@ from hereditasarbor.apps.personals.models import PersonalData
 from hereditasarbor.apps.personals.models import PersonalTimeStampData
 
 
-@lru_cache(maxsize=256)
+#@lru_cache(maxsize=256)
 @njit(fastmath=True)
 def parse_expression(
     value: float,
@@ -39,7 +39,7 @@ def parse_expression(
     return False, 0
 
 
-@lru_cache(maxsize=256)
+#@lru_cache(maxsize=256)
 @jit(nopython=False, looplift=True)
 def check_params(
     disease: Disease,
