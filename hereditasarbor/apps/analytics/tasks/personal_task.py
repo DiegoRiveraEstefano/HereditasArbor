@@ -73,7 +73,6 @@ def check_params(
     return data
 
 
-@shared_task
 def calc_all_diseases(
     personal_data: PersonalData,
     endogenous: bool = False,
