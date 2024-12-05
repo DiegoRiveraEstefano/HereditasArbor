@@ -72,7 +72,7 @@ def check_params(
         }
     return data
 
-
+#@jit(nopython=False, looplift=True)
 def calc_all_diseases(
     personal_data: PersonalData,
     endogenous: bool = False,

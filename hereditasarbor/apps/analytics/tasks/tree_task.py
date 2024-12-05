@@ -73,7 +73,7 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
     return data
 
 
-@jit(nopython=False, looplifting=True)
+@jit(nopython=False, looplift=True)
 def get_data_per_family(
     tree_pk: int,
 ) -> dict[int, dict[str, int | Disease | float]]:
