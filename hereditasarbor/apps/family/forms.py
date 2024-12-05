@@ -10,9 +10,10 @@ from .models import FamilyTree
 class FamiliarForm(forms.ModelForm):
     tree = forms.ChoiceField(choices=[], required=True, widget=forms.HiddenInput)
 
-    birth_date = TailwindDateField(
+    birth_date = forms.DateField(
         label="Fecha Nacimiento",
-        required=False,
+        required=True,
+        widget=forms.widgets.DateTimeInput,
     )
 
     death_date = forms.DateField(
