@@ -47,7 +47,7 @@ def score_to_chance(score: float) -> float:
     return (score - W_MIN) / W_NORM
 
 
-@jit(nopython=False, looplifting=True)
+@jit(nopython=False, looplift=True)
 def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
     data: dict[int, dict[str, int | dict]] = {}
     tree = FamilyTree.objects.get(pk=tree_pk)

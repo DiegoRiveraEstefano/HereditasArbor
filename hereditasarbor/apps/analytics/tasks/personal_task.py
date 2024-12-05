@@ -40,7 +40,7 @@ def parse_expression(
 
 
 @lru_cache(maxsize=256)
-@jit(nopython=False, looplifting=True)
+@jit(nopython=False, looplift=True)
 def check_params(
     disease: Disease,
     personal_data: PersonalData,
