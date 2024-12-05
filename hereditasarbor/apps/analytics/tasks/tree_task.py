@@ -24,8 +24,7 @@ W_MAX = 3.50
 W_MIN = 0.05
 W_NORM = 3.45
 
-
-@lru_cache(maxsize=256)
+#@lru_cache(maxsize=256)
 @njit(float32(float32, int16, int16), fastmath=True)
 def calc_inheritance_score(
     chance: float,
@@ -34,14 +33,13 @@ def calc_inheritance_score(
 ) -> float:
     return ((WC * count) + (WCH * (chance / 100))) / (1 + (WS * degradation_sum))
 
-
-@lru_cache(maxsize=256)
+#@lru_cache(maxsize=256)
 @njit(float32(float32, int16), fastmath=True)
 def calc_error_delta(score: float, degradation_sum: int = 0) -> float:
     return (WS * degradation_sum) - score
 
 
-@lru_cache(maxsize=256)
+#@lru_cache(maxsize=256)
 @njit(float32(float32), fastmath=True)
 def score_to_chance(score: float) -> float:
     return (score - W_MIN) / W_NORM
@@ -73,7 +71,7 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
     return data
 
 
-@jit(nopython=False, looplift=True)
+#@jit(nopython=False, looplift=True)
 def get_data_per_family(
     tree_pk: int,
 ) -> dict[int, dict[str, int | Disease | float]]:
