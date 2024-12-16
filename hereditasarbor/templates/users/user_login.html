@@ -10,9 +10,9 @@
         <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
             <div class="lg:w-1/2">
                 <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
-                    Welcome Back
+                    Ingresar
                 </h1>
-                <p class="max-w-lg mt-4 text-gray-500">Please enter your credentials to log into your account.</p>
+                <p class="max-w-lg mt-4 text-gray-500">Ingresa con tu cuenta para continuar</p>
                 <form action="{% url "users:login" %}" method="post">
                     {% csrf_token %}
                     {{ form|crispy }}

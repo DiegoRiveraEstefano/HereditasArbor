@@ -9,25 +9,32 @@
             <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
                 <!-- Title -->
                 <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize">
-                    Personal Data Details: {{ object.first_name }} {{ object.last_name }}
+                   Datos Personales
                 </h1>
                 <!-- Data Display -->
                 <div class="mt-8 space-y-4">
+                    <!-- Birth Date -->
                     <p class="text-lg text-gray-700">
-                        <strong>First Name:</strong> {{ object.first_name }}
+                        <strong>Fecha de Nacimiento:</strong>
+                        {{ object.birth_day|date:"F d, Y" }}
                     </p>
+                    <!-- Height -->
                     <p class="text-lg text-gray-700">
-                        <strong>Last Name:</strong> {{ object.last_name }}
+                        <strong>Altura:</strong>
+                        {{ object.height }} cm
                     </p>
+                    <!-- Weight -->
                     <p class="text-lg text-gray-700">
-                        <strong>Date of Birth:</strong> {{ object.birth_day|date:"F d, Y" }}
+                        <strong>Peso:</strong>
+                        {{ object.weight }} kg
                     </p>
+                    <!-- Sex -->
                     <p class="text-lg text-gray-700">
                         <strong>Sex:</strong>
                         {% if object.sex == 1 %}
-                            Female
+                            Mujer
                         {% else %}
-                            Male
+                            Hombre
                         {% endif %}
                     </p>
                 </div>
@@ -36,7 +43,7 @@
                     <!-- Edit Button -->
                     <a href="{% url 'personal:update' %}"
                        class="bg-[#475F45] hover:bg-[#475F45]/80 text-white px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest border-2 border-[#475F45] transition-colors duration-300">
-                        Edit
+                        Editar Datos
                     </a>
                     <!-- Back to List Button -->
                     <a href="{% url 'personal:time_stamp-list' %}"

@@ -10,7 +10,7 @@
         <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
             <!-- Update Title -->
             <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize">
-                Update Familiar: {{ object.name }}
+                Actualizar Familiar
             </h1>
             <!-- Form Starts -->
             <form method="post"
@@ -23,12 +23,12 @@
                     <!-- Submit button -->
                     <button type="submit"
                             class="bg-[#475F45] hover:bg-[#475F45]/80 text-white px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest border-2 border-[#475F45] transition-colors duration-300">
-                        Save Changes
+                        Actualizar
                     </button>
                     <!-- Cancel button (redirects to family list or other appropriate page) -->
                     <a href="{% url 'family:list' %}"
                        class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
-                        Cancel
+                        cancelar
                     </a>
                 </div>
             </form>

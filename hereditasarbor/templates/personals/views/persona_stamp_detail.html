@@ -9,50 +9,50 @@
             <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
                 <!-- Title -->
                 <h1 class="font-serif text-3xl font-semibold tracking-wide text-[#343D33] capitalize">
-                    Detailed Record of Data on {{ object.added_data }}
+                    Detalles de Datos
                 </h1>
                 <!-- Record Details -->
                 <div class="mt-8 space-y-6">
                     <!-- Date Added -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Date Added:</span>
+                        <span class="font-semibold">Fecha añadida:</span>
                         <span>{{ object.added_data }}</span>
                     </div>
                     <!-- Weight -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Weight (kg):</span>
+                        <span class="font-semibold">Peso (kg):</span>
                         <span>{{ object.weight }}</span>
                     </div>
                     <!-- Height -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Height (cm):</span>
+                        <span class="font-semibold">Altura (cm):</span>
                         <span>{{ object.height }}</span>
                     </div>
                     <!-- Cardiac Pulse -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Cardiac Pulse:</span>
+                        <span class="font-semibold">Pulso Cardiaco:</span>
                         <span>{{ object.cardiac_pulse }}</span>
                     </div>
                     <!-- Glucose -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Glucose:</span>
+                        <span class="font-semibold">Glucosa:</span>
                         <span>{{ object.glucose }}</span>
                     </div>
                     <!-- Cholesterol -->
                     <div class="flex justify-between">
-                        <span class="font-semibold">Cholesterol:</span>
+                        <span class="font-semibold">Colesterol:</span>
                         <span>{{ object.cholesterol }}</span>
                     </div>
                 </div>
                 <!-- Actions -->
                 <div class="flex justify-between mt-10">
                     <a href="{% url 'personal:time_stamp-edit' object.pk %}"
-                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Edit Data</a>
+                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Editar</a>
                     <form method="post"
                           action="{% url 'personal:time_stamp-delete' object.pk %}">
                         {% csrf_token %}
                         <button type="submit"
-                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete Data</button>
+                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Borrar</button>
                     </form>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <section class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-4">
             <div class="mt-4 mb-4">
                 <a href="{% url 'personal:time_stamp-list' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Back</a>
+                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Volver</a>
             </div>
         </section>
     </main>

@@ -7,6 +7,10 @@ volumes:
   hereditasarbor_local_django_media: {}
   hereditasarbor_local_django_static: {}
 
+networks:
+  default:
+    name: hereditasarbor_local
+
 services:
   django: &django
     build:
@@ -33,6 +37,7 @@ services:
       context: .
       dockerfile: ./compose/local/traefik/Dockerfile
     image: hereditasarbor_local_traefik
+    container_name: hereditasarbor_local_traefik
     depends_on:
       - django
     ports:
@@ -44,6 +49,7 @@ services:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
     image: hereditasarbor_local_nginx
+    container_name: hereditasarbor_local_nginx
     depends_on:
       - traefik
     volumes:
@@ -56,8 +62,8 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: hereditasarbor_production_postgres
     container_name: hereditasarbor_local_postgres
-    ports:
-      - "5432:5432"
+    ports: []
+      #- "5432:5432"
     volumes:
       - hereditasarbor_local_postgres_data:/var/lib/postgresql/data
       - hereditasarbor_local_postgres_data_backups:/backups

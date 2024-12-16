@@ -12,20 +12,20 @@
                 <!-- Add New Entry Button -->
                 <div class="flex justify-end mb-6">
                     <a href="{% url 'personal:time_stamp-create' %}"
-                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Add New Data</a>
+                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Añadir Datos</a>
                 </div>
                 <!-- Data Table -->
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white border border-gray-200">
                         <thead>
                             <tr class="bg-[#475F45] text-white">
-                                <th class="py-3 px-6 text-left">Date Added</th>
-                                <th class="py-3 px-6 text-left">Weight (kg)</th>
-                                <th class="py-3 px-6 text-left">Height (cm)</th>
-                                <th class="py-3 px-6 text-left">Cardiac Pulse</th>
-                                <th class="py-3 px-6 text-left">Glucose</th>
-                                <th class="py-3 px-6 text-left">Cholesterol</th>
-                                <th class="py-3 px-6 text-left">Actions</th>
+                                <th class="py-3 px-6 text-left">Fecha añadida</th>
+                                <th class="py-3 px-6 text-left">Peso (kg)</th>
+                                <th class="py-3 px-6 text-left">Altura (cm)</th>
+                                <th class="py-3 px-6 text-left">Pulso Cardiaco</th>
+                                <th class="py-3 px-6 text-left">Glucosa</th>
+                                <th class="py-3 px-6 text-left">Colesterol</th>
+                                <th class="py-3 px-6 text-left">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
@@ -39,12 +39,12 @@
                                     <td class="py-4 px-6">{{ data.cholesterol }}</td>
                                     <td class="py-4 px-6">
                                         <a href="{{ data.get_absolute_url }}"
-                                           class="text-blue-600 hover:underline">View</a>
+                                           class="text-blue-600 hover:underline">Ver</a>
                                     </td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="7" class="py-4 px-6 text-center text-gray-500">No historical data available.</td>
+                                    <td colspan="7" class="py-4 px-6 text-center text-gray-500">No hay datos</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -55,7 +55,7 @@
         <section class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-4">
             <div class="mt-4 mb-4">
                 <a href="{% url 'personal:me' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Back</a>
+                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Volver</a>
             </div>
         </section>
     </main>
