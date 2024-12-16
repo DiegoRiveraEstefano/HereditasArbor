@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "disease": 1,
-      "personal_field": "systolic_bp",
+      "personal_field": "cardiac_pulse",
       "value": 140,
       "operation": "gt"
     }
@@ -44,7 +44,7 @@
     "pk": 5,
     "fields": {
       "disease": 3,
-      "personal_field": "fasting_glucose",
+      "personal_field": "glucose",
       "value": 126,
       "operation": "gt"
     }
@@ -64,7 +64,7 @@
     "pk": 7,
     "fields": {
       "disease": 4,
-      "personal_field": "total_cholesterol",
+      "personal_field": "cholesterol",
       "value": 200,
       "operation": "gt"
     }
