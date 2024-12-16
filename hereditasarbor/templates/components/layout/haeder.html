@@ -60,9 +60,4 @@
   </div>
 </header>
 
-{{request.path}}
-{% if request.path != {% url "home" %} %}
-<div>
-  {% include "components/breadcrumbs.html" %}
-</div>
-{% endif %}
+{% include "components/breadcrumbs.html" %}

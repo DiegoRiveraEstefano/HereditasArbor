@@ -9,9 +9,11 @@ from .models import FamiliarDiseases
 def update_tree(sender, instance, created, **kwargs):
     familiar_disease: FamiliarDiseases = instance
     familiar_disease.familiar.tree.save()
+    print("a")
 
 
 @receiver(pre_delete, sender=FamiliarDiseases)
 def pre_delete_disease(sender, instance, **kwargs):
     familiar_disease: FamiliarDiseases = instance
     familiar_disease.familiar.tree.save()
+    print("b")

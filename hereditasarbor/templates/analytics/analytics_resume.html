@@ -41,7 +41,7 @@
                                 {% for disease_pk, disease_data  in diseases.items %}
                                     <tr>
                                         <td class="border border-gray-300 px-4 py-2">
-                                            <a class="text-[#475F45]" href="#">{{ disease_data.disease.name }}</a>
+                                            <a class="text-[#475F45]" href="{{ disease_data.disease.get_absolute_url }}">{{ disease_data.disease.name }}</a>
                                         </td>
                                         <td class="border border-gray-300 px-4 py-2">{{ disease_data.count }}</td>
                                         <td class="border border-gray-300 px-4 py-2 {% if disease_data.display_score < 5 %} text-green-500 {% elif disease_data.display_score < 12 %} text-yellow-500 {% else %}text-red-500{% endif %}">

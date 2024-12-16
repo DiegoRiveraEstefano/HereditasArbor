@@ -19,8 +19,7 @@ from hereditasarbor.apps.personals.models import PersonalData
 from hereditasarbor.apps.personals.models import PersonalTimeStampData
 
 
-#@lru_cache(maxsize=256)
-#@jit(nopython=False, looplift=True)
+@jit(nopython=False, looplift=True, forceobj=True, cache=True)
 def parse_expression(
     value: float,
     operation: str,
@@ -39,8 +38,7 @@ def parse_expression(
     return False, 0
 
 
-#@lru_cache(maxsize=256)
-#@jit(nopython=False, looplift=True)
+@jit(nopython=False, looplift=True, forceobj=True)
 def check_params(
     disease: Disease,
     personal_data: PersonalData,
@@ -72,7 +70,7 @@ def check_params(
         }
     return data
 
-#@jit(nopython=False, looplift=True)
+#@jit(nopython=False, looplift=True, forceobj=True)
 def calc_all_diseases(
     personal_data: PersonalData,
     endogenous: bool = False,
@@ -82,9 +80,9 @@ def calc_all_diseases(
     diseases = Disease.objects.filter(endogena=endogenous)
     for disease in diseases:
         result = check_params(disease, personal_data)
+        print(disease, result)
         # all params are false
         if not any(x["is_true"] for x in result.values()):
             continue
         data["diseases"][disease.pk] = check_params(disease, personal_data)
-    print(data)
     return data

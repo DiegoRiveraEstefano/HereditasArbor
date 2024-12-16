@@ -13,16 +13,32 @@ def get_analytic_or_create(user: User) -> tuple[Analytic, bool]:
     created = True
 
     personal_data: PersonalData = user.get_personal_data()
-    analytic_personal_data, personal_created = AnalyticPersonal.objects.get_or_create(
+    personal_analytic = AnalyticPersonal.objects.filter(
         last_change=personal_data.last_update,
-        defaults={"analytic": analytic},
     )
+    if len(personal_analytic) > 0:
+        analytic_personal_data = personal_analytic[0]
+        personal_created = False
+    else:
+        analytic_personal_data = AnalyticPersonal.objects.create(
+            last_change=personal_data.last_update,
+            analytic=analytic,
+        )
+        personal_created = True
 
     tree: FamilyTree = user.get_tree()
-    analytic_tree, tree_created = AnalyticTree.objects.get_or_create(
+    analytic_tree_list = AnalyticTree.objects.filter(
         last_change=tree.last_update,
-        defaults={"analytic": analytic},
     )
+    if len(analytic_tree_list) > 0:
+        analytic_tree = analytic_tree_list[0]
+        tree_created = False
+    else:
+        analytic_tree = AnalyticTree.objects.create(
+            last_change=tree.last_update,
+            analytic=analytic,
+        )
+        tree_created = True
 
     if personal_created and tree_created:
         # analisis totalmente nuevo
@@ -65,11 +81,10 @@ def get_analytic_or_create(user: User) -> tuple[Analytic, bool]:
             result=analytic_tree.result,
         )
         new_analytic_tree.save()
-        analytic_tree.save()
+        analytic_personal_data.save()
     else:
         # analisis antiguo
         analytic.delete()
         created = False
         analytic = analytic_personal_data.analytic
-
     return analytic, created
