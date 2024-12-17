@@ -1,0 +1,102 @@
+hereditasarbor.apps.users.api.views.UserViewSet
+===============================================
+
+.. currentmodule:: hereditasarbor.apps.users.api.views
+
+.. autoclass:: UserViewSet
+   :members:                                    
+   :show-inheritance:                           
+   :inherited-members:                          
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~UserViewSet.__init__
+      ~UserViewSet.as_view
+      ~UserViewSet.check_object_permissions
+      ~UserViewSet.check_permissions
+      ~UserViewSet.check_throttles
+      ~UserViewSet.determine_version
+      ~UserViewSet.dispatch
+      ~UserViewSet.filter_queryset
+      ~UserViewSet.finalize_response
+      ~UserViewSet.get_authenticate_header
+      ~UserViewSet.get_authenticators
+      ~UserViewSet.get_content_negotiator
+      ~UserViewSet.get_exception_handler
+      ~UserViewSet.get_exception_handler_context
+      ~UserViewSet.get_extra_action_url_map
+      ~UserViewSet.get_extra_actions
+      ~UserViewSet.get_format_suffix
+      ~UserViewSet.get_object
+      ~UserViewSet.get_paginated_response
+      ~UserViewSet.get_parser_context
+      ~UserViewSet.get_parsers
+      ~UserViewSet.get_permissions
+      ~UserViewSet.get_queryset
+      ~UserViewSet.get_renderer_context
+      ~UserViewSet.get_renderers
+      ~UserViewSet.get_serializer
+      ~UserViewSet.get_serializer_class
+      ~UserViewSet.get_serializer_context
+      ~UserViewSet.get_throttles
+      ~UserViewSet.get_view_description
+      ~UserViewSet.get_view_name
+      ~UserViewSet.handle_exception
+      ~UserViewSet.http_method_not_allowed
+      ~UserViewSet.initial
+      ~UserViewSet.initialize_request
+      ~UserViewSet.list
+      ~UserViewSet.me
+      ~UserViewSet.options
+      ~UserViewSet.paginate_queryset
+      ~UserViewSet.partial_update
+      ~UserViewSet.perform_authentication
+      ~UserViewSet.perform_content_negotiation
+      ~UserViewSet.perform_update
+      ~UserViewSet.permission_denied
+      ~UserViewSet.raise_uncaught_exception
+      ~UserViewSet.retrieve
+      ~UserViewSet.reverse_action
+      ~UserViewSet.setup
+      ~UserViewSet.throttled
+      ~UserViewSet.update
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~UserViewSet.allowed_methods
+      ~UserViewSet.authentication_classes
+      ~UserViewSet.basename
+      ~UserViewSet.default_response_headers
+      ~UserViewSet.description
+      ~UserViewSet.detail
+      ~UserViewSet.filter_backends
+      ~UserViewSet.http_method_names
+      ~UserViewSet.lookup_field
+      ~UserViewSet.lookup_url_kwarg
+      ~UserViewSet.name
+      ~UserViewSet.pagination_class
+      ~UserViewSet.paginator
+      ~UserViewSet.parser_classes
+      ~UserViewSet.permission_classes
+      ~UserViewSet.queryset
+      ~UserViewSet.renderer_classes
+      ~UserViewSet.schema
+      ~UserViewSet.settings
+      ~UserViewSet.suffix
+      ~UserViewSet.throttle_classes
+      ~UserViewSet.versioning_class
+      ~UserViewSet.view_is_async
+   
+   

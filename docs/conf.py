@@ -21,7 +21,8 @@ if os.getenv("READTHEDOCS", default=False) == "True":
     os.environ["USE_DOCKER"] = "no"
 else:
     sys.path.insert(0, os.path.abspath("/app"))
-    sys.path.insert(0, os.path.abspath("/app/hereditasarbor/apps/"))
+
+
 os.environ["DATABASE_URL"] = "sqlite:///readthedocs.db"
 os.environ["CELERY_BROKER_URL"] = os.getenv("REDIS_URL", "redis://redis:6379")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
@@ -66,14 +67,3 @@ html_theme = "alabaster"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
-
-print(
-    sys.path
-)
-print(
-    # ls
-    os.listdir("/app"),
-    os.listdir("/app/hereditasarbor"),
-    os.listdir("/app/config"),
-)

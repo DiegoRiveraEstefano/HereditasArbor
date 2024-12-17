@@ -1,6 +1,43 @@
 ﻿hereditasarbor.apps.users
 =========================
 
-.. currentmodule:: hereditasarbor.apps
+.. automodule:: hereditasarbor.apps.users
+  
+   
+   
+   
 
-.. automodule:: users
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst                
+   :recursive:
+
+   admin
+   api
+   apps
+   forms
+   management
+   migrations
+   models
+   signals
+   tasks
+   tests
+   urls
+   views
+
