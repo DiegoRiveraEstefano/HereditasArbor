@@ -25,6 +25,20 @@ def parse_expression(
     operation: str,
     expected: float,
 ) -> tuple[bool, float]:
+    """parse an expression
+
+    Args:
+        value (float): is the value to check
+        operation (str): is the operation to check
+        expected (float): is the expected value
+    
+    Description:
+        - parse an expression
+        - return a tuple with the result and the delta
+
+    Returns:
+        tuple[bool, float]: is a tuple with the result and the delta
+    """
     delta: float = abs(value - expected)
     match operation:
         case "lte":
@@ -75,6 +89,17 @@ def calc_all_diseases(
     personal_data: PersonalData,
     endogenous: bool = False,
 ) -> dict[str, dict[str | int, dict[str, bool | int]]]:
+
+    """Calculate all diseases.
+
+    Args:
+        personal_data (PersonalData): The personal data.
+        endogenous (bool, optional): Whether to calculate only endogenous diseases. Defaults to False.
+
+    Returns:
+        dict[str, dict[str | int, dict[str, bool | int]]]: The calculated diseases.
+    """
+
     data: dict[str, dict[str | int, dict[str, bool | int]]] = {}
 
     diseases = Disease.objects.filter(endogena=endogenous)

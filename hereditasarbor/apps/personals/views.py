@@ -21,6 +21,13 @@ from .models import PersonalTimeStampData
 
 
 class PersonalDataDetailView(DetailView, LoginRequiredMixin):
+
+    """PersonalDataDetailView, used to display a personal data detail.
+
+    Args:
+        model (PersonalData): personal data model
+        template_name (str): template name
+    """
     model = PersonalData
     template_name = "personals/views/personal_detail.html"
 
@@ -32,6 +39,15 @@ personal_data_detail_view = PersonalDataDetailView.as_view()
 
 
 class PersonalDataCreateView(CreateView, LoginRequiredMixin):
+
+    """PersonalDataCreateView, used to create a new personal data.
+
+    Args:
+        model (PersonalData): personal data model
+        template_name (str): template name
+        form_class (PersonalDataCreateForm): personal data create form
+    """
+
     model = PersonalData
     template_name = "personals/views/personal_create.html"
     form_class = PersonalDataCreateForm
@@ -52,6 +68,15 @@ personal_data_create_view = PersonalDataCreateView.as_view()
 
 
 class PersonalDataUpdateView(UpdateView, LoginRequiredMixin):
+
+    """PersonalDataUpdateView, used to update a personal data.
+
+    Args:
+        model (PersonalData): personal data model
+        template_name (str): template name
+        form_class (PersonalDataUpdateForm): personal data update form
+    """
+
     model = PersonalData
     template_name = "personals/views/personal_edit.html"
     form_class = PersonalDataUpdateForm
@@ -67,6 +92,14 @@ personal_data_update_view = PersonalDataUpdateView.as_view()
 
 
 class PersonalTimeStampDataListView(ListView, LoginRequiredMixin):
+
+    """PersonalTimeStampDataListView, used to list personal time stamp data.
+
+    Args:
+        model (PersonalTimeStampData): personal time stamp data model
+        template_name (str): template name
+    """
+
     model = PersonalTimeStampData
     template_name = "personals/views/persona_stamp_list.html"
 
@@ -78,6 +111,14 @@ personal_data_time_stamp_data_list_view = PersonalTimeStampDataListView.as_view(
 
 
 class PersonalTimeStampDataDetailView(DetailView, LoginRequiredMixin):
+
+    """PersonalTimeStampDataDetailView, used to display a personal time stamp data detail.
+
+    Args:
+        model (PersonalTimeStampData): personal time stamp data model
+        template_name (str): template name
+    """ 
+
     model = PersonalTimeStampData
     template_name = "personals/views/persona_stamp_detail.html"
 
@@ -89,6 +130,15 @@ personal_data_time_stamp_data_detail_view = PersonalTimeStampDataDetailView.as_v
 
 
 class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
+
+    """PersonalTimeStampDataCreateView, used to create a new personal time stamp data.
+
+    Args:
+        model (PersonalTimeStampData): personal time stamp data model
+        template_name (str): template name
+        form_class (PersonalTimeStampDataCreateForm): personal time stamp data create form
+    """
+
     model = PersonalTimeStampData
     template_name = "personals/views/persona_stamp_create.html"
     form_class = PersonalTimeStampDataCreateForm
@@ -97,6 +147,13 @@ class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
         return reverse("personal:time_stamp-list")
 
     def get_initial(self):
+
+        """Get the initial data of the view.
+
+        Returns:
+            dict[str, Any]: The initial data of the view.
+        """
+
         data = super().get_initial()
         data["personal_data"] = get_object_or_404(
             PersonalData, user=self.request.user.pk
@@ -113,6 +170,15 @@ personal_data_time_stamp_data_create_view = PersonalTimeStampDataCreateView.as_v
 
 
 class PersonalTimeStampDataUpdateView(UpdateView, LoginRequiredMixin):
+
+    """PersonalTimeStampDataUpdateView, used to update a personal time stamp data.
+
+    Args:
+        model (PersonalTimeStampData): personal time stamp data model
+        template_name (str): template name
+        form_class (PersonalTimeStampDataUpdateForm): personal time stamp data update form
+    """
+
     model = PersonalTimeStampData
     template_name = "personals/views/persona_stamp_edit.html"
     form_class = PersonalTimeStampDataUpdateForm
@@ -125,6 +191,14 @@ personal_data_time_stamp_data_update_view = PersonalTimeStampDataUpdateView.as_v
 
 
 class PersonalTimeStampDataDeleteView(DeleteView, LoginRequiredMixin):
+
+    """PersonalTimeStampDataDeleteView, used to delete a personal time stamp data.
+
+    Args:
+        model (PersonalTimeStampData): personal time stamp data model
+        template_name (str): template name
+    """
+
     model = PersonalTimeStampData
     template_name = "temlates/personals/views/persona_stamp_delete.html"
 

@@ -2,6 +2,9 @@ from django.db import models
 from .tasks import encrypt_data, decrypt_data
 
 class EncryptUserDataFieldCustom(models.TextField):
+    """
+    a custom field that encrypt the data
+    """
     description = "a field that encrypt the data"
 
     def __init__(self, *args, **kwargs):
@@ -16,6 +19,9 @@ class EncryptUserDataFieldCustom(models.TextField):
         return encrypt_data(value, user_pk=user_pk)
     
     def from_db_value(self, value, expression, connection, context):
+        """
+        make the preparations for db reads
+        """
         instance = context.get('instance')
         user_pk = getattr(instance, self.user.pk)
         return decrypt_data(value, user_pk=user_pk)

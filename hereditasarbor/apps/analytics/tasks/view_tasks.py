@@ -9,6 +9,23 @@ from hereditasarbor.apps.users.models import User
 
 
 def get_analytic_or_create(user: User) -> tuple[Analytic, bool]:
+
+    """Get or create an analytic for a user.
+
+    Description:
+        - If the user has a personal data, check if there is an analytic for that user and create one if it doesn't exist.
+        - If the user doesn't have a personal data, check if there is an analytic for that user and create one if it doesn't exist.
+        - If the user has a personal data and a tree, check if there is an analytic for that user and create one if it doesn't exist.
+        - If the user doesn't have a personal data and a tree, check if there is an analytic for that user and create one if it doesn't exist.
+        - If the user has a personal data and a tree, check if there is an analytic for that user and create one if it doesn't exist.
+
+    Args:
+        user (User): The user to get or create an analytic for.
+
+    Returns:
+        tuple[Analytic, bool]: The analytic and a boolean indicating whether the analytic was created.
+    """
+
     analytic = Analytic.objects.create(user=user)
     created = True
 

@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.db.models import QuerySet
 from django.urls import reverse
@@ -8,6 +9,15 @@ from hereditasarbor.apps.users.models import User
 
 
 class FamilyTree(models.Model):
+
+    """family tree model, used to store family trees.
+
+    Fields: owner, last_update
+
+    Description: owner: owner model, last_update: last update date
+
+    """
+
     owner = models.OneToOneField(
         User,
         verbose_name=_("Arbol Dueño"),
@@ -34,24 +44,33 @@ class FamilyTree(models.Model):
 
     @cached_property
     def size(self) -> int:
+        """Get the size of the family tree.
+
+        Returns:
+            int: The size of the family tree.
+        """
         return len(self.get_all_family())
 
-    """@cached_property
-    def different_diseases(self) -> Iterable[Disease]:
-        return different_diseases_per_family(self)
-
-    @cached_property
-    def diseases_count(self) -> dict[int, dict[str, Disease | int]]:
-        return count_per_disease_in_family(self)"""
-
     def get_all_family(self) -> QuerySet:
+        """Get all familiar of the family tree.
+
+        Returns:
+            QuerySet: All familiar of the family tree.
+        """
         return self.familiar.all()
 
-    # def get_all_diseases(self) -> QuerySet:
-    # return FamiliarDiseases.objects.filter(familiar__tree__pk=self.pk)
 
 
 class Familiar(models.Model):
+
+    """familiar model, used to store familiars.
+
+    Fields: tree, name, sex, relation_type, birth_date, death, death_type, death_date, weight, height
+
+    Description: tree: tree model, name: name, sex: sex, relation_type: relation type, birth_date: birth date, death: death, death_type: death type, death_date: death date, weight: weight, height: height
+
+    """
+
     sexs = ((1, "Femenino"), (0, "Masculino"))
 
     relation_types = (
@@ -126,4 +145,9 @@ class Familiar(models.Model):
         return f"Familiar(pk={self.pk})"
 
     def get_all_diseases(self) -> QuerySet:
+        """Get all diseases of the familiar.
+
+        Returns:
+            QuerySet: All diseases of the familiar. 
+        """
         return self.diseases.all()

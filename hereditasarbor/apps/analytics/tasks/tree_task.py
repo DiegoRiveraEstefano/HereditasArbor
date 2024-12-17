@@ -31,22 +31,65 @@ def calc_inheritance_score(
     count: int,
     degradation_sum: int,
 ) -> float:
+    """Calculate the inheritance score.
+    
+    Args:
+        chance (float): The chance of the disease.
+        count (int): The count of the disease.
+        degradation_sum (int): The sum of the degradation.
+    
+    Returns:
+        float: The inheritance score.
+    """
     return ((WC * count) + (WCH * (chance / 100))) / (1 + (WS * degradation_sum))
 
 #@lru_cache(maxsize=256)
 @njit(float32(float32, int16), fastmath=True, cache=True)
 def calc_error_delta(score: float, degradation_sum: int = 0) -> float:
+    """Calculate the error delta.
+
+    Args:
+        score (float): The score.
+        degradation_sum (int, optional): The degradation sum. Defaults to 0.
+
+    Returns:
+        float: The error delta.
+    """
     return (WS * degradation_sum) - score
 
 
 #@lru_cache(maxsize=256)
 @njit(float32(float32), fastmath=True, cache=True)
 def score_to_chance(score: float) -> float:
+    """Convert the score to chance.
+
+    Args:
+        score (float): The score.
+
+    Returns:
+        float: The chance.
+    """
     return (score - W_MIN) / W_NORM
 
 
 @jit(nopython=False, looplift=True, forceobj=True)
 def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
+    """Extract data from the tree.
+
+    Args:
+        tree_pk (int): The primary key of the tree.
+
+    Description:
+        - Extracts data from the tree.
+        - Adds the degradation of the disease to the data.
+        - Adds the chance of the disease to the data.
+        - Adds the display score of the disease to the data.
+        - Adds the percentage of the disease to the data.
+        - Adds the delta of the disease to the data.    
+
+    Returns:
+        dict[int, dict[str, int | dict]]: The extracted data.
+    """
     data: dict[int, dict[str, int | dict]] = {}
     tree = FamilyTree.objects.get(pk=tree_pk)
     for _familiar in tree.get_all_family():
@@ -75,6 +118,24 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
 def get_data_per_family(
     tree_pk: int,
 ) -> dict[int, dict[str, int | Disease | float]]:
+
+    """Get data per family.
+
+    Args:
+        tree_pk (int): The primary key of the tree.
+
+    Description:
+        - Extracts data from the tree.
+        - Adds the score of the disease to the data.
+        - Adds the chance from the score of the disease to the data.
+        - Adds the display score of the disease to the data.
+        - Adds the percentage of the disease to the data.
+        - Adds the delta of the disease to the data.
+
+    Returns:
+        dict[int, dict[str, int | Disease | float]]: The data per family.
+    """
+
     data: dict[int, dict[str, int | Disease]] = extract_data(tree_pk=tree_pk)
     for disease_data in data:
         data[disease_data]["score"] = calc_inheritance_score(

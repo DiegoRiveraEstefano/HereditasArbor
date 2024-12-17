@@ -12,16 +12,12 @@ from hereditasarbor.apps.users.models import User
 
 
 class FamiliarDiseases(models.Model):
-    """_summary_
+    """familiar diseases model, used to store familiar diseases.
+    
+    Fields: familiar, disease
 
-    Links:
-        https://stackoverflow.com/questions/5708650/how-do-i-add-a-foreign-key-field-to-a-modelform-in-django
+    Description: familiar: familiar model, disease: disease model
 
-    Args:
-        models (_type_): _description_
-
-    Returns:
-        _type_: _description_
     """
 
     familiar = models.ForeignKey(

@@ -7,6 +7,7 @@ from hereditasarbor.apps.family.views import familiar_list_view
 from hereditasarbor.apps.family.views import familiar_update_view
 
 app_name = "family"
+
 urlpatterns = [
     path("", view=familiar_list_view, name="list"),
     path("add/", view=familiar_create_view, name="create"),

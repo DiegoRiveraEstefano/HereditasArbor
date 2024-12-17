@@ -18,8 +18,16 @@ from hereditasarbor.apps.family.models import FamilyTree
 
 
 class FamiliarDetailView(DetailView, LoginRequiredMixin):
+    """FamiliarDetailView, used to display a familiar detail.
+
+    Args:
+        model (Familiar): familiar model
+        template_name (str): template name
+        slug_field (str): slug field
+        slug_url_kwarg (str): slug url kwarg
+    """
     model = Familiar
-    template_name = "family/family_details.html"
+    template_name = "family/views/family_details.html"
     slug_field = "pk"
     slug_url_kwarg = "pk"
 
@@ -28,8 +36,14 @@ familiar_detail_view = FamiliarDetailView.as_view()
 
 
 class FamiliarListView(ListView, LoginRequiredMixin):
+    """FamiliarListView, used to list familiars.
+
+    Args:
+        model (Familiar): familiar model
+        template_name (str): template name
+    """
     model = Familiar
-    template_name = "family/family_list.html"
+    template_name = "family/views/family_list.html"
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(tree__owner=self.request.user)
@@ -39,8 +53,15 @@ familiar_list_view = FamiliarListView.as_view()
 
 
 class FamiliarCreateView(CreateView, LoginRequiredMixin):
+    """FamiliarCreateView, used to create a new familiar.
+
+    Args:
+        model (Familiar): familiar model
+        template_name (str): template name
+        form_class (FamiliarForm): familiar form
+    """
     model = Familiar
-    template_name = "family/family_create.html"
+    template_name = "family/views/family_create.html"
     form_class = FamiliarForm
 
     def get_initial(self) -> dict[str, Any]:
@@ -51,12 +72,6 @@ class FamiliarCreateView(CreateView, LoginRequiredMixin):
         data["user"] = self.request.user
         return data
 
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
     def get_success_url(self) -> str:
         return reverse("family:list")
 
@@ -65,8 +80,19 @@ familiar_create_view = FamiliarCreateView.as_view()
 
 
 class FamiliarUpdateView(UpdateView, LoginRequiredMixin):
+
+    """FamiliarUpdateView, used to update a familiar.
+
+    Args:
+        model (Familiar): familiar model
+        template_name (str): template name
+        slug_field (str): slug field
+        slug_url_kwarg (str): slug url kwarg
+        form_class (FamiliarUpdateForm): familiar update form
+    """
+
     model = Familiar
-    template_name = "family/family_update.html"
+    template_name = "family/views/family_update.html"
     slug_field = "pk"
     slug_url_kwarg = "pk"
     form_class = FamiliarUpdateForm
@@ -79,8 +105,16 @@ familiar_update_view = FamiliarUpdateView.as_view()
 
 
 class FamiliarDeleteView(DeleteView, LoginRequiredMixin):
+
+    """FamiliarDeleteView, used to delete a familiar.
+
+    Args:
+        model (Familiar): familiar model
+        template_name (str): template name
+    """
+
     model = Familiar
-    template_name = "family/family_delete.html"
+    template_name = "family/views/family_delete.html"
 
     def get_success_url(self) -> str:
         return reverse("family:list")
@@ -90,5 +124,13 @@ familiar_delete_view = FamiliarDeleteView.as_view()
 
 
 class FamilyTreeDetailView(DetailView, LoginRequiredMixin):
+
+    """FamilyTreeDetailView, used to display a family tree detail.
+
+    Args:
+        model (FamilyTree): family tree model
+        template_name (str): template name
+    """
+
     model = FamilyTree
     template_name = ".html"

@@ -23,9 +23,16 @@ from .forms import UserLogOutForm
 
 
 class UserCreateView(CreateView):
+    """UserCreateView, used to create a new user.
+
+    Args:
+        model (User): user model
+        form_class (UserCreationForm): user creation form
+        template_name (str): template name
+    """
     model = User
     form_class = UserCreationForm
-    template_name = "users/user_create.html"
+    template_name = "users/views/user_create.html"
 
     def get_object(self, queryset: QuerySet[Any] | None) -> Model:
         return super().get_object(queryset)()
@@ -38,10 +45,22 @@ user_create_view = UserCreateView.as_view()
 
 
 class UserLoginFormView(FormView):
+    """UserLoginFormView, used to log in a user.
+
+    Args: 
+        form_class (UserLoginForm): user login form
+        template_name (str): template name
+        success_url (str): success url
+    """
     form_class = UserLoginForm
-    template_name = "users/user_login.html"
+    template_name = "users/views/user_login.html"
 
     def get_success_url(self) -> str:
+        """documentation for get_success_url
+
+        Returns:
+            str: url to redirect to
+        """
         if self.request.user.has_personal_data:
             return reverse("users:me")
         return reverse("personal:create")
@@ -66,6 +85,15 @@ user_login_view = UserLoginFormView.as_view()
 
 
 class UserLogOutView(FormView, LoginRequiredMixin, SuccessMessageMixin):
+
+    """UserLogOutView, used to log out a user.
+
+    Args:
+        form_class (UserLogOutForm): user logout form
+        template_name (str): template name
+        success_message (str): success message
+    """
+
     template_name = "users/views/user_logout.html"
     form_class = UserLogOutForm
     success_message = "Session Cerrada Correctamente"
@@ -82,9 +110,20 @@ user_log_out_view = UserLogOutView.as_view()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
+
+    """UserDetailView, used to display a user detail.
+
+    Args:
+        model (User): user model
+        slug_field (str): slug field
+        slug_url_kwarg (str): slug url kwarg
+        queryset (QuerySet[Any]): queryset
+    """
+
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
+    template_name = "users/views/user_detail.html"
 
     def get_queryset(self) -> QuerySet[Any]:
         return self.model.objects.filter(pk=self.request.user.pk)
@@ -97,15 +136,39 @@ user_detail_view = UserDetailView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+    """UserUpdateView, used to update a user.
+
+    Args:
+        model (User): user model
+        fields (list): fields to update
+        success_message (str): success message
+        template_name (str): template name
+    """
+
     model = User
     fields = ["name"]
     success_message = _("Information successfully updated")
+    template_name = "users/views/user_edit.html"
 
     def get_success_url(self) -> str:
+        """Get the success url of the view.
+
+        Returns:
+            str: The success url of the view.
+        """
         assert self.request.user.is_authenticated  # type guard
         return self.request.user.get_absolute_url()
 
     def get_object(self, queryset: QuerySet | None = None) -> User:
+        """Get the object of the view.
+
+        Args:
+            queryset (QuerySet | None, optional): The queryset. Defaults to None.
+
+        Returns:
+            User: The object of the view.
+        """
         assert self.request.user.is_authenticated  # type guard
         return self.request.user
 

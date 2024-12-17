@@ -29,10 +29,25 @@ class User(AbstractUser):
 
     @cached_property
     def has_personal_data(self) -> bool:
+        """Check if user has personal data.
+
+        Returns:
+            bool: True if user has personal data, False otherwise.
+        """
         return bool(hasattr(self, "personal_data"))
 
     def get_personal_data(self):
+        """Get user's personal data.
+
+        Returns:
+            PersonalData: User's personal data.
+        """
         return self.personal_data
 
     def get_tree(self):
+        """Get user's family tree.
+
+        Returns:
+            FamilyTree: returns the user's family tree
+        """
         return self.family_tree

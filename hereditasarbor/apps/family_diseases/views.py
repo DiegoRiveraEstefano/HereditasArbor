@@ -34,7 +34,7 @@ family_diseases_detail_view = FamiliarDiseasesDetailView.as_view()
 
 class FamilyDiseasesListView(ListView, LoginRequiredMixin):
     model = FamiliarDiseases
-    template_name = "family_diseases/family_diseases_list.html"
+    template_name = "family_diseases/views/family_diseases_list.html"
     allow_empty = True
 
     # todo: optimize this two queries in one query
@@ -58,7 +58,7 @@ family_diseases_list_view = FamilyDiseasesListView.as_view()
 
 class FamilyDiseasesCreateView(CreateView, LoginRequiredMixin):
     model = FamiliarDiseases
-    template_name = "family_diseases/family_diseases_create.html"
+    template_name = "family_diseases/views/family_diseases_create.html"
     form_class = FamiliarDiseasesForm
 
     def get_success_url(self) -> str:
@@ -83,7 +83,7 @@ family_diseases_create_view = FamilyDiseasesCreateView.as_view()
 
 class FamilyDiseasesUpdateView(UpdateView, LoginRequiredMixin):
     model = FamiliarDiseases
-    template_name = "family_diseases/family_diseases_update.html"
+    template_name = "family_diseases/views/family_diseases_update.html"
 
 
 family_diseases_update_view = FamilyDiseasesUpdateView.as_view()
@@ -91,7 +91,7 @@ family_diseases_update_view = FamilyDiseasesUpdateView.as_view()
 
 class FamilyDiseasesDeleteView(DeleteView, LoginRequiredMixin):
     model = FamiliarDiseases
-    template_name = "family_diseases/family_diseases_delete.html"
+    template_name = "family_diseases/views/family_diseases_delete.html"
 
     def get_success_url(self) -> str:
         return reverse(

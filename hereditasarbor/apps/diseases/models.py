@@ -4,6 +4,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class DiseaseCategory(models.Model):
+    """disease category model, used to store disease categories.
+
+    fields: name, description
+
+    """
     name = models.CharField(
         _("Nombre Categoria"), max_length=64
     )  # Field to store the name of the disease category
@@ -32,6 +37,12 @@ class DiseaseCategory(models.Model):
 
 
 class Disease(models.Model):
+    """disease model, used to store diseases.
+
+    fields: name, description, endogena, chance, category
+
+    """
+
     name = models.CharField(_("Nombre Enfermedad"), max_length=64)
 
     description = models.CharField(_("Descripcion Enfermedad"), max_length=256)
@@ -55,13 +66,33 @@ class Disease(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """Get the absolute url of the disease.
+
+        Returns:
+            str: The absolute url of the disease.
+        """
         return reverse("diseases:detail", kwargs={"pk": self.pk})
 
     def get_params(self) -> models.QuerySet:
+        """Get the disease parameters.
+
+        Returns:
+            QuerySet: The disease parameters.
+        """
         return self.params.all()
 
 
 class DiseasesParams(models.Model):
+
+    """disease parameters model, used to store disease parameters.
+
+    fields: disease, personal_field, value, operation
+
+    operations: lte, lt, gte, gt
+
+    """
+
+
     fields = (("glucose", "Glucosa"), ("cholesterol", "Colesterol"))
     operations = (
         ("lte", "Less Than Equal"),

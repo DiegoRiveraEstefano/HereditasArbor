@@ -6,6 +6,15 @@ from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
+    """user creation form, used for creating new users.
+    Inherits from django.forms.ModelForm.
+
+    Fields:
+        username: username field
+        email: email field
+        password: password field
+        name: name field
+    """
     password = forms.CharField(
         max_length=128,
         required=True,
@@ -26,6 +35,13 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
+    """user login form, used for logging in users.
+    Inherits from django.forms.Form.
+
+    Fields:
+        username: username field
+        password: password field
+    """
     username = forms.CharField(
         max_length=128,
         required=True,
@@ -42,6 +58,12 @@ class UserLoginForm(forms.Form):
 
 
 class UserLogOutForm(forms.Form):
+    """user logout form, used for logging out users.
+    Inherits from django.forms.Form.
+
+    Fields:
+        confirmation: confirmation field
+    """
     confirmation = forms.BooleanField(
         required=True,
         label="Usuario",

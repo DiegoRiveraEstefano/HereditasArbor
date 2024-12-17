@@ -8,6 +8,21 @@ from .models import FamilyTree
 
 
 class FamiliarForm(forms.ModelForm):
+    """FamiliarForm, used to create a new familiar.
+
+    Args:
+        user (User): user model
+        tree (FamilyTree): family tree model
+    Fields:
+        name: name field
+        sex: sex field
+        relation_type: relation type field
+        birth_date: birth date field
+        weight: weight field
+        height: height field
+        death_date: death date field
+        tree: tree field
+    """
     tree = forms.ChoiceField(choices=[], required=True, widget=forms.HiddenInput)
 
     birth_date = forms.DateField(
@@ -45,6 +60,27 @@ class FamiliarForm(forms.ModelForm):
 
 
 class FamiliarUpdateForm(forms.ModelForm):
+
+    """FamiliarUpdateForm, used to update a familiar.
+
+    Args:
+        user (User): user model
+    Fields:
+        name: name field
+        sex: sex field
+        relation_type: relation type field
+        birth_date: birth date field
+        weight: weight field
+        height: height field
+        death_date: death date field
+    """
+
+    birth_date = forms.DateField(
+        label="Fecha Nacimiento",
+        required=True,
+        widget=forms.widgets.DateTimeInput,
+    )
+
     birth_date = forms.fields.DateField(
         label="Fecha Nacimiento", required=False, widget=forms.widgets.DateInput
     )
