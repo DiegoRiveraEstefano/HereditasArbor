@@ -1,9 +1,7 @@
 # HereditasArbor
 
-Behold My Awesome Project!
+HereditasArbor is a web application to manage hereditary diseases.
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 License: GPLv3
 
@@ -87,4 +85,24 @@ The following details how to deploy this application.
 
 ### Docker
 
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+```bash
+cd hereditasarbor
+docker-compose -f docker-compose.production.yml build && docker-compose -f docker-compose.production.yml up
+```
+
+
+## docs
+
+Documentation is built using Sphinx and is located in the `docs` directory.
+
+To build the docs, run:
+
+    $ docker compose -f docker-compose.docs.yml build docs
+    $ docker compose -f docker-compose.docs.yml up docs
+
+The docs will be built in the `docs/_build/html` directory.
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
