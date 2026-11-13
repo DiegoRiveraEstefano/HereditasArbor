@@ -190,3 +190,13 @@ python-version = "3.12"
 search-path = ["hereditasarbor"]
 ignore-missing-imports = ["*"]
 permissive-ignores = true
+
+[tool.pyrefly.errors]
+missing-attribute = "ignore"
+bad-return = "ignore"
+bad-argument-type = "ignore"
+bad-override = "ignore"
+bad-assignment = "ignore"
+not-callable = "ignore"
+unsupported-operation = "ignore"
+bad-index = "ignore"

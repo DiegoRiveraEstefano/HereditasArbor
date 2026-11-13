@@ -290,3 +290,8 @@ hereditasarbor/media/
 
 # Agent skills
 skills/
+
+# SQLite
+*.sqlite3
+*.sqlite3-journal
+*.db

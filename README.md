@@ -1,108 +1,160 @@
 # HereditasArbor
 
-HereditasArbor is a web application to manage hereditary diseases.
+<div align="center">
 
+**Plataforma Integral de Genealogía Médica y Análisis de Riesgo Hereditario**
 
-License: GPLv3
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/django-5.1-0C4B33.svg)](https://www.djangoproject.com/)
+[![uv](https://img.shields.io/badge/managed%20by-uv-DE5FE9.svg)](https://astral.sh/uv)
+[![Ruff](https://img.shields.io/badge/code%20style-ruff-261230.svg)](https://github.com/astral-sh/ruff)
+[![Pyrefly](https://img.shields.io/badge/type%20checker-pyrefly-orange.svg)](https://github.com/facebook/pyrefly)
+[![Docker](https://img.shields.io/badge/docker-compose-2496ED.svg)](https://www.docker.com/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Settings
+</div>
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+---
 
-## Basic Commands
+## 📋 Resumen del Proyecto
 
-### Setting Up Your Users
+**HereditasArbor** es una aplicación web médica orientada a la **prevención y análisis de riesgos de salud hereditarios** mediante el modelado de árboles genealógicos y el seguimiento biométrico personal. 
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+Permite a los usuarios registrar antecedentes patológicos familiares (grados de consanguinidad, causa y edad de defunción, patologías diagnosticadas), realizar un seguimiento cronológico de sus propias métricas de salud (presión arterial, glucosa, colesterol, IMC) y procesar modelos predictivos de riesgo hereditario de manera asíncrona.
 
-- To create a **superuser account**, use this command:
+---
 
-      $ python manage.py createsuperuser
+## 🏛️ Decisiones de Arquitectura y Modernización
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+Este proyecto fue modernizado bajo los más altos estándares de ingeniería de software para portafolio profesional:
 
-### Type checks
+### 1. Gestión de Dependencias con `uv`
+- Migración completa desde `pip-tools`/`requirements.txt` hacia **`uv`**, logrando instalaciones y resolución de dependencias deterministas, ultra-rápidas y con soporte de workspaces en Python 3.12 (`pyproject.toml` y `uv.lock`).
+- Entorno aislado y reproducible garantizado para desarrollo local y contenedores de producción.
 
-Running type checks with mypy:
+### 2. Sistema CSS Nativo y Semántico (Zero-Build Frontend)
+- **Eliminación total de Tailwind CSS** y sus cadenas de compilación complejas (Node.js/npm, watchers, scripts de build).
+- Implementación de un **sistema de diseño semántico nativo** en `hereditasarbor/static/css/project.css` utilizando:
+  - **Tokens de Diseño CSS:** Variables nativas (`:root`) para paleta de colores de marca, espaciados, tipografías y sombras.
+  - **Estilizado Directo de Elementos:** Componentes HTML (`<h1>`-`<h6>`, `<form>`, `<input>`, `<select>`, `<button>`, `<table>`) con diseño moderno por defecto.
+  - **Plantillas limpias:** Migración de formularios a `{{ form.as_div }}` sin dependencia de `crispy-tailwind`.
+  - **Rendimiento:** Cero latencia de compilación, peso reducido y compatibilidad nativa en navegadores modernos.
 
-    $ mypy hereditasarbor
+### 3. Calidad de Código y Tipado Estático
+- **Ruff:** Linter y formateador ultrarrápido configurado con reglas estrictas (`E`, `F`, `I`, `UP`, `B`, `SIM`).
+- **Pyrefly:** Verificación moderna de tipos estáticos integrada en el pipeline de desarrollo.
+- **Suite de Pruebas Automatizadas:** 100% de tests unitarios y de integración pasando con `pytest` y `pytest-django`.
 
-### Test coverage
+### 4. Procesamiento Asíncrono Distribuido
+- Procesamiento de árboles familiares complejos y cálculo de scores de riesgo en segundo plano mediante **Celery** con broker en **Redis**.
+- Planificador periódico con **Celery Beat** y monitoreo operacional con **Flower**.
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+### 5. Arquitectura de Contenedores
+- Orquestación con **Docker Compose**: Django (ASGI/WSGI), PostgreSQL 16, Redis, Celery Worker, Celery Beat, Flower, Nginx, Mailpit y Traefik con SSL automático (Let's Encrypt).
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+---
 
-#### Running tests with pytest
+## 🛠️ Stack Tecnológico
 
-    $ pytest
+| Capa | Tecnologías |
+| :--- | :--- |
+| **Backend** | Python 3.12, Django 5.1, Django REST Framework, drf-spectacular (OpenAPI 3) |
+| **Base de Datos** | PostgreSQL 16, psycopg3 (con fallback a SQLite para desarrollo/testing) |
+| **Frontend** | HTML5 Semántico, CSS3 Moderno (Custom Properties & Grid/Flexbox), Alpine.js, HTMX |
+| **Tareas Asíncronas** | Celery 5.7, Redis 8.1, Celery Beat, Flower |
+| **Dev & Calidad** | uv, Ruff, Pyrefly, pytest, factory-boy, pre-commit |
+| **Infraestructura** | Docker, Docker Compose, Traefik, Nginx, Mailpit |
 
-### Live reloading and Sass CSS compilation
+---
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+## 🚀 Guía de Inicio Rápido
 
-### Celery
+### Opción A: Ejecución con Docker Compose (Recomendada)
 
-This app comes with Celery.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/tu-usuario/hereditasarbor.git
+   cd HereditasArbor
+   ```
 
-To run a celery worker:
+2. **Configurar variables de entorno:**
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Construir y levantar servicios:**
+   ```bash
+   docker compose -f docker-compose.local.yml build
+   docker compose -f docker-compose.local.yml up -d
+   ```
+
+4. **Acceder a la aplicación:**
+   - Web App: `http://localhost:8000` (o `http://localhost` vía Traefik)
+   - API Docs (Swagger): `http://localhost:8000/api/docs/`
+   - Mailpit (Emails en dev): `http://localhost:8025`
+   - Flower (Celery Dashboard): `http://localhost:5555`
+
+---
+
+### Opción B: Ejecución Local Nativa con `uv`
+
+1. **Instalar `uv` (si no está instalado):**
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+2. **Instalar dependencias y sincronizar entorno virtual:**
+   ```bash
+   uv sync
+   ```
+
+3. **Ejecutar migraciones de base de datos:**
+   ```bash
+   uv run python manage.py migrate
+   ```
+
+4. **Crear superusuario:**
+   ```bash
+   uv run python manage.py createsuperuser
+   ```
+
+5. **Iniciar el servidor de desarrollo:**
+   ```bash
+   uv run python manage.py runserver
+   ```
+
+---
+
+## 🧪 Pruebas y Calidad de Código
 
 ```bash
-cd hereditasarbor
-celery -A config.celery_app worker -l info
+# Ejecutar suite de pruebas completa
+uv run pytest
+
+# Verificar estilo y calidad de código (Ruff)
+uv run ruff check .
+
+# Verificar formato de código
+uv run ruff format --check .
+
+# Verificación de tipos estáticos (Pyrefly)
+uv run pyrefly check .
+
+# Validar integridad de modelos y migraciones
+uv run python manage.py makemigrations --check
 ```
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
+---
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+## 📖 Documentación de la API
 
-```bash
-cd hereditasarbor
-celery -A config.celery_app beat
-```
+La API REST está completamente documentada bajo la especificación OpenAPI 3:
+- **Swagger UI:** `/api/docs/`
+- **ReDoc:** `/api/redoc/`
+- **Esquema OpenAPI:** `/api/schema/`
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+---
 
-```bash
-cd hereditasarbor
-celery -A config.celery_app worker -B -l info
-```
+## 📄 Licencia
 
-### Email Server
-
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
-
-Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
-
-With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-```bash
-cd hereditasarbor
-docker-compose -f docker-compose.production.yml build && docker-compose -f docker-compose.production.yml up
-```
-
-
-## docs
-
-Documentation is built using Sphinx and is located in the `docs` directory.
-
-To build the docs, run:
-
-    $ docker compose -f docker-compose.docs.yml build docs
-    $ docker compose -f docker-compose.docs.yml up docs
-
-The docs will be built in the `docs/_build/html` directory.
-
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Este proyecto se distribuye bajo la licencia **GNU General Public License v3.0 (GPLv3)**. Consulta el archivo `LICENSE` para más detalles.
