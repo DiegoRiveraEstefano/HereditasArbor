@@ -278,7 +278,17 @@ hereditasarbor/media/
 
 .pytest_cache/
 .ipython/
+# Environment variables
 .env
+.env.*
+!.env.example
 .envs/*
 !.envs/.local/
 !.envs/.production/
+.envs/.local/*
+!.envs/.local/*.example
+.envs/.production/*
+!.envs/.production/*.example
+
+# Agent skills
+skills/

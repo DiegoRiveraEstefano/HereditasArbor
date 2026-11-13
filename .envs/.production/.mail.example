@@ -1,0 +1,4 @@
+# Production Mail Settings
+# DJANGO_SERVER_EMAIL=
+# MAILGUN_API_KEY=
+# MAILGUN_DOMAIN=
