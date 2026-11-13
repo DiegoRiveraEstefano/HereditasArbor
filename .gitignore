@@ -161,8 +161,6 @@ typings/
 !.vscode/*.code-snippets
 *.code-workspace
 
-# Local History for devcontainer
-.devcontainer/bash_history
 
 
 
