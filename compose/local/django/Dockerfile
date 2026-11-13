@@ -77,13 +77,7 @@ COPY ./compose/local/django/celery/flower/start /start-flower
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
-# tailwind cli
-COPY ./scripts/tailwind.sh /tailwind.sh
-RUN chmod +x /tailwind.sh
-
-
 # copy application code to WORKDIR
 COPY . ${APP_HOME}
-RUN sh /tailwind.sh
 
 ENTRYPOINT ["/entrypoint"]

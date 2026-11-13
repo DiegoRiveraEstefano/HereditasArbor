@@ -72,7 +72,6 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
-    "crispy_tailwind",
     "django_celery_beat",
     "django_filters",
     "rest_framework",
@@ -202,8 +201,8 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = "tailwind"
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+# CRISPY_TEMPLATE_PACK removed in favor of semantic HTML & CSS
+
 
 # FIXTURES
 # ------------------------------------------------------------------------------

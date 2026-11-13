@@ -1,5 +1,5 @@
 {
-    "css.styleSheets": ["../static/css/output.css"],
+    "css.styleSheets": ["../static/css/project.css"],
     "[html][django-html]": {
         "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": true,

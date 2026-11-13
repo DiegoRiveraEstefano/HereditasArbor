@@ -1,71 +1,53 @@
 {% extends "base.html" %}
 
+{% block title %}{{ familiar.name }} | HereditasArbor{% endblock title %}
+
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <section class="container px-6 py-12 mx-auto lg:py-16">
-        <div class="lg:flex lg:items-center">
-            <!-- Image Section -->
-            <div class="lg:w-1/2">
-                <div class="h-80 w-full mx-auto max-w-md overflow-hidden rounded-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
-                    <img class="object-cover w-full h-full rounded-full"
-                         src="https://images.unsplash.com/photo-1610462275440-4ea0976f46f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-                         alt="Familiar Image" />
-                </div>
-            </div>
-            <!-- Information Section -->
-            <div class="mt-8 lg:w-1/2 lg:mt-0 lg:mx-6">
-                <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
-                    {{ familiar.name }}
-                </h1>
-                <p class="mt-4 text-gray-500">
-                    <strong>Relacion:</strong> {{ familiar.get_relation_type_display }}
-                </p>
-                <p class="mt-4 text-gray-500">
-                    <strong>Sexo:</strong> {{ familiar.get_sex_display }}
-                </p>
-                <p class="mt-4 text-gray-500">
-                    <strong>Fecha Nacimiento:</strong> {{ familiar.birth_date|date:"F j, Y" }}
-                </p>
-                <p class="mt-4 text-gray-500">
-                    <strong>Altura:</strong> {{ familiar.height }} cm
-                </p>
-                <p class="mt-4 text-gray-500">
-                    <strong>Peso:</strong> {{ familiar.weight }} kg
-                </p>
-                <p class="mt-4 text-gray-500">
-                    {% if familiar.death %}
-                        <strong>Fecha de muerte:</strong> {{ familiar.death_date|date:"F j, Y" }}
-                        <br />
-                        <strong>Tip de muerte:</strong> {{ familiar.get_death_type_display }}
-                    {% else %}
-                        <strong>Vivo</strong>
-                    {% endif %}
-                </p>
-                <!-- Link to Return -->
-                <div class="mt-8">
-                    <a href="{% url 'family:edit' pk=familiar.pk %}"
-                       class="mt-2 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                        Editar Familiar
-                    </a>
-                    <a href="{% url 'family-diseases:list' familiar=familiar.pk %}"
-                       class="mt-2 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                        Ver Enfermedades
-                    </a>
-                    <a href="{% url 'family:list' %}"
-                       class="mt-2 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                        Volver al Arbol Familiar
-                    </a>
-                    <a href="{% url 'family:remove' pk=object.pk %}"
-                       class="mt-2 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-red">
-                        Eliminar Familiar
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="container py-8">
+    <div class="card max-w-4xl mx-auto">
+      <div class="flex-between mb-4">
+        <h1>{{ familiar.name }}</h1>
+        {% if familiar.death %}
+          <span class="badge badge-danger">Fallecido</span>
+        {% else %}
+          <span class="badge badge-success">Vivo</span>
+        {% endif %}
+      </div>
+
+      <div class="card-details mt-4">
+        <p><strong>Relación:</strong> {{ familiar.get_relation_type_display }}</p>
+        <p><strong>Sexo:</strong> {{ familiar.get_sex_display }}</p>
+        <p><strong>Fecha Nacimiento:</strong> {{ familiar.birth_date|date:"F j, Y" }}</p>
+        <p><strong>Altura:</strong> {{ familiar.height }} cm</p>
+        <p><strong>Peso:</strong> {{ familiar.weight }} kg</p>
+        {% if familiar.death %}
+          <p><strong>Fecha de Defunción:</strong> {{ familiar.death_date|date:"F j, Y" }}</p>
+          <p><strong>Causa / Tipo:</strong> {{ familiar.get_death_type_display }}</p>
+        {% endif %}
+      </div>
+
+      <div class="flex-row gap-4 mt-8">
+        <a href="{% url 'family:edit' pk=familiar.pk %}" class="btn">
+          Editar Familiar
+        </a>
+        <a href="{% url 'family-diseases:list' familiar=familiar.pk %}" class="btn btn-outline">
+          Ver Enfermedades
+        </a>
+        <a href="{% url 'family:list' %}" class="btn btn-outline">
+          Volver a la Lista
+        </a>
+        <a href="{% url 'family:remove' pk=familiar.pk %}" class="btn btn-danger">
+          Eliminar
+        </a>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

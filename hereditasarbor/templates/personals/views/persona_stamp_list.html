@@ -1,65 +1,65 @@
 {% extends "base.html" %}
 
+{% block title %}Historial de Mediciones | HereditasArbor{% endblock title %}
+
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <main>
-        <section class="container px-6 py-12 mx-auto lg:py-16">
-            <div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-8">
-                <!-- Title -->
-                <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize">Historical Personal Data</h1>
-                <!-- Add New Entry Button -->
-                <div class="flex justify-end mb-6">
-                    <a href="{% url 'personal:time_stamp-create' %}"
-                       class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Añadir Datos</a>
-                </div>
-                <!-- Data Table -->
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200">
-                        <thead>
-                            <tr class="bg-[#475F45] text-white">
-                                <th class="py-3 px-6 text-left">Fecha añadida</th>
-                                <th class="py-3 px-6 text-left">Peso (kg)</th>
-                                <th class="py-3 px-6 text-left">Altura (cm)</th>
-                                <th class="py-3 px-6 text-left">Pulso Cardiaco</th>
-                                <th class="py-3 px-6 text-left">Glucosa</th>
-                                <th class="py-3 px-6 text-left">Colesterol</th>
-                                <th class="py-3 px-6 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-700">
-                            {% for data in object_list %}
-                                <tr class="border-b border-gray-200">
-                                    <td class="py-4 px-6">{{ data.added_data }}</td>
-                                    <td class="py-4 px-6">{{ data.weight }}</td>
-                                    <td class="py-4 px-6">{{ data.height }}</td>
-                                    <td class="py-4 px-6">{{ data.cardiac_pulse }}</td>
-                                    <td class="py-4 px-6">{{ data.glucose }}</td>
-                                    <td class="py-4 px-6">{{ data.cholesterol }}</td>
-                                    <td class="py-4 px-6">
-                                        <a href="{{ data.get_absolute_url }}"
-                                           class="text-blue-600 hover:underline">Ver</a>
-                                    </td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="7" class="py-4 px-6 text-center text-gray-500">No hay datos</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-        <section class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-4">
-            <div class="mt-4 mb-4">
-                <a href="{% url 'personal:me' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Volver</a>
-            </div>
-        </section>
-    </main>
+  <section class="container py-8">
+    <div class="card max-w-6xl mx-auto">
+      <div class="flex-between">
+        <h1>Historial de Mediciones</h1>
+        <a href="{% url 'personal:time_stamp-create' %}" class="btn">
+          + Añadir Registro
+        </a>
+      </div>
+
+      <div class="mt-6">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Peso (kg)</th>
+              <th>Altura (cm)</th>
+              <th>Pulso Cardíaco</th>
+              <th>Glucosa</th>
+              <th>Colesterol</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in object_list %}
+              <tr>
+                <td>{{ data.added_data|date:"F j, Y" }}</td>
+                <td>{{ data.weight }}</td>
+                <td>{{ data.height }}</td>
+                <td>{{ data.cardiac_pulse }} bpm</td>
+                <td>{{ data.glucose }} mg/dL</td>
+                <td>{{ data.cholesterol }} mg/dL</td>
+                <td>
+                  <a href="{{ data.get_absolute_url }}" class="btn btn-outline btn-sm">
+                    Ver
+                  </a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="7" class="text-center text-muted">No hay registros de mediciones aún.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6">
+        <a href="{% url 'personal:me' %}" class="btn btn-outline">Volver a Datos Personales</a>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

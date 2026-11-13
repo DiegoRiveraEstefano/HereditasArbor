@@ -21,7 +21,6 @@ else:
 
 END
 }
-/usr/bin/tailwindcss -i hereditasarbor/static/css/project.css -o hereditasarbor/static/css/output.css --minify
 python manage.py migrate
 source scripts/load_initial_data.sh
 

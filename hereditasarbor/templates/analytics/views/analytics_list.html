@@ -1,58 +1,57 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}Análisis | HereditasArbor{% endblock title %}
 
-{% block title %}
-    Analisis
-{% endblock title %}
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <section class="container px-6 py-12 mx-auto lg:py-16">
-        <div class="max-w-2xl mx-auto">
-            <!-- Page Title -->
-            <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-5xl">Analisis</h1>
-            <!-- Form Section -->
-            <div class="mt-8">
-                <a href="{% url 'analytics:analytic-create' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">
-                    <i class="fas fa-plus"></i> Nuevo Analisis
-                </a>
-            </div>
-            <!-- Table Section -->
-            <div class="mt-8">
-                <table class="w-full mt-4 border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 px-4 py-2 text-left">Id</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Fecha</th>
-                            <th class="border border-gray-300 px-4 py-2 text-left">Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for analytic in object_list %}
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-2">
-                                    <a class="text-[#475F45]" href="#">{{ analytic.pk }}</a>
-                                </td>
-                                <td class="border border-gray-300 px-4 py-2">{{ analytic.created_at }}</td>
-                                <td class="border border-gray-300 px-4 py-2">
-                                    <a class="text-[#475F45]"
-                                       href="{% url 'analytics:analytic-detail' pk=analytic.pk %}">Detalles</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-8">
-                <a href="{% url 'users:me' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Volver al Dashboard</a>
-            </div>
-        </div>
-    </section>
+  <section class="container py-8">
+    <div class="card max-w-4xl mx-auto">
+      <div class="flex-between">
+        <h1>Análisis</h1>
+        <a href="{% url 'analytics:analytic-create' %}" class="btn">
+          + Nuevo Análisis
+        </a>
+      </div>
+
+      <div class="mt-6">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fecha de Creación</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for analytic in object_list %}
+              <tr>
+                <td><strong>#{{ analytic.pk }}</strong></td>
+                <td>{{ analytic.created_at|date:"F j, Y, H:i" }}</td>
+                <td>
+                  <a href="{% url 'analytics:analytic-detail' pk=analytic.pk %}" class="btn btn-outline btn-sm">
+                    Ver Detalles
+                  </a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="3" class="text-center text-muted">No hay análisis registrados aún.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6">
+        <a href="{% url 'users:me' %}" class="btn btn-outline">Volver al Perfil</a>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

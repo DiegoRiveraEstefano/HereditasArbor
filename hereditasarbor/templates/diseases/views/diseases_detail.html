@@ -1,34 +1,28 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}Enfermedad: {{ object.name }} | HereditasArbor{% endblock title %}
 
-{% block title %}
-  Enfermedad: {{ object.name }}
-{% endblock title %}
 {% block header %}
-  {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-  <section class="container px-6 py-12 mx-auto lg:py-16">
-    <div class="max-w-4xl mx-auto">
-      <!-- User Information -->
-      <div class="bg-white shadow-md rounded-lg p-8">
-        <!-- Profile Title -->
-        <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize">
-          Nombre Enfermedad: {{ object.name }}
-        </h1>
-        <!-- Username Display -->
-        <p class="mt-4 text-lg text-gray-500">
-          <strong>Categoria:</strong> {{ object.category.name }}
-        </p>
-        <!-- Additional Profile Fields (if any) -->
-        <p class="mt-4 text-lg text-gray-500">
-          <strong>Descripcion:</strong> {{ object.description }}
-        </p>
+  <section class="container py-8">
+    <div class="card max-w-4xl mx-auto">
+      <h1>{{ object.name }}</h1>
+
+      <div class="card-details mt-6">
+        <p><strong>Categoría:</strong> {{ object.category.name|default:"General" }}</p>
+        <p><strong>Descripción:</strong> {{ object.description|default:"Sin descripción registrada." }}</p>
+      </div>
+
+      <div class="mt-8">
+        <a href="javascript:history.back()" class="btn btn-outline">Volver</a>
       </div>
     </div>
   </section>
 {% endblock content %}
+
 {% block footer %}
-  {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

@@ -1,110 +1,98 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}Detalle de Análisis #{{ object.pk }} | HereditasArbor{% endblock title %}
 
-{% block title %}
-    Analisis: {{ object.name }}
-{% endblock title %}
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <main>
-        {% for a in personal_diseases %}{{ a }}{% endfor %}
-        <section class="container px-6 py-12 mx-auto lg:py-16">
-            <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                <h1 class="text-4xl font-bold text-[#343D33] mb-6">
-                    Enfermedades Dentro del <strong>Arbol Familiar</strong>
-                </h1>
-                <!-- Count of Diseases in Family -->
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold text-gray-700">Enfermedades</h2>
-                    <h3 class="text-sm font-semibold text-gray-500">
-                        valores altos del puntaje indica un mayor riesgo de contraer la enfermedad
-                    </h3>
-                    <h3 class="text-sm font-semibold text-gray-500">El delta de error indica la confiabilidad del analisis.</h3>
-                    {% if analytic %}
-                        <table class="w-full mt-4 border-collapse border border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Enfermedad</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Conteo</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Puntaje</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Probabilidad</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Delta de Error</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for disease_pk, disease_data in analytic.get_tree_result.items %}
-                                    <tr>
-                                        <td class="border border-gray-300 px-4 py-2">
-                                            <a class="text-[#475F45]" href="#">{{ disease_data.disease.name }}</a>
-                                        </td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ disease_data.count }}</td>
-                                        <td class="border border-gray-300 px-4 py-2 {% if disease_data.display_score < 5 %} text-green-500 {% elif disease_data.display_score < 12 %} text-yellow-500 {% else %}text-red-500{% endif %}">
-                                            {{ disease_data.display_score }}
-                                        </td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ disease_data.percentage }}%</td>
-                                        <td class="border border-gray-300 px-4 py-2 {% if disease_data.delta < 7 %} text-green-500 {% elif disease_data.delta < 15 %} text-yellow-500 {% else %}text-red-500{% endif %}">
-                                            {{ disease_data.delta }}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p class="mt-2 text-lg text-gray-500">No hay informacion disponible.</p>
-                    {% endif %}
-                </div>
-            </div>
-        </section>
-        <section class="container px-4 py-6 mx-auto lg:py-8">
-            <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                <h1 class="text-4xl font-bold text-[#343D33] mb-6">Riesgos Personales</h1>
-                <!-- Count of Diseases in Family -->
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold text-gray-700">Posibles Enfermedades</h2>
-                    {% if analytic.get_personal_result.items %}
-                        <table class="w-full mt-4 border-collapse border border-gray-300">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Enfermedad</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Posible</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Delta de Error</th>
-                                    <th class="border border-gray-300 px-4 py-2 text-left">Detalles</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for disease_pk, disease_data in analytic.get_personal_result.items %}
-                                    <tr>
-                                        <td class="border border-gray-300 px-4 py-2">
-                                            <a class="text-[#475F45]" href="{{ disease_data.disease.get_absolute_url }}">{{ disease_data.disease.name }}</a>
-                                        </td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ disease_data.percentage }}%</td>
-                                        <td class="border border-gray-300 px-4 py-2 {% if disease_data.delta < 5 %} text-green-500 {% elif disease_data.delta < 15 %} text-yellow-500 {% else %}text-red-500{% endif %}">
-                                            {{ disease_data.delta }}
-                                        </td>
-                                        <td class="border border-gray-300 px-4 py-2">
-                                            <a class="text-[#475F45]" href="{% url "users:me" %}">Detalles</a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p class="mt-2 text-lg text-gray-500">No hay informacion Disponible.</p>
-                    {% endif %}
-                </div>
-            </div>
-        </section>
-        <section class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
-            <div class="mt-8">
-                <a href="{% url 'analytics:analytic-list' %}"
-                   class="bg-[#475F45] text-white px-4 py-2 rounded hover:bg-[#475F45]/90">Volver a Analisis</a>
-            </div>
-        </section>
-    </main>
+  <section class="container py-8">
+    <div class="card max-w-6xl mx-auto">
+      <h1>Análisis de Riesgo Hereditario</h1>
+      <p class="text-muted">
+        Valores altos del puntaje indican un mayor riesgo de predisposición a la enfermedad. El delta de error representa la confiabilidad del modelo según la completitud del árbol.
+      </p>
+
+      <div class="mt-8">
+        <h2>Riesgos en el Árbol Familiar</h2>
+        {% if analytic.get_tree_result %}
+          <table>
+            <thead>
+              <tr>
+                <th>Enfermedad</th>
+                <th>Conteo Familiar</th>
+                <th>Puntaje</th>
+                <th>Probabilidad</th>
+                <th>Delta de Error</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for disease_pk, disease_data in analytic.get_tree_result.items %}
+                <tr>
+                  <td><strong>{{ disease_data.disease.name }}</strong></td>
+                  <td>{{ disease_data.count }}</td>
+                  <td class="{% if disease_data.display_score < 5 %}text-success{% elif disease_data.display_score < 12 %}text-warning{% else %}text-danger{% endif %}">
+                    <strong>{{ disease_data.display_score }}</strong>
+                  </td>
+                  <td>{{ disease_data.percentage }}%</td>
+                  <td class="{% if disease_data.delta < 7 %}text-success{% elif disease_data.delta < 15 %}text-warning{% else %}text-danger{% endif %}">
+                    ±{{ disease_data.delta }}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-muted mt-2">No hay suficiente información registrada en el árbol para calcular riesgos familiares.</p>
+        {% endif %}
+      </div>
+
+      <div class="mt-12">
+        <h2>Predisposiciones Personales</h2>
+        {% if analytic.get_personal_result %}
+          <table>
+            <thead>
+              <tr>
+                <th>Enfermedad</th>
+                <th>Probabilidad</th>
+                <th>Delta de Error</th>
+                <th>Ficha Médica</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for disease_pk, disease_data in analytic.get_personal_result.items %}
+                <tr>
+                  <td>
+                    <a href="{{ disease_data.disease.get_absolute_url }}">
+                      <strong>{{ disease_data.disease.name }}</strong>
+                    </a>
+                  </td>
+                  <td>{{ disease_data.percentage }}%</td>
+                  <td class="{% if disease_data.delta < 5 %}text-success{% elif disease_data.delta < 15 %}text-warning{% else %}text-danger{% endif %}">
+                    ±{{ disease_data.delta }}
+                  </td>
+                  <td>
+                    <a href="{{ disease_data.disease.get_absolute_url }}" class="btn btn-outline btn-sm">Ver Ficha</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-muted mt-2">No hay datos personales suficientes para correlacionar enfermedades individuales.</p>
+        {% endif %}
+      </div>
+
+      <div class="mt-8 flex-row gap-4">
+        <a href="{% url 'analytics:analytic-list' %}" class="btn btn-outline">
+          Volver a Análisis
+        </a>
+      </div>
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

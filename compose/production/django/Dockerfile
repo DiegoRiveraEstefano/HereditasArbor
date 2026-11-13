@@ -96,16 +96,11 @@ COPY --chown=django:django ./compose/production/django/celery/flower/start /star
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
-# tailwind cli
-COPY ./scripts/tailwind.sh /tailwind.sh
-RUN chmod +x /tailwind.sh
-
 # copy application code to WORKDIR
 COPY --chown=django:django . ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
 RUN chown -R django:django ${APP_HOME}
-RUN sh /tailwind.sh
 
 USER django
 

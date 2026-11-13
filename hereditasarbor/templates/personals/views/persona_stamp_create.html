@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
 
 {% block header %}
     {% include "components/layout/haeder.html" with color_header="text-white" %}
@@ -15,7 +14,7 @@
                 <form method="post" class="mt-8 space-y-6">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
-                    {{ form|crispy }}
+                    {{ form.as_div }}
                     <!-- Submit Button -->
                     <div class="flex justify-end">
                         <button type="submit"

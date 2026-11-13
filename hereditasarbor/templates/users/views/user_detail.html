@@ -1,56 +1,45 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}Perfil: {{ object.username }} | HereditasArbor{% endblock title %}
 
-{% block title %}
-  User: {{ object.username }}
-{% endblock title %}
 {% block header %}
-  {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-  <section class="container px-6 py-12 mx-auto lg:py-16">
-    <div class="max-w-h-6xl mx-auto">
-      <!-- User Information -->
-      <div class="bg-white shadow-md rounded-lg p-8">
-        <!-- Profile Title -->
-        <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize">
-          Perfil de Usuario
-        </h1>
-        <!-- Username Display -->
-        <p class="mt-4 text-lg text-gray-500">
-          <strong>Username:</strong> {{ object.username }}
-        </p>
-        <!-- Additional Profile Fields (if any) -->
-        <p class="mt-4 text-lg text-gray-500">
-          <strong>Email:</strong> {{ object.email }}
-        </p>
-        <div class="mt-6 flex space-x-4">
-          <!-- Back to User List (optional if user list exists) -->
-          <a href="{% url 'family:list' %}"
-             class="bg-[#475F45] hover:bg-[#475F45]/80 text-white px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest border-2 border-[#475F45] transition-colors duration-300">
-            Ir a Arbol Familiar
+  <section class="container py-8">
+    <div class="card max-w-4xl mx-auto">
+      <h1>Perfil de Usuario</h1>
+
+      <div class="card-details mt-6">
+        <p><strong>Usuario:</strong> {{ object.username }}</p>
+        <p><strong>Correo Electrónico:</strong> {{ object.email|default:"No especificado" }}</p>
+      </div>
+
+      <div class="flex-row gap-4 mt-8">
+        <a href="{% url 'family:list' %}" class="btn">
+          Árbol Familiar
+        </a>
+        {% if object.personal_data %}
+          <a href="{% url 'personal:me' %}" class="btn btn-outline">
+            Datos Personales
           </a>
-          {% if object.personal_data %}
-            <a href="{% url 'personal:me' %}"
-               class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
-              Datos Personales
-            </a>
-          {% else %}
-            <a href="{% url 'personal:create' %}"
-               class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
-              Ingresar Datos Personales
-            </a>
-          {% endif %}
-          <a href="{% url 'analytics:analytic-list' %}"
-             class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
-            Analisis de Datos
+        {% else %}
+          <a href="{% url 'personal:create' %}" class="btn btn-outline">
+            Completar Datos Personales
           </a>
-        </div>
+        {% endif %}
+        <a href="{% url 'analytics:analytic-list' %}" class="btn btn-outline">
+          Análisis de Riesgo
+        </a>
+        <a href="{% url 'users:update' %}" class="btn btn-outline">
+          Editar Perfil
+        </a>
       </div>
     </div>
   </section>
 {% endblock content %}
+
 {% block footer %}
-  {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

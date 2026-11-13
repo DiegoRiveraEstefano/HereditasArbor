@@ -1,57 +1,52 @@
 {% extends "base.html" %}
 
+{% block title %}Enfermedades de {{ familiar.name }} | HereditasArbor{% endblock title %}
+
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <section class="container px-6 py-12 mx-auto lg:py-16">
-        <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl">
-            {{ familiar.name }}
-        </h1>
-        <div class="container flex justify-center py-6 mx-auto">
-            <a class="text-sm text-gray-500"
-               href="{% url "family-diseases:create" familiar=familiar.pk %}">
-                <button class="w-full py-2 mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                    Añadir Enfermedad
-                </button>
+  <section class="container py-8">
+    <div class="flex-between">
+      <h1>Enfermedades: {{ familiar.name }}</h1>
+      <div class="flex-row gap-4">
+        <a href="{% url 'family-diseases:create' familiar=familiar.pk %}" class="btn">
+          + Añadir Enfermedad
+        </a>
+        <a href="{{ familiar.get_absolute_url }}" class="btn btn-outline">
+          Ver Familiar
+        </a>
+      </div>
+    </div>
+
+    <div class="grid-cards mt-6">
+      {% for familiar_diseases in object_list %}
+        <div class="card">
+          <h2>{{ familiar_diseases.disease.name }}</h2>
+          <p class="mt-2"><strong>Categoría:</strong> {{ familiar_diseases.disease.category }}</p>
+          <p class="mt-2"><strong>Endógena:</strong> {{ familiar_diseases.disease.endogena }}</p>
+          <div class="flex-col gap-2 mt-6">
+            <a href="{{ familiar_diseases.disease.get_absolute_url }}" class="btn btn-outline btn-block">
+              Detalles
             </a>
-            <a class="text-sm text-gray-500" href="{{ familiar.get_absolute_url }}">
-                <button class="w-full py-2 mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
-                    Ver Familiar
-                </button>
+            <a href="{% url 'family-diseases:edit' pk=familiar_diseases.pk %}" class="btn btn-outline btn-block">
+              Editar
             </a>
+            <a href="{% url 'family-diseases:delete' pk=familiar_diseases.pk familiar=familiar_diseases.familiar.pk %}" class="btn btn-danger btn-block">
+              Eliminar
+            </a>
+          </div>
         </div>
-        <div class="mt-8 grid gap-8 xl:-mx-6 xl:grid-cols-3">
-            {% for familiar_diseases in object_list %}
-                <div class="p-6 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-                    <h2 class="font-serif text-2xl text-[#343D33] capitalize">{{ familiar_diseases.disease.name }}</h2>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Categoria:</strong> {{ familiar_diseases.disease.category }}
-                    </p>
-                    <p class="text-gray-500 mt-2">
-                        <strong>Endogena:</strong> {{ familiar_diseases.disease.endogena }}
-                    </p>
-                    <a href="{{ familiar_diseases.disease.get_absolute_url }}"
-                       class="block mt-4 text-sm text-white bg-[#475F45] hover:bg-[#475F45]/80 transition-colors duration-300 px-4 py-2 uppercase font-bold tracking-widest text-center">
-                        Detalles Enfermedad
-                    </a>
-                    <a href="{% url "family-diseases:delete" pk=familiar_diseases.pk familiar=familiar_diseases.familiar.pk %}"
-                       class="block mt-4 text-sm text-white bg-[#475F45] hover:bg-[#475F45]/80 transition-colors duration-300 px-4 py-2 uppercase font-bold tracking-widest text-center">
-                        Eliminar
-                    </a>
-                    <a href="{% url "family-diseases:edit" pk=familiar_diseases.pk %}"
-                       class="block mt-4 text-sm text-white bg-[#475F45] hover:bg-[#475F45]/80 transition-colors duration-300 px-4 py-2 uppercase font-bold tracking-widest text-center">
-                        Editar
-                    </a>
-                </div>
-            {% empty %}
-                <div class="p-6 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-                    <p class="text-gray-500">Este Familiar no Tiene Enfermedades</p>
-                </div>
-            {% endfor %}
+      {% empty %}
+        <div class="card">
+          <p class="text-muted">Este familiar no tiene enfermedades registradas.</p>
         </div>
-    </section>
+      {% endfor %}
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

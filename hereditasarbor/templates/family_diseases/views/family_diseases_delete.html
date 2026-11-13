@@ -1,35 +1,33 @@
 {% extends "base.html" %}
 
+{% block title %}Eliminar Enfermedad | HereditasArbor{% endblock title %}
+
 {% block header %}
-    {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-    <section class="container px-6 py-12 mx-auto lg:py-16">
-        <div class="max-w-2xl mx-auto text-center">
-            <h1 class="font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-5xl">
-                Eliminar Enfermedad
-            </h1>
-            <p class="mt-4 text-gray-600">
-                ¿Estás seguro de que quieres eliminar la enfermedad <strong>{{ object.name }}</strong>?
-            </p>
-            <p class="text-gray-500 mt-2">Esta acción no se puede deshacer. ¡Asegúrate de que estás seguro!</p>
-            <div class="mt-8 flex justify-center space-x-4">
-                <form method="post" class="inline">
-                    {% csrf_token %}
-                    <button type="submit"
-                            class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest border-2 border-red-600 transition-colors duration-300">
-                        Eliminar
-                    </button>
-                </form>
-                <!-- Cancel Button -->
-                <a href="{{ object.get_absolute_url }}"
-                   class="border-2 border-gray-300 px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-gray-500 hover:bg-gray-300 transition-colors duration-300">
-                    Cancelar
-                </a>
-            </div>
-        </div>
-    </section>
+  <section class="container py-12">
+    <div class="card max-w-2xl mx-auto text-center">
+      <h1>Eliminar Enfermedad</h1>
+      <p class="mt-4">
+        ¿Estás seguro de que deseas desvincular la enfermedad <strong>{{ object.disease.name }}</strong>?
+      </p>
+      <p class="text-danger mt-2">Esta acción no se puede deshacer.</p>
+
+      <form method="post" class="mt-8 flex justify-center gap-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          Confirmar Eliminación
+        </button>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-outline">
+          Cancelar
+        </a>
+      </form>
+    </div>
+  </section>
 {% endblock content %}
+
 {% block footer %}
-    {% include "components/layout/footer.html" with color_bg="bg-gray-900" color_text="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
 
 {% block header %}
     {% include "components/layout/haeder.html" with color_header="text-white" %}
@@ -17,7 +16,7 @@
                   action="{% url "family:edit" pk=object.pk %}"
                   class="mt-8 space-y-6">
                 {% csrf_token %}
-                {{ form|crispy }} <!-- This will render the form fields as paragraphs -->
+                {{ form.as_div }} <!-- This will render the form fields as paragraphs -->
                 <!-- Submit and Cancel Buttons -->
                 <div class="flex space-x-4">
                     <!-- Submit button -->

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
 
 {% block header %}
     {% include "components/layout/haeder.html" with color_header="text-white" %}
@@ -15,7 +14,7 @@
                 <p class="max-w-lg mt-4 text-gray-500">Crea tu cuenta y empieza tu aventura con nosotros!</p>
                 <form action="{% url "users:create" %}" method="post">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.as_div }}
                     <button type="submit"
                             class="w-full mt-6 bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white">
                         Crear Cuenta

@@ -1,110 +1,99 @@
 {% extends "base.html" %}
 
 {% block header %}
-  {% include "components/layout/haeder.html" with color_header="text-white" %}
+  {% include "components/layout/haeder.html" %}
 {% endblock header %}
+
 {% block content %}
-  <section class="container flex flex-col items-center px-6 py-12 mx-auto lg:flex-row">
-    <div class="lg:w-1/2">
-      <h1 class="max-w-xl font-serif text-4xl font-medium tracking-wide text-[#343D33] capitalize md:text-6xl ">
-        Conoce tus riesgos de salud hereditarios
-      </h1>
-      <p class="max-w-lg mt-4 text-gray-500">
+  <section class="container hero-section">
+    <div class="hero-content">
+      <h1>Conoce tus riesgos de salud hereditarios</h1>
+      <p>
         La tecnología te permite analizar tu árbol genealógico y comprender mejor tu salud.
       </p>
-      <div class="mt-6 sm:flex sm:items-center">
-        <a href="{% url "family:list" %}"
-           class="bg-[#475F45] hover:bg-[#475F45]/80 duration-300 transition-colors border-2 border-[#475F45] px-6 block text-center py-3 uppercase text-sm font-bold leading-4 tracking-widest text-white ">
-          Crea Tu Arbol
+      <div class="hero-actions">
+        <a href="{% url "family:list" %}" class="btn">
+          Crea Tu Árbol
         </a>
-        <a href="{% url "about" %}"
-           class="border-2 text-sm duration-300 transition-colors hover:bg-[#475F45] hover:text-white font-bold leading-4 mt-4 sm:mt-0 tracking-widest text-[#475F45] sm:mx-4 border-[#475F45] px-6 block text-center py-3 uppercase">
-          Aprende Mas
+        <a href="{% url "about" %}" class="btn btn-outline">
+          Aprende Más
         </a>
       </div>
     </div>
-    <div class="h-[38rem] mt-12 lg:mt-0 w-full mx-auto max-w-md overflow-hidden rounded-t-full outline outline-4 outline-offset-4 outline-[#475F45]/40">
-      <img class="object-cover w-full h-full rounded-t-full "
-           src="https://images.unsplash.com/photo-1531163859947-fa484f6eacd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-           alt="main page" />
+    <div class="hero-media">
+      <img class="hero-image-arch"
+           src="https://images.unsplash.com/photo-1531163859947-fa484f6eacd5?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+           alt="Árbol genealógico y salud" />
     </div>
   </section>
-  <section class="bg-[#343D33] mt-12">
-    <div class="container flex flex-col px-6 py-16 mx-auto mt-12">
-      <div class="order-2 mt-8 lg:order-1 lg:mt-0 lg:flex lg:items-center lg:-mx-6">
-        <img class="object-cover w-full lg:w-1/2 lg:mx-6 h-72 lg:h-96"
-             src="https://images.unsplash.com/photo-1598901847919-b95dd0fabbb6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-             alt="" />
-        <div class="mt-8 lg:w-1/2 lg:mx-6 lg:mt-0">
-          <h3 class="font-serif text-2xl text-white capitalize md:text-4xl lg:text-5xl">
-            Descubre el poder de tu árbol genealógico
-          </h3>
-          <p class="mt-4 text-gray-200 ">
+
+  <section class="banner-dark">
+    <div class="container">
+      <div class="banner-grid">
+        <img class="banner-image"
+             src="https://images.unsplash.com/photo-1598901847919-b95dd0fabbb6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1374&q=80"
+             alt="Descubre tu historial" />
+        <div class="banner-text">
+          <h3>Descubre el poder de tu árbol genealógico</h3>
+          <p>
             Analiza tu historial familiar y obtén información valiosa sobre tu predisposición genética a enfermedades. Prepárate para el futuro con conocimiento.
           </p>
-          <a class="inline-flex px-6 py-3 mt-6 text-white border-2 border-white hover:bg-[#475F45] duration-300 transition-colors"
-             href="#">Descubre Mas</a>
+          <a class="btn btn-white" href="{% url "about" %}">Descubre Más</a>
         </div>
       </div>
-      <img class="order-1 object-cover lg:order-2 w-ful h-72 lg:h-96 lg:mt-12"
-           src="https://images.unsplash.com/photo-1610462275440-4ea0976f46f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-           alt="" />
     </div>
   </section>
-  <section class="container px-6 py-12 mx-auto lg:py-16">
-    <h3 class="font-serif text-3xl text-[#343D33] capitalize md:text-4xl lg:text-5xl">Prevención basada en la familia</h3>
-    <div class="mt-8 xl:-mx-6 xl:flex">
-      <div class="xl:w-1/2 xl:mx-6">
-        <img class="object-cover w-full h-96"
-             src="https://images.unsplash.com/photo-1626838524909-7c584c2266f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-             alt="" />
-        <h2 class="mt-6 font-serif text-3xl font-medium text-gray-700">Enfermedades cardíacas y su herencia genética</h2>
-        <p class="mt-2 text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt facilisis nuncLorem ipsum dolor sit.Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+
+  <section class="container section-prevention">
+    <h3>Prevención basada en la familia</h3>
+    <div class="prevention-grid">
+      <article class="card article-featured">
+        <img class="article-image-lg"
+             src="https://images.unsplash.com/photo-1626838524909-7c584c2266f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+             alt="Salud cardiovascular" />
+        <h2>Enfermedades cardíacas y su herencia genética</h2>
+        <p>
+          Conocer los antecedentes de salud en generaciones previas permite anticipar chequeos preventivos y adoptar hábitos saludables a tiempo.
         </p>
-        <p class="mt-4 italic text-gray-600">Octubre 3, 2024</p>
-      </div>
-      <div class="mt-8 space-y-8 xl:w-1/2 xl:mx-6 xl:mt-0">
-        <div class="md:-mx-4 md:flex md:items-center">
-          <img class="object-cover w-full h-56 md:h-48 md:mx-4 md:w-80 shrink-0"
-               src="https://images.unsplash.com/photo-1556426356-0fdc8b663467?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1498&q=80"
-               alt="" />
-          <div class="mt-6 md:mx-4 md:mt-0">
-            <h2 class="font-serif text-2xl font-medium text-gray-700 ">Lush Gardens</h2>
-            <p class="mt-2 text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt facilisis nuncLorem ipsum dolor sit...
-            </p>
-            <p class="mt-4 italic text-gray-600">Octubre 3, 2024</p>
+        <p class="article-date">Octubre 3, 2024</p>
+      </article>
+
+      <div class="articles-sidebar">
+        <article class="card article-compact">
+          <img class="article-thumb"
+               src="https://images.unsplash.com/photo-1556426356-0fdc8b663467?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+               alt="Estilo de vida" />
+          <div class="article-info">
+            <h2>Estilo de vida saludable</h2>
+            <p>La nutrición y el ejercicio regular complementan el conocimiento genético.</p>
+            <p class="article-date">Octubre 3, 2024</p>
           </div>
-        </div>
-        <div class="md:-mx-4 md:flex md:items-center">
-          <img class="object-cover w-full h-56 md:h-48 md:mx-4 md:w-80 shrink-0"
-               src="https://images.unsplash.com/photo-1583470790878-4f4f3811a01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80"
-               alt="" />
-          <div class="mt-6 md:mx-4 md:mt-0">
-            <h2 class="font-serif text-2xl font-medium text-gray-700 ">Exotic Nature</h2>
-            <p class="mt-2 text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt facilisis nuncLorem ipsum dolor sit...
-            </p>
-            <p class="mt-4 italic text-gray-600">Octubre 3, 2024</p>
+        </article>
+        <article class="card article-compact">
+          <img class="article-thumb"
+               src="https://images.unsplash.com/photo-1583470790878-4f4f3811a01f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+               alt="Detección oportuna" />
+          <div class="article-info">
+            <h2>Detección temprana</h2>
+            <p>Controles médicos oportunos basados en tu historial salvan vidas.</p>
+            <p class="article-date">Octubre 3, 2024</p>
           </div>
-        </div>
-        <div class="md:-mx-4 md:flex md:items-center">
-          <img class="object-cover w-full h-56 md:h-48 md:mx-4 md:w-80 shrink-0"
-               src="https://images.unsplash.com/photo-1638790491374-a2affccd8c8a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-               alt="" />
-          <div class="mt-6 md:mx-4 md:mt-0">
-            <h2 class="font-serif text-2xl font-medium text-gray-700 ">It Starts with Soil</h2>
-            <p class="mt-2 text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt facilisis nuncLorem ipsum dolor sit...
-            </p>
-            <p class="mt-4 italic text-gray-600">Octubre 3, 2024</p>
+        </article>
+        <article class="card article-compact">
+          <img class="article-thumb"
+               src="https://images.unsplash.com/photo-1638790491374-a2affccd8c8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+               alt="Historial familiar" />
+          <div class="article-info">
+            <h2>Construcción del historial</h2>
+            <p>Cada familiar registrado afina la precisión del modelo predictivo.</p>
+            <p class="article-date">Octubre 3, 2024</p>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 {% endblock content %}
+
 {% block footer %}
-  {% include "components/layout/footer.html" with color_header="text-white" %}
+  {% include "components/layout/footer.html" %}
 {% endblock footer %}
