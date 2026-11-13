@@ -27,12 +27,16 @@ class TestUserAdmin:
         response = admin_client.get(url)
         assert response.status_code == HTTPStatus.OK
 
+        from django.utils import timezone
+
+        now = timezone.now()
         response = admin_client.post(
             url,
             data={
                 "username": "test",
-                "password1": "My_R@ndom-P@ssw0rd",
-                "password2": "My_R@ndom-P@ssw0rd",
+                "password": "pbkdf2_sha256$870000$fakepasswordhash",
+                "date_joined_0": now.strftime("%Y-%m-%d"),
+                "date_joined_1": now.strftime("%H:%M:%S"),
             },
         )
         assert response.status_code == HTTPStatus.FOUND
@@ -53,6 +57,7 @@ class TestUserAdmin:
         with contextlib.suppress(admin.sites.AlreadyRegistered):  # type: ignore[attr-defined]
             reload(users_admin)
 
+    @pytest.mark.skip(reason="django-allauth removed in commit 24a0413")
     @pytest.mark.django_db
     @pytest.mark.usefixtures("_force_allauth")
     def test_allauth_login(self, rf, settings):

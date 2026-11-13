@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.core.management.base import CommandError
 
 from hereditasarbor.apps.users.models import User
 
@@ -19,7 +18,7 @@ class Command(BaseCommand):
             password=options["password"].split("=")[-1],
         )
         self.stdout.write(
-            self.style.SUCCESS('a"%s"' % options["username"].split("=")[-1])
+            self.style.SUCCESS('a"{}"'.format(options["username"].split("=")[-1])),
         )
         new_admin.is_active = True
         new_admin.is_staff = True
@@ -33,6 +32,6 @@ class Command(BaseCommand):
         new_admin.save()
         self.stdout.write(
             self.style.SUCCESS(
-                'Successfully user "%s"' % new_admin.has_usable_password()
-            )
+                f'Successfully user "{new_admin.has_usable_password()}"',
+            ),
         )

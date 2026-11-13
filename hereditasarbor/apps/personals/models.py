@@ -6,7 +6,6 @@ from hereditasarbor.apps.users.models import User
 
 
 class PersonalData(models.Model):
-
     """personal data model, used to store personal data.
 
     Fields: user, last_update, first_name, last_name, birth_day, sex
@@ -34,7 +33,10 @@ class PersonalData(models.Model):
     last_name = models.CharField(_("Apellido"), max_length=64, default="")
 
     birth_day = models.DateField(
-        _("Fecha Nacimiento"), auto_now=False, auto_now_add=False, null=True
+        _("Fecha Nacimiento"),
+        auto_now=False,
+        auto_now_add=False,
+        null=True,
     )
     sex = models.IntegerField(_("Sexo"), choices=sexs, default=0)
 
@@ -49,7 +51,6 @@ class PersonalData(models.Model):
         return reverse("personal:detail", kwargs={"pk": self.pk})
 
     def get_time_stamps(self) -> models.QuerySet:
-
         """Get the time stamps of the personal data.
 
         Returns:
@@ -59,7 +60,6 @@ class PersonalData(models.Model):
         return self.datas.all()
 
     def get_last_time_stamp(self):
-
         """Get the last time stamp of the personal data.
 
         Returns:
@@ -71,7 +71,6 @@ class PersonalData(models.Model):
 
 
 class PersonalTimeStampData(models.Model):
-
     """personal time stamp data model, used to store personal time stamp data.
 
     Fields: personal_data, added_data, weight, height, cardiac_pulse, glucose, cholesterol
@@ -104,7 +103,6 @@ class PersonalTimeStampData(models.Model):
     cholesterol = models.IntegerField(_("Colesterol"), null=True)
 
     class Meta:
-
         """Meta class for the PersonalTimeStampData model.
 
         Attributes:
@@ -130,7 +128,6 @@ class PersonalTimeStampData(models.Model):
         return reverse("personal:time_stamp-detail", kwargs={"pk": self.pk})
 
     def get_field(self, attr: str):
-
         """Get the value of a field in the personal time stamp data.
 
         Args:

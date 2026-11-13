@@ -1,10 +1,8 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import QuerySet
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
@@ -26,6 +24,7 @@ class FamiliarDetailView(DetailView, LoginRequiredMixin):
         slug_field (str): slug field
         slug_url_kwarg (str): slug url kwarg
     """
+
     model = Familiar
     template_name = "family/views/family_details.html"
     slug_field = "pk"
@@ -42,6 +41,7 @@ class FamiliarListView(ListView, LoginRequiredMixin):
         model (Familiar): familiar model
         template_name (str): template name
     """
+
     model = Familiar
     template_name = "family/views/family_list.html"
 
@@ -60,6 +60,7 @@ class FamiliarCreateView(CreateView, LoginRequiredMixin):
         template_name (str): template name
         form_class (FamiliarForm): familiar form
     """
+
     model = Familiar
     template_name = "family/views/family_create.html"
     form_class = FamiliarForm
@@ -80,7 +81,6 @@ familiar_create_view = FamiliarCreateView.as_view()
 
 
 class FamiliarUpdateView(UpdateView, LoginRequiredMixin):
-
     """FamiliarUpdateView, used to update a familiar.
 
     Args:
@@ -105,7 +105,6 @@ familiar_update_view = FamiliarUpdateView.as_view()
 
 
 class FamiliarDeleteView(DeleteView, LoginRequiredMixin):
-
     """FamiliarDeleteView, used to delete a familiar.
 
     Args:
@@ -124,7 +123,6 @@ familiar_delete_view = FamiliarDeleteView.as_view()
 
 
 class FamilyTreeDetailView(DetailView, LoginRequiredMixin):
-
     """FamilyTreeDetailView, used to display a family tree detail.
 
     Args:

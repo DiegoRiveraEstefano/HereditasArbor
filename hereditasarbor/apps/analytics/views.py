@@ -1,29 +1,16 @@
-from typing import TYPE_CHECKING
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 from hereditasarbor.apps.analytics.models import Analytic
 from hereditasarbor.apps.analytics.tasks.view_tasks import get_analytic_or_create
-from hereditasarbor.apps.family.models import FamilyTree
-from hereditasarbor.apps.personals.models import PersonalData
-
-from .models import Analytic
-from .models import AnalyticPersonal
-from .models import AnalyticTree
-
-if TYPE_CHECKING:
-    from collections.abc import Iterable
 
 
 class AnalyticsCreateView(TemplateView, LoginRequiredMixin, UserPassesTestMixin):
-
     """AnalyticsCreateView, used to create a new analytic.
 
     Args:
@@ -64,7 +51,6 @@ class AnalyticsCreateView(TemplateView, LoginRequiredMixin, UserPassesTestMixin)
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-
         """Get the context data of the view.
 
         Args:
@@ -87,7 +73,6 @@ analytics_create_view = AnalyticsCreateView.as_view()
 
 
 class AnalyticsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-
     """AnalyticsDetailView, used to display an analytic detail.
 
     Args:
@@ -107,7 +92,6 @@ class AnalyticsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     slug_url_kwarg = "pk"
 
     def test_func(self):
-
         """Test function for the view.
 
         Returns:
@@ -128,7 +112,6 @@ analytics_detail_view = AnalyticsDetailView.as_view()
 
 
 class AnalyticsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
-
     """AnalyticsListView, used to list analytics.
 
     Args:
@@ -152,7 +135,6 @@ class AnalyticsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return self.request.user.get_personal_data().get_time_stamps().count() != 0
 
     def get_queryset(self):
-
         """Get the queryset of the view.
 
         Returns:

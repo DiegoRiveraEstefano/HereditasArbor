@@ -1,7 +1,4 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
-
-from hereditasarbor.apps.mixins.fields import TailwindDateField
 
 from .models import Familiar
 from .models import FamilyTree
@@ -23,6 +20,7 @@ class FamiliarForm(forms.ModelForm):
         death_date: death date field
         tree: tree field
     """
+
     tree = forms.ChoiceField(choices=[], required=True, widget=forms.HiddenInput)
 
     birth_date = forms.DateField(
@@ -60,7 +58,6 @@ class FamiliarForm(forms.ModelForm):
 
 
 class FamiliarUpdateForm(forms.ModelForm):
-
     """FamiliarUpdateForm, used to update a familiar.
 
     Args:
@@ -79,10 +76,6 @@ class FamiliarUpdateForm(forms.ModelForm):
         label="Fecha Nacimiento",
         required=True,
         widget=forms.widgets.DateTimeInput,
-    )
-
-    birth_date = forms.fields.DateField(
-        label="Fecha Nacimiento", required=False, widget=forms.widgets.DateInput
     )
 
     death_date = forms.DateField(

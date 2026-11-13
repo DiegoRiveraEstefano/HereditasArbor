@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 import pytest
+from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import AnonymousUser
@@ -12,7 +13,6 @@ from django.test import RequestFactory
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from hereditasarbor.apps.users.forms import UserAdminChangeForm
 from hereditasarbor.apps.users.models import User
 from hereditasarbor.apps.users.tests.factories import UserFactory
 from hereditasarbor.apps.users.views import UserRedirectView
@@ -62,10 +62,13 @@ class TestUserUpdateView:
 
         view.request = request
 
-        # Initialize the form
-        form = UserAdminChangeForm()
-        form.cleaned_data = {}
-        form.instance = user
+        class DummyUserChangeForm(forms.ModelForm):
+            class Meta:
+                model = User
+                fields = ["name"]
+
+        form = DummyUserChangeForm(instance=user)
+        form.cleaned_data = {"name": user.name}
         view.form_valid(form)
 
         messages_sent = [m.message for m in messages.get_messages(request)]

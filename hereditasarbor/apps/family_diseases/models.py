@@ -1,19 +1,14 @@
-from collections.abc import Iterable
-
 from django.db import models
-from django.db.models import QuerySet
 from django.urls import reverse
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from hereditasarbor.apps.diseases.models import Disease
 from hereditasarbor.apps.family.models import Familiar
-from hereditasarbor.apps.users.models import User
 
 
 class FamiliarDiseases(models.Model):
     """familiar diseases model, used to store familiar diseases.
-    
+
     Fields: familiar, disease
 
     Description: familiar: familiar model, disease: disease model

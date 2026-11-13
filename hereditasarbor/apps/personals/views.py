@@ -3,14 +3,11 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
-
-from hereditasarbor.apps.users.models import User
 
 from .forms import PersonalDataCreateForm
 from .forms import PersonalDataUpdateForm
@@ -21,13 +18,13 @@ from .models import PersonalTimeStampData
 
 
 class PersonalDataDetailView(DetailView, LoginRequiredMixin):
-
     """PersonalDataDetailView, used to display a personal data detail.
 
     Args:
         model (PersonalData): personal data model
         template_name (str): template name
     """
+
     model = PersonalData
     template_name = "personals/views/personal_detail.html"
 
@@ -39,7 +36,6 @@ personal_data_detail_view = PersonalDataDetailView.as_view()
 
 
 class PersonalDataCreateView(CreateView, LoginRequiredMixin):
-
     """PersonalDataCreateView, used to create a new personal data.
 
     Args:
@@ -68,7 +64,6 @@ personal_data_create_view = PersonalDataCreateView.as_view()
 
 
 class PersonalDataUpdateView(UpdateView, LoginRequiredMixin):
-
     """PersonalDataUpdateView, used to update a personal data.
 
     Args:
@@ -92,7 +87,6 @@ personal_data_update_view = PersonalDataUpdateView.as_view()
 
 
 class PersonalTimeStampDataListView(ListView, LoginRequiredMixin):
-
     """PersonalTimeStampDataListView, used to list personal time stamp data.
 
     Args:
@@ -111,13 +105,12 @@ personal_data_time_stamp_data_list_view = PersonalTimeStampDataListView.as_view(
 
 
 class PersonalTimeStampDataDetailView(DetailView, LoginRequiredMixin):
-
     """PersonalTimeStampDataDetailView, used to display a personal time stamp data detail.
 
     Args:
         model (PersonalTimeStampData): personal time stamp data model
         template_name (str): template name
-    """ 
+    """
 
     model = PersonalTimeStampData
     template_name = "personals/views/persona_stamp_detail.html"
@@ -130,7 +123,6 @@ personal_data_time_stamp_data_detail_view = PersonalTimeStampDataDetailView.as_v
 
 
 class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
-
     """PersonalTimeStampDataCreateView, used to create a new personal time stamp data.
 
     Args:
@@ -147,7 +139,6 @@ class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
         return reverse("personal:time_stamp-list")
 
     def get_initial(self):
-
         """Get the initial data of the view.
 
         Returns:
@@ -156,7 +147,8 @@ class PersonalTimeStampDataCreateView(CreateView, LoginRequiredMixin):
 
         data = super().get_initial()
         data["personal_data"] = get_object_or_404(
-            PersonalData, user=self.request.user.pk
+            PersonalData,
+            user=self.request.user.pk,
         )
         return data
 
@@ -170,7 +162,6 @@ personal_data_time_stamp_data_create_view = PersonalTimeStampDataCreateView.as_v
 
 
 class PersonalTimeStampDataUpdateView(UpdateView, LoginRequiredMixin):
-
     """PersonalTimeStampDataUpdateView, used to update a personal time stamp data.
 
     Args:
@@ -191,7 +182,6 @@ personal_data_time_stamp_data_update_view = PersonalTimeStampDataUpdateView.as_v
 
 
 class PersonalTimeStampDataDeleteView(DeleteView, LoginRequiredMixin):
-
     """PersonalTimeStampDataDeleteView, used to delete a personal time stamp data.
 
     Args:

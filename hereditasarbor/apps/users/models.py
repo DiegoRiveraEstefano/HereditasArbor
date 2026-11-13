@@ -17,7 +17,6 @@ class User(AbstractUser):
     first_name = None  # type: ignore[assignment]
     last_name = None  # type: ignore[assignment]
 
-    @cached_property
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
 

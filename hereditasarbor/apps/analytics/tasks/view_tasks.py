@@ -1,15 +1,18 @@
+from typing import TYPE_CHECKING
+
 from hereditasarbor.apps.analytics.models import Analytic
 from hereditasarbor.apps.analytics.models import AnalyticPersonal
 from hereditasarbor.apps.analytics.models import AnalyticTree
 from hereditasarbor.apps.analytics.tasks.personal_task import calc_all_diseases
 from hereditasarbor.apps.analytics.tasks.tree_task import get_data_per_family
-from hereditasarbor.apps.family.models import FamilyTree
-from hereditasarbor.apps.personals.models import PersonalData
 from hereditasarbor.apps.users.models import User
+
+if TYPE_CHECKING:
+    from hereditasarbor.apps.family.models import FamilyTree
+    from hereditasarbor.apps.personals.models import PersonalData
 
 
 def get_analytic_or_create(user: User) -> tuple[Analytic, bool]:
-
     """Get or create an analytic for a user.
 
     Description:

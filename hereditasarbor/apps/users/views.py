@@ -30,6 +30,7 @@ class UserCreateView(CreateView):
         form_class (UserCreationForm): user creation form
         template_name (str): template name
     """
+
     model = User
     form_class = UserCreationForm
     template_name = "users/views/user_create.html"
@@ -47,11 +48,12 @@ user_create_view = UserCreateView.as_view()
 class UserLoginFormView(FormView):
     """UserLoginFormView, used to log in a user.
 
-    Args: 
+    Args:
         form_class (UserLoginForm): user login form
         template_name (str): template name
         success_url (str): success url
     """
+
     form_class = UserLoginForm
     template_name = "users/views/user_login.html"
 
@@ -85,7 +87,6 @@ user_login_view = UserLoginFormView.as_view()
 
 
 class UserLogOutView(FormView, LoginRequiredMixin, SuccessMessageMixin):
-
     """UserLogOutView, used to log out a user.
 
     Args:
@@ -110,7 +111,6 @@ user_log_out_view = UserLogOutView.as_view()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
-
     """UserDetailView, used to display a user detail.
 
     Args:
@@ -136,7 +136,6 @@ user_detail_view = UserDetailView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
     """UserUpdateView, used to update a user.
 
     Args:

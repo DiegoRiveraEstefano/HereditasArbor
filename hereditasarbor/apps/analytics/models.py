@@ -6,7 +6,6 @@ from hereditasarbor.apps.users.models import User
 
 
 class Analytic(models.Model):
-
     """analytic model, used to store analytics.
 
     Fields: user, created_at
@@ -39,7 +38,6 @@ class Analytic(models.Model):
         return reverse("Analytic_detail", kwargs={"pk": self.pk})
 
     def get_tree_result(self):
-
         """Get the tree result of the analytic.
 
         Returns:
@@ -49,7 +47,6 @@ class Analytic(models.Model):
         return self.analytic_tree.result
 
     def get_personal_result(self):
-
         """Get the personal result of the analytic.
 
         Returns:
@@ -60,7 +57,6 @@ class Analytic(models.Model):
 
 
 class AnalyticTree(models.Model):
-
     """analytic tree model, used to store analytic trees.
 
     Fields: analytic, last_change, result
@@ -95,7 +91,6 @@ class AnalyticTree(models.Model):
 
 
 class AnalyticPersonal(models.Model):
-
     """analytic personal model, used to store analytic personals.
 
     Fields: analytic, last_change, result

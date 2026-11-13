@@ -1,6 +1,4 @@
 from django import forms
-from django.forms import widgets
-from django.utils.translation import gettext_lazy as _
 
 from hereditasarbor.apps.users.models import User
 
@@ -9,7 +7,6 @@ from .models import PersonalTimeStampData
 
 
 class PersonalDataCreateForm(forms.ModelForm):
-
     """PersonalDataCreateForm, used to create a new personal data.
 
     Args:
@@ -56,6 +53,7 @@ class PersonalDataUpdateForm(forms.ModelForm):
         birth_day: birth day field
         sex: sex field
     """
+
     class Meta:
         model = PersonalData
         fields = ("first_name", "last_name", "birth_day", "sex")
@@ -75,8 +73,11 @@ class PersonalTimeStampDataCreateForm(forms.ModelForm):
         glucose: glucose field
         cholesterol: cholesterol field
     """
+
     personal_data = forms.ChoiceField(
-        choices=[], required=True, widget=forms.HiddenInput
+        choices=[],
+        required=True,
+        widget=forms.HiddenInput,
     )
 
     class Meta:
@@ -95,7 +96,7 @@ class PersonalTimeStampDataCreateForm(forms.ModelForm):
 
         Args:
             *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.            
+            **kwargs: Arbitrary keyword arguments.
         """
         user: User = kwargs.pop("user", "")
         super().__init__(*args, **kwargs)
@@ -117,6 +118,7 @@ class PersonalTimeStampDataUpdateForm(forms.ModelForm):
         glucose: glucose field
         cholesterol: cholesterol field
     """
+
     class Meta:
         model = PersonalTimeStampData
         fields = (

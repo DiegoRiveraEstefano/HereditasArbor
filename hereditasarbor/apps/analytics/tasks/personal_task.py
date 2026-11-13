@@ -1,22 +1,7 @@
-from collections.abc import Iterable
-from functools import lru_cache
-
-import numba
-from celery import shared_task
-from numba import float32
-from numba import int16
-from numba import int32
 from numba import jit
-from numba import njit
 
 from hereditasarbor.apps.diseases.models import Disease
-from hereditasarbor.apps.diseases.models import DiseaseCategory
-from hereditasarbor.apps.diseases.models import DiseasesParams
-from hereditasarbor.apps.family.models import Familiar
-from hereditasarbor.apps.family.models import FamilyTree
-from hereditasarbor.apps.family_diseases.models import FamiliarDiseases
 from hereditasarbor.apps.personals.models import PersonalData
-from hereditasarbor.apps.personals.models import PersonalTimeStampData
 
 
 @jit(nopython=False, looplift=True, forceobj=True, cache=True)
@@ -31,7 +16,7 @@ def parse_expression(
         value (float): is the value to check
         operation (str): is the operation to check
         expected (float): is the expected value
-    
+
     Description:
         - parse an expression
         - return a tuple with the result and the delta
@@ -69,7 +54,7 @@ def check_params(
     data: dict[str, dict[str, bool | int]] = {}
     for param in disease.get_params():
         personal_field = personal_data.get_last_time_stamp().get_field(
-            param.personal_field
+            param.personal_field,
         )
         if personal_field is None:
             continue
@@ -84,12 +69,12 @@ def check_params(
         }
     return data
 
-#@jit(nopython=False, looplift=True, forceobj=True)
+
+# @jit(nopython=False, looplift=True, forceobj=True)
 def calc_all_diseases(
     personal_data: PersonalData,
     endogenous: bool = False,
 ) -> dict[str, dict[str | int, dict[str, bool | int]]]:
-
     """Calculate all diseases.
 
     Args:
@@ -105,7 +90,6 @@ def calc_all_diseases(
     diseases = Disease.objects.filter(endogena=endogenous)
     for disease in diseases:
         result = check_params(disease, personal_data)
-        print(disease, result)
         # all params are false
         if not any(x["is_true"] for x in result.values()):
             continue

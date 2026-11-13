@@ -1,24 +1,15 @@
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import QuerySet
-from django.forms import BaseModelForm
-from django.http import HttpRequest
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
-from django.views.generic import FormView
 from django.views.generic import ListView
-from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
 from hereditasarbor.apps.family.models import Familiar
-from hereditasarbor.apps.family.models import FamilyTree
 from hereditasarbor.apps.family_diseases.models import FamiliarDiseases
 
 from .forms import FamiliarDiseasesForm
@@ -42,14 +33,16 @@ class FamilyDiseasesListView(ListView, LoginRequiredMixin):
         return super().get_context_data(
             **kwargs,
             familiar=Familiar.objects.get(
-                pk=self.kwargs["familiar"], tree__owner=self.request.user
+                pk=self.kwargs["familiar"],
+                tree__owner=self.request.user,
             ),
         )
 
     def get_queryset(self) -> QuerySet[Any]:
         Familiar.objects.none()
         return Familiar.objects.get(
-            pk=self.kwargs["familiar"], tree__owner=self.request.user
+            pk=self.kwargs["familiar"],
+            tree__owner=self.request.user,
         ).diseases.all()
 
 

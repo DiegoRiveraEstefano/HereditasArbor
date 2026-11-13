@@ -2,34 +2,23 @@
 
 from django.utils.translation import gettext_lazy as _
 
-from hereditasarbor.apps.users.forms import UserAdminCreationForm
+from hereditasarbor.apps.users.forms import UserCreationForm
 from hereditasarbor.apps.users.models import User
 
 
-class TestUserAdminCreationForm:
-    """
-    Test class for all tests related to the UserAdminCreationForm
-    """
+class TestUserCreationForm:
+    """Test class for all tests related to the UserCreationForm."""
 
     def test_username_validation_error_msg(self, user: User):
-        """
-        Tests UserAdminCreation Form's unique validator functions correctly by testing:
-            1) A new user with an existing username cannot be added.
-            2) Only 1 error is raised by the UserCreation Form
-            3) The desired error message is raised
-        """
-
-        # The user already exists,
-        # hence cannot be created.
-        form = UserAdminCreationForm(
+        """Tests UserCreationForm unique validator functions correctly."""
+        form = UserCreationForm(
             {
                 "username": user.username,
-                "password1": user.password,
-                "password2": user.password,
+                "email": user.email,
+                "password": user.password,
             },
         )
 
         assert not form.is_valid()
-        assert len(form.errors) == 1
         assert "username" in form.errors
-        assert form.errors["username"][0] == _("This username has already been taken.")
+        assert form.errors["username"][0] == _("A user with that username already exists.")

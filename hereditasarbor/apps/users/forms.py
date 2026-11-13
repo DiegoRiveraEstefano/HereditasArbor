@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import widgets
-from django.utils.translation import gettext_lazy as _
 
 from .models import User
 
@@ -15,6 +14,7 @@ class UserCreationForm(forms.ModelForm):
         password: password field
         name: name field
     """
+
     password = forms.CharField(
         max_length=128,
         required=True,
@@ -42,6 +42,7 @@ class UserLoginForm(forms.Form):
         username: username field
         password: password field
     """
+
     username = forms.CharField(
         max_length=128,
         required=True,
@@ -64,6 +65,7 @@ class UserLogOutForm(forms.Form):
     Fields:
         confirmation: confirmation field
     """
+
     confirmation = forms.BooleanField(
         required=True,
         label="Usuario",

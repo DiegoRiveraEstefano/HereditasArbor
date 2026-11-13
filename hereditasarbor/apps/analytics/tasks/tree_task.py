@@ -1,13 +1,8 @@
-from functools import lru_cache
-
-from celery import shared_task
 from numba import float32
 from numba import int16
-from numba import int32
 from numba import jit
 from numba import njit
 
-from config.celery_app import app
 from hereditasarbor.apps.analytics.tasks.utils import disease_degradations
 from hereditasarbor.apps.diseases.models import Disease
 from hereditasarbor.apps.family.models import Familiar
@@ -24,7 +19,8 @@ W_MAX = 3.50
 W_MIN = 0.05
 W_NORM = 3.45
 
-#@lru_cache(maxsize=256)
+
+# @lru_cache(maxsize=256)
 @njit(float32(float32, int16, int16), fastmath=True, cache=True)
 def calc_inheritance_score(
     chance: float,
@@ -32,18 +28,19 @@ def calc_inheritance_score(
     degradation_sum: int,
 ) -> float:
     """Calculate the inheritance score.
-    
+
     Args:
         chance (float): The chance of the disease.
         count (int): The count of the disease.
         degradation_sum (int): The sum of the degradation.
-    
+
     Returns:
         float: The inheritance score.
     """
     return ((WC * count) + (WCH * (chance / 100))) / (1 + (WS * degradation_sum))
 
-#@lru_cache(maxsize=256)
+
+# @lru_cache(maxsize=256)
 @njit(float32(float32, int16), fastmath=True, cache=True)
 def calc_error_delta(score: float, degradation_sum: int = 0) -> float:
     """Calculate the error delta.
@@ -58,7 +55,7 @@ def calc_error_delta(score: float, degradation_sum: int = 0) -> float:
     return (WS * degradation_sum) - score
 
 
-#@lru_cache(maxsize=256)
+# @lru_cache(maxsize=256)
 @njit(float32(float32), fastmath=True, cache=True)
 def score_to_chance(score: float) -> float:
     """Convert the score to chance.
@@ -85,7 +82,7 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
         - Adds the chance of the disease to the data.
         - Adds the display score of the disease to the data.
         - Adds the percentage of the disease to the data.
-        - Adds the delta of the disease to the data.    
+        - Adds the delta of the disease to the data.
 
     Returns:
         dict[int, dict[str, int | dict]]: The extracted data.
@@ -114,11 +111,10 @@ def extract_data(tree_pk: int) -> dict[int, dict[str, int | dict]]:
     return data
 
 
-#@jit(nopython=False, looplift=True, forceobj=True)
+# @jit(nopython=False, looplift=True, forceobj=True)
 def get_data_per_family(
     tree_pk: int,
 ) -> dict[int, dict[str, int | Disease | float]]:
-
     """Get data per family.
 
     Args:
@@ -148,7 +144,7 @@ def get_data_per_family(
         )
         data[disease_data]["display_score"] = int(data[disease_data]["score"])
         data[disease_data]["percentage"] = int(
-            data[disease_data]["chance_from_score"] * 100
+            data[disease_data]["chance_from_score"] * 100,
         )
         data[disease_data]["delta"] = int(
             abs(
@@ -156,7 +152,7 @@ def get_data_per_family(
                     score=data[disease_data]["score"],
                     degradation_sum=data[disease_data]["degradation_sum"],
                 )
-                * 10
-            )
+                * 10,
+            ),
         )
     return data

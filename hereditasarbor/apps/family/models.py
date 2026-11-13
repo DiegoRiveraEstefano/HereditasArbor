@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.db.models import QuerySet
 from django.urls import reverse
@@ -9,7 +8,6 @@ from hereditasarbor.apps.users.models import User
 
 
 class FamilyTree(models.Model):
-
     """family tree model, used to store family trees.
 
     Fields: owner, last_update
@@ -60,9 +58,7 @@ class FamilyTree(models.Model):
         return self.familiar.all()
 
 
-
 class Familiar(models.Model):
-
     """familiar model, used to store familiars.
 
     Fields: tree, name, sex, relation_type, birth_date, death, death_type, death_date, weight, height
@@ -109,21 +105,33 @@ class Familiar(models.Model):
     sex = models.IntegerField(_("Sexo Familiar"), choices=sexs, default=0)
 
     relation_type = models.CharField(
-        _("Tipo Relacion"), choices=relation_types, max_length=32, default="null"
+        _("Tipo Relacion"),
+        choices=relation_types,
+        max_length=32,
+        default="null",
     )
 
     birth_date = models.DateField(
-        _("Fecha Nacimiento Familiar"), auto_now=False, auto_now_add=False, null=True
+        _("Fecha Nacimiento Familiar"),
+        auto_now=False,
+        auto_now_add=False,
+        null=True,
     )
 
     death = models.BooleanField(_("Defuncion"), default=False)
 
     death_type = models.CharField(
-        _("Tipo Defuncion"), choices=death_types, max_length=64, default="null"
+        _("Tipo Defuncion"),
+        choices=death_types,
+        max_length=64,
+        default="null",
     )
 
     death_date = models.DateField(
-        _("Fecha Muerte Familiar"), auto_now=False, auto_now_add=False, null=True
+        _("Fecha Muerte Familiar"),
+        auto_now=False,
+        auto_now_add=False,
+        null=True,
     )
 
     weight = models.IntegerField(_("Peso Familair kg"), default=60)
@@ -148,6 +156,6 @@ class Familiar(models.Model):
         """Get all diseases of the familiar.
 
         Returns:
-            QuerySet: All diseases of the familiar. 
+            QuerySet: All diseases of the familiar.
         """
         return self.diseases.all()

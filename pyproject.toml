@@ -1,3 +1,67 @@
+[project]
+name = "hereditasarbor"
+version = "0.2.0"
+description = "Aplicación web para gestión de salud y genealogía de enfermedades hereditarias"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "python-slugify>=8.0.4",
+    "pillow>=10.4.0",
+    "rcssmin>=1.1.2",
+    "argon2-cffi>=23.1.0",
+    "whitenoise>=6.7.0",
+    "redis>=5.0.8",
+    "hiredis>=3.0.0",
+    "celery>=5.4.0",
+    "django-celery-beat>=2.7.0",
+    "flower>=2.0.1",
+    "uvicorn[standard]>=0.30.6",
+    "uvicorn-worker>=0.2.0",
+    "cryptography>=43.0.3",
+    "numba>=0.60.0",
+    "pandas>=2.2.2",
+    "django>=5.0.9,<5.2",
+    "django-environ>=0.11.2",
+    "django-model-utils>=5.0.0",
+    "django-crispy-forms>=2.3",
+    "crispy-tailwind>=1.0.3",
+    "django-compressor>=4.5.1",
+    "django-redis>=5.4.0",
+    "django-filter>=24.3",
+    "django-extensions>=3.2.3",
+    "django-guardian>=2.4.0",
+    "djangorestframework>=3.15.2",
+    "django-cors-headers>=4.4.0",
+    "drf-spectacular>=0.27.2",
+    "gunicorn>=23.0.0",
+    "psycopg[binary]>=3.2.2",
+    "django-anymail>=12.0",
+]
+
+[dependency-groups]
+dev = [
+    "watchdog>=4.0.2",
+    "werkzeug[watchdog]>=3.0.4",
+    "ipdb>=0.13.13",
+    "watchfiles>=0.24.0",
+    "mypy>=1.11.2",
+    "django-stubs[compatible-mypy]>=5.1.0",
+    "pytest>=8.3.3",
+    "pytest-sugar>=1.0.0",
+    "djangorestframework-stubs>=3.15.0",
+    "sphinx>=8.0.2",
+    "sphinx-autobuild>=2024.9.3",
+    "ruff>=0.9.0",
+    "pyrefly>=1.4.0",
+    "coverage>=7.6.1",
+    "djlint>=1.35.2",
+    "pre-commit>=3.8.0",
+    "factory-boy>=3.3.1",
+    "django-debug-toolbar>=4.4.6",
+    "django-coverage-plugin>=3.1.0",
+    "pytest-django>=4.9.0",
+]
+
 # ==== pytest ====
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -21,7 +85,6 @@ warn_unused_configs = true
 plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 [[tool.mypy.overrides]]
-# Django migrations should not produce any errors:
 module = "*.migrations.*"
 ignore_errors = true
 
@@ -34,7 +97,6 @@ blank_line_after_tag = "load,extends"
 close_void_tags = true
 format_css = true
 format_js = true
-# TODO: remove T002 when fixed https://github.com/djlint/djLint/issues/687
 ignore = "H006,H030,H031,T002"
 include = "H017,H035"
 indent = 2
@@ -47,9 +109,10 @@ indent_size = 2
 [tool.djlint.js]
 indent_size = 2
 
+# ==== Ruff ====
 [tool.ruff]
 target-version = "py312"
-# Exclude a variety of commonly ignored directories.
+line-length = 120
 extend-exclude = ["*/migrations/*.py", "staticfiles/*"]
 
 [tool.ruff.lint]
@@ -62,7 +125,6 @@ select = [
     "N",
     "UP",
     "YTT",
-    # "ANN", # flake8-annotations: we should support this in the future but 100+ errors atm
     "ASYNC",
     "S",
     "BLE",
@@ -77,14 +139,14 @@ select = [
     "EM",
     "EXE",
     "FA",
-    'ISC',
+    "ISC",
     "ICN",
     "G",
-    'INP',
-    'PIE',
+    "INP",
+    "PIE",
     "T20",
-    'PYI',
-    'PT',
+    "PYI",
+    "PT",
     "Q",
     "RSE",
     "RET",
@@ -94,7 +156,6 @@ select = [
     "TID",
     "TCH",
     "INT",
-    # "ARG", # Unused function argument
     "PTH",
     "ERA",
     "PD",
@@ -102,25 +163,31 @@ select = [
     "PL",
     "TRY",
     "FLY",
-    # "NPY",
-    # "AIR",
     "PERF",
-    # "FURB",
-    # "LOG",
     "RUF",
 ]
 ignore = [
-    "S101",   # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
-    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
-    "SIM102", # sometimes it's better to nest
-    "UP038",  # Checks for uses of isinstance/issubclass that take a tuple
-    # of types for comparison.
-    # Deactivated because it can make the code slow:
-    # https://github.com/astral-sh/ruff/issues/7871
+    "S101",
+    "RUF012",
+    "SIM102",
+    "E501",    # line length in docstrings / comments
+    "FBT001",  # boolean positional args in existing functions
+    "FBT002",  # boolean default positional args in existing functions
+    "PLC0206", # dict iteration style
+    "PLC0415", # allow delayed imports in apps/tests
+    "PGH004",  # allow general noqa in legacy entrypoints
 ]
-# The fixes in extend-unsafe-fixes will require
-# provide the `--unsafe-fixes` flag when fixing.
-extend-unsafe-fixes = ["UP038"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ==== Pyrefly ====
+[tool.pyrefly]
+python-version = "3.12"
+search-path = ["hereditasarbor"]
+ignore-missing-imports = ["*"]
+permissive-ignores = true

@@ -9,30 +9,32 @@ class DiseaseCategory(models.Model):
     fields: name, description
 
     """
+
     name = models.CharField(
-        _("Nombre Categoria"), max_length=64
+        _("Nombre Categoria"),
+        max_length=64,
     )  # Field to store the name of the disease category
 
     description = models.CharField(
-        _("Descripcion Categoria"), max_length=128
+        _("Descripcion Categoria"),
+        max_length=128,
     )  # Field to store the description of the disease category
 
     class Meta:
         verbose_name = _(
-            "DiseaseCategory"
+            "DiseaseCategory",
         )  # Human-readable name for a single object of the model
         verbose_name_plural = _(
-            "DiseaseCategories"
+            "DiseaseCategories",
         )  # Human-readable name for the collection of objects of the model
 
     def __str__(self):
-        return (
-            self.name
-        )  # Returns a string representation of the disease category object
+        return self.name  # Returns a string representation of the disease category object
 
     def get_absolute_url(self):
         return reverse(
-            "DiseaseCategory_detail", kwargs={"pk": self.pk}
+            "DiseaseCategory_detail",
+            kwargs={"pk": self.pk},
         )  # Returns the canonical URL for an object, used in Django's templates for linking to specific instances of the model
 
 
@@ -83,7 +85,6 @@ class Disease(models.Model):
 
 
 class DiseasesParams(models.Model):
-
     """disease parameters model, used to store disease parameters.
 
     fields: disease, personal_field, value, operation
@@ -91,7 +92,6 @@ class DiseasesParams(models.Model):
     operations: lte, lt, gte, gt
 
     """
-
 
     fields = (("glucose", "Glucosa"), ("cholesterol", "Colesterol"))
     operations = (
@@ -112,7 +112,9 @@ class DiseasesParams(models.Model):
     personal_field = models.CharField(_("Campo"), choices=fields, max_length=32)
     value = models.IntegerField(_("Valor Limite"), default=0)
     operation = models.CharField(
-        _("Tipo de Validacion"), choices=operations, max_length=12
+        _("Tipo de Validacion"),
+        choices=operations,
+        max_length=12,
     )
 
     class Meta:
